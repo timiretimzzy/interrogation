@@ -23,8 +23,8 @@ const APP_VERSION = `0.3.0-test+${commit}`;
 // and that model is superseded. Per-case data is loaded dynamically, so no
 // manual chunk entries are needed here.
 export default defineConfig({
-  // Deployed under the project-pages subpath: https://<user>.github.io/interrogation/
-  base: '/interrogation/',
+  // Relative base: one build serves every host (GitHub Pages subpath + Vercel/Netlify root): https://<user>.github.io/interrogation/
+  base: './',
   plugins: [
     preact(),
     VitePWA({
@@ -36,8 +36,8 @@ export default defineConfig({
         name: 'The Interrogation',
         short_name: 'Interrogate',
         description: 'A crime-mystery interrogation game (controlled test build).',
-        start_url: '/interrogation/',
-        scope: '/interrogation/',
+        start_url: './',
+        scope: './',
         display: 'standalone',
         background_color: '#0a0a0a',
         theme_color: '#0a0a0a',

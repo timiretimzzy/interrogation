@@ -368,3 +368,44 @@ is suspected, hard-reload / clear site data for the origin.
 **Next action:** confirm the live URL loads and play one case; then continue controlled
 tester feedback collection. Still do NOT begin Phase 3.5 (case ingestion) or the LLM
 generation / novelty / accounts / backend phases.
+
+---
+
+## Phase 3.2 — Alternative hosting (Vercel / Netlify) [IN PROGRESS]
+
+**Motivation:** the GitHub Pages *serving* layer was the only broken component in
+Phase 3.1 and proved fragile to re-configure. The user opted to also deploy to
+Vercel and Netlify. Because the app is a static SPA with no router, the only
+host-specific coupling was the Vite `base` path.
+
+### Changes (deployment surface only — no engine logic touched)
+- `vite.config.ts`: `base` `'/interrogation/'` → **`'./'`** (relative). PWA
+  manifest `start_url` / `scope` → `'./'`. One build is now portable across the
+  GitHub Pages subpath and Vercel/Netlify root.
+- `vercel.json`: framework Vite, build `npm run build`, output `dist`, SPA
+  rewrite. (Additive; does not affect GitHub Pages.)
+- `netlify.toml`: build `npm run build`, publish `dist`, `NODE_VERSION=20`, SPA
+  redirect. (Additive.)
+- `package.json`: `engines.node` pinned to `>=20` to match CI.
+- Repo hygiene: purged leaked investigation temp files (`tmp_headers.txt`
+  contained a GitHub token; `tmp_cred.txt` etc.) from the git index and disk.
+
+### Verification
+- Same `dist/` served under **both** `/interrogation/` and `/` → all assets
+  (index, JS, CSS, manifest, `sw.js`, icon) return HTTP 200; `dist/index.html`
+  uses relative `./assets/` with no root-absolute `/assets/` leaks.
+- Canonical gates green after the change: `npm run typecheck` clean; `npm test`
+  113/113; `npm run validate:cases` 84/84; `npm run build` success (PWA
+  emitted); `npm run validate:build` passed (77.0 KB gzipped JS).
+
+### Status / next action
+- GitHub Pages: configured (Actions source). If still unreliable, Vercel/Netlify
+  are the recommended primary live targets.
+- Vercel / Netlify are connected by importing `github.com/timiretimzzy/interrogation`
+  in each dashboard (their Git integration builds the same repo on push). This
+  requires the user's account connection — the agent cannot complete those
+  deploys without account auth. The repo is now ready (config files present,
+  build proven portable).
+- Commit the Phase 3.2 changes and push (re-runs the GitHub Pages workflow).
+- Still do NOT begin Phase 3.5 (case ingestion) or the LLM / novelty / accounts
+  / backend phases.

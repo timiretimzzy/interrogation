@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# Single-page app: serve index.html for any unknown path (no client routes today,
+# but this keeps deep links / refresh robust if routing is added later).
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
