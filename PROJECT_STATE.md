@@ -409,3 +409,62 @@ host-specific coupling was the Vite `base` path.
 - Commit the Phase 3.2 changes and push (re-runs the GitHub Pages workflow).
 - Still do NOT begin Phase 3.5 (case ingestion) or the LLM / novelty / accounts
   / backend phases.
+
+---
+
+## Phase 3.1 (continued) — Cross-host forensics, definitive root cause
+
+**Scope:** Both GitHub Pages AND Vercel were reported failing while the sandbox build/serve
+works. The objective was to find the first broken layer (source → build → dist → artifact →
+host → browser), not to switch hosts again.
+
+**Control re-confirmed (CONFIRMED):**
+- `vite.config.ts` `base: './'`; generated `dist/index.html`, `dist/manifest.webmanifest`,
+  `dist/sw.js` all use **relative** paths (`./assets/...`, `start_url: "./"`, relative
+  precache URLs). No absolute `/interrogation/` or `/assets/` leaks.
+- Same `dist/` served under **both** `/` and `/interrogation/` → every critical asset returns
+  HTTP 200 (static-server reproduction). `dist/` is NOT committed (no stale artifact risk).
+- Source audit: only `import.meta.env.VITE_APP_VERSION` uses env; no `fetch(`,
+  `navigator.serviceWorker`, or `new URL(` in app code (case data is bundled, not fetched).
+- `main.tsx` registers SW before render, but `registerSW({ immediate: true })` is
+  fire-and-forget and does not block `render()`; the root control already works with this
+  ordering, so SW ordering is **not** the cause.
+- Canonical gates green on CI run #6 (`8769cbb`): typecheck, test 113/113, validate:cases
+  84/84, build, validate:build. No `gh-pages` branch exists.
+
+**Root cause (CONFIRMED — serving layer, NOT code/build):**
+- **GitHub Pages is NOT serving.** `GET /repos/timiretimzzy/interrogation/pages` → **404**, and
+  `GET /.../pages/deployments` → **404**. The CI `deploy-pages` step only created a
+  *deployment record* (latest `6161139262`, `state: "success"`,
+  `environment_url: https://timiretimzzy.github.io/interrogation/`) — a phantom record with no
+  enabled site. The earlier Phase 3.1 "status: built" reading did **not persist** across
+  deploys; the site is currently in a non-serving state again.
+- **Vercel not confirmed serving.** `vercel.json` is present and correct, but the probed
+  production URL returns HTTP 404 and no deployment is verifiable from the sandbox.
+
+**Why the sandbox missed it:** the sandbox can build+serve the static `dist/` (always
+succeeds) but **cannot reach the live CDN** (`*.github.io` connection times out) and has no
+Vercel session. A green local build + successful CI run gave false confidence; the actual
+failure lives entirely in the GitHub Pages / Vercel *serving configuration*, invisible to a
+local build-and-serve test. The decisive, CDN-independent evidence is `GET /pages` → 404.
+
+**Fix (deployment-configuration change; NO application source modified for this root cause):**
+1. GitHub Pages: **Settings → Pages → Source = "GitHub Actions"** (one click). The existing
+   successful workflow then actually publishes `dist/`.
+2. Vercel: import `github.com/timiretimzzy/interrogation` in the Vercel dashboard
+   (`vercel.json` already supplies build/output/rewrite); deploy.
+3. Optional hardening (NOT required): move `registerSW` after `render` so PWA init can never
+   block startup — evaluated and not needed for the root cause (current ordering is non-blocking
+   and the control works).
+
+**Live verification status:** NOT performed by the agent (sandbox cannot reach the hosts).
+Owner to verify in a clean browser context after enabling Pages; confirm 11 cases load, one
+full play-through works, and footer reads `0.3.0-test+8769cbb`.
+
+**Deliverables:** `DEPLOYMENT_FORENSICS.md` (full forensic report: control, subpath
+reproduction, hypothesis matrix, code/dist/SW audit, live HTTP audit, root cause, fix,
+prevention, build identity, direct links).
+
+**Next action:** enable Pages (Source = GitHub Actions) + connect Vercel; verify live;
+then continue controlled tester feedback. Do NOT begin Phase 3.5 (case ingestion) or the LLM
+/ novelty / accounts / backend phases.
