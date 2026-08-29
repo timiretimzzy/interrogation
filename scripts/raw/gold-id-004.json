@@ -1,0 +1,444 @@
+{
+  "caseId": "gold-id-004",
+  "title": "The Passenger Who Wasn't There",
+  "genre": "identity_deception",
+  "subgenre": "airport_conspiracy",
+  "tone": "fast_paced_mysterious",
+  "difficulty": "medium",
+  "estimatedPlayTimeMinutes": {
+    "fast": 6,
+    "typical": 11,
+    "deep": 18
+  },
+
+  "briefing": {
+    "hook": "At 10:14 PM, a private aircraft arrived at Calder International Airport carrying three passengers. By 10:31 PM, airport security discovered that one of the passengers appeared never to have boarded the aircraft at all.",
+    "context": "The aircraft's manifest listed four people, including a high-profile technology investor named Adrian Vale. Security footage shows three identifiable passengers leaving the aircraft, but the fourth person's seat was occupied when the aircraft departed.",
+    "tension": "Adrian's passport, luggage and boarding record all exist. The problem is that the man who checked in under his name appears to have been someone else.",
+    "objective": "Determine who travelled under Adrian's identity, where the real Adrian went, and why the flight records were deliberately manipulated."
+  },
+
+  "playerRules": {
+    "investigationActions": 15,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+
+  "truth": {
+    "incident": "Adrian Vale intentionally arranged for another person to travel under his identity while he left the airport through a private service route before the aircraft departed. The apparent identity theft was actually a deliberate identity swap designed to make it appear that Adrian travelled overseas.",
+    "responsibleParty": "adrian",
+    "whatHappened": "Adrian was involved in a high-value financial dispute and expected legal action against him the following morning. He arranged for his assistant, Noah Reed, to impersonate him during the boarding process. Adrian then left the airport through a private transfer route using an alternate vehicle. Noah flew under Adrian's identity carrying harmless luggage. The purpose was to create an apparently verifiable record that Adrian had left the country.",
+    "motive": "To manufacture evidence that Adrian had physically left the country before a critical business deadline, while actually remaining nearby to complete a separate transaction.",
+    "method": "Identity substitution, manipulated boarding information, trusted insider access, and staged luggage documentation.",
+    "centralTwist": "The apparent victim of identity fraud is actually the person who orchestrated the deception.",
+    "secondaryTwist": "The assistant initially appears to be the mastermind but was acting under financial pressure and believed the arrangement was legitimate.",
+    "finalTruth": "Adrian never boarded the aircraft. Noah travelled under Adrian's identity. Adrian remained in the country and later used the false travel record as an alibi.",
+    "timeline": [
+      { "time": "18:40", "eventId": "T001", "description": "Adrian meets his lawyer in a private airport lounge." },
+      { "time": "19:05", "eventId": "T002", "description": "Adrian receives confirmation that a financial transaction must be completed before midnight." },
+      { "time": "19:40", "eventId": "T003", "description": "Noah receives instructions from Adrian to prepare the travel documents." },
+      { "time": "20:10", "eventId": "T004", "description": "Mila, the airline operations manager, notices a late manifest amendment." },
+      { "time": "20:37", "eventId": "T005", "description": "Noah checks in using Adrian's identity." },
+      { "time": "20:52", "eventId": "T006", "description": "Security officer Felix scans the passenger documentation." },
+      { "time": "21:05", "eventId": "T007", "description": "Adrian's luggage is loaded onto the aircraft." },
+      { "time": "21:13", "eventId": "T008", "description": "Adrian leaves the public terminal using an authorized service transfer." },
+      { "time": "21:22", "eventId": "T009", "description": "Noah boards the aircraft using Adrian's boarding credentials." },
+      { "time": "21:31", "eventId": "T010", "description": "Aircraft departs." },
+      { "time": "22:14", "eventId": "T011", "description": "Aircraft arrives at Calder International." },
+      { "time": "22:21", "eventId": "T012", "description": "Three passengers leave the aircraft visibly." },
+      { "time": "22:31", "eventId": "T013", "description": "The fourth passenger's identity is challenged during a secondary document check." },
+      { "time": "22:34", "eventId": "T014", "description": "Authorities discover that the fourth passenger is Noah, not Adrian." },
+      { "time": "22:41", "eventId": "T015", "description": "Initial suspicion focuses on Noah as the organizer of the identity fraud." }
+    ],
+
+    "criticalFacts": [
+      "The person who boarded under Adrian's identity was Noah.",
+      "Adrian did not board the aircraft.",
+      "Adrian intentionally arranged the identity substitution.",
+      "Adrian left the original airport through a legitimate service route.",
+      "The false travel record was intended to provide Adrian with a fabricated alibi.",
+      "Noah believed he was performing a legitimate task for Adrian.",
+      "Mila noticed the manifest anomaly but did not initially investigate.",
+      "Felix processed the identity documentation but did not knowingly participate in the deception.",
+      "Adrian's luggage travelling without Adrian was intentional."
+    ],
+
+    "importantSecondaryTruths": [
+      "Noah was promised a large payment for following Adrian's instructions.",
+      "Mila was worried about a separate regulatory violation involving the airline.",
+      "Felix was covering an unrelated lapse in baggage screening from earlier that week.",
+      "Adrian's lawyer knew Adrian intended to challenge the timeline of a financial transaction."
+    ]
+  },
+
+  "characters": [
+    {
+      "id": "noah",
+      "name": "Noah Reed",
+      "role": "assistant",
+      "visibleDescription": "Adrian Vale's executive assistant. Nervous, articulate and clearly overwhelmed by the sudden scrutiny.",
+      "personality": "nervous_obedient",
+      "personalityProfile": { "cooperation": "medium", "composure": "low", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "medium" },
+      "knowledge": {
+        "knows": [
+          "Adrian asked him to travel under Adrian's name.",
+          "Adrian said the arrangement was necessary.",
+          "Adrian gave him the travel documents.",
+          "Adrian was not physically present at boarding."
+        ],
+        "doesNotKnow": ["Adrian's full financial motive.", "Where Adrian went after leaving the airport."],
+        "secretFacts": ["He accepted payment for the arrangement.", "He believed the arrangement was temporary and legal."],
+        "lies": ["He initially denies that Adrian personally instructed him."],
+        "lieMotivation": ["fear", "loyalty", "financial_pressure"]
+      }
+    },
+    {
+      "id": "mila",
+      "name": "Mila Ortega",
+      "role": "airline_operations_manager",
+      "visibleDescription": "An airline operations manager responsible for passenger manifests and last-minute boarding changes.",
+      "personality": "professional_guarded",
+      "personalityProfile": { "cooperation": "medium", "composure": "high", "defensiveness": "medium", "manipulation": "medium", "voluntaryDisclosure": "medium" },
+      "knowledge": {
+        "knows": ["The manifest was amended unusually late.", "Adrian's passenger record required manual intervention.", "Someone with internal credentials approved the adjustment."],
+        "doesNotKnow": ["That Noah was intentionally impersonating Adrian.", "Where Adrian went after leaving the terminal."],
+        "secretFacts": ["She had previously violated a minor airline compliance rule.", "She was worried that the manifest amendment would expose the earlier violation."],
+        "lies": ["She initially says she does not remember approving the manifest change."],
+        "lieMotivation": ["career_protection"]
+      }
+    },
+    {
+      "id": "felix",
+      "name": "Felix Grant",
+      "role": "security_officer",
+      "visibleDescription": "Airport security officer assigned to the international boarding checkpoint.",
+      "personality": "reserved_observant",
+      "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" },
+      "knowledge": {
+        "knows": ["The passenger presenting Adrian's documents looked nervous.", "The biometric check produced a delay.", "A supervisor told him to allow the passenger through."],
+        "doesNotKnow": ["The passenger was Noah.", "Adrian orchestrated the identity swap."],
+        "secretFacts": ["He had recently made an unrelated baggage-screening mistake."],
+        "lies": ["He initially minimizes how unusual the biometric discrepancy was."],
+        "lieMotivation": ["embarrassment", "career_protection"]
+      }
+    },
+    {
+      "id": "adrian",
+      "name": "Adrian Vale",
+      "role": "apparent_victim",
+      "visibleDescription": "A technology investor whose identity appears to have been stolen for an international flight.",
+      "personality": "calculated",
+      "personalityProfile": { "cooperation": "low", "composure": "high", "defensiveness": "high", "manipulation": "high", "voluntaryDisclosure": "very_low" },
+      "knowledge": {
+        "knows": ["Noah travelled under his identity.", "The manifest was altered.", "His luggage travelled without him.", "A service route allowed him to leave the airport.", "The fabricated travel record benefits him financially."],
+        "doesNotKnow": ["Felix's unrelated baggage problem."],
+        "secretFacts": ["He orchestrated the identity swap.", "He remained nearby after the aircraft departed.", "He planned to use the false flight record as an alibi."],
+        "lies": ["He claims he was unexpectedly absent from the airport before the flight.", "He says Noah acted independently.", "He claims he intended to cooperate with authorities as a victim."],
+        "lieMotivation": ["self_preservation", "financial_gain"]
+      }
+    }
+  ],
+
+  "relationships": [
+    { "id": "REL-ADRIAN-NOAH", "a": "adrian", "b": "noah", "type": "employer_employee", "description": "Noah is Adrian's executive assistant." },
+    { "id": "REL-ADRIAN-MILA", "a": "adrian", "b": "mila", "type": "business_contact", "description": "Adrian's company regularly books private aviation services through Mila's airline." },
+    { "id": "REL-ADRIAN-FELIX", "a": "adrian", "b": "felix", "type": "incidental", "description": "Felix has no personal relationship with Adrian." }
+  ],
+
+  "facts": [
+    { "id": "F001", "tier": "A", "category": "identity", "statement": "Noah travelled under Adrian's identity.", "critical": true },
+    { "id": "F002", "tier": "A", "category": "travel", "statement": "Adrian did not board the aircraft.", "critical": true },
+    { "id": "F003", "tier": "A", "category": "intent", "statement": "Adrian intentionally arranged the identity substitution.", "critical": true },
+    { "id": "F004", "tier": "A", "category": "alibi", "statement": "Adrian intended the false flight record to establish a fabricated alibi.", "critical": true },
+    { "id": "F005", "tier": "A", "category": "access", "statement": "Adrian used a legitimate service route to leave the airport.", "critical": true },
+    { "id": "F006", "tier": "A", "category": "motive", "statement": "Adrian had a financial dispute that made the fabricated travel record valuable.", "critical": true },
+    { "id": "F007", "tier": "B", "category": "behavior", "statement": "Mila noticed an unusual late manifest amendment.", "critical": false },
+    { "id": "F008", "tier": "B", "category": "security", "statement": "Felix noticed an unusual biometric discrepancy.", "critical": false },
+    { "id": "F009", "tier": "B", "category": "motivation", "statement": "Noah accepted payment for carrying out Adrian's instructions.", "critical": false },
+    { "id": "F010", "tier": "C", "category": "red_herring", "statement": "Felix had an unrelated prior baggage-screening mistake.", "critical": false }
+  ],
+
+  "evidence": [
+    { "id": "E001", "name": "Biometric Delay", "description": "The passenger using Adrian's identity caused an unusual biometric verification delay.", "discoverability": "Felix interrogation", "supports": ["F001"] },
+    { "id": "E002", "name": "Manifest Amendment", "description": "A late manual change was made to Adrian's passenger record.", "discoverability": "Mila interrogation", "supports": ["F003"] },
+    { "id": "E003", "name": "Service Route Record", "description": "A private vehicle transfer was authorized for an individual matching Adrian's access credentials shortly before departure.", "discoverability": "Mila or security investigation", "supports": ["F005"] },
+    { "id": "E004", "name": "Payment Transfer", "description": "Noah received an unusual payment from Adrian shortly before the flight.", "discoverability": "Noah confrontation", "supports": ["F003", "F009"] },
+    { "id": "E005", "name": "Travel Record", "description": "The airline system records Adrian as having travelled internationally.", "discoverability": "initial case evidence", "supports": ["F004"] }
+  ],
+
+  "questions": [
+    {
+      "id": "Q001", "category": "identity", "targetCharacterIds": ["noah", "mila", "felix"],
+      "text": "Who was actually travelling under Adrian's name?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "noah": [
+          { "variantId": "Q001-N-01", "weight": 22, "type": "lie", "text": "I don't know." },
+          { "variantId": "Q001-N-02", "weight": 63, "type": "partial_truth", "text": "Someone was using Adrian's documents. I was just helping with the travel arrangements." },
+          { "variantId": "Q001-N-03", "weight": 15, "type": "admission", "text": "It was me." }
+        ],
+        "mila": [
+          { "variantId": "Q001-M-01", "weight": 61, "type": "truth", "text": "I only saw the person briefly, but the biometric check suggested something was wrong." },
+          { "variantId": "Q001-M-02", "weight": 29, "type": "partial_truth", "text": "The documentation looked like Adrian's. The passenger did not behave like someone comfortable with it." },
+          { "variantId": "Q001-M-03", "weight": 10, "type": "evasive", "text": "The checkpoint handled the passenger according to the manifest." }
+        ],
+        "felix": [
+          { "variantId": "Q001-F-01", "weight": 82, "type": "truth", "text": "The person presenting the documents was not behaving normally. The biometric check was delayed." },
+          { "variantId": "Q001-F-02", "weight": 18, "type": "partial_truth", "text": "There was a discrepancy. I was told to clear it." }
+        ]
+      },
+      "unlocks": ["Q006"]
+    },
+    {
+      "id": "Q002", "category": "timeline", "targetCharacterIds": ["noah"],
+      "text": "Where was Adrian when you boarded?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "noah": [
+          { "variantId": "Q002-N-01", "weight": 57, "type": "lie", "text": "He was already on the aircraft." },
+          { "variantId": "Q002-N-02", "weight": 28, "type": "evasive", "text": "I was focused on getting through the gate." },
+          { "variantId": "Q002-N-03", "weight": 15, "type": "partial_truth", "text": "He wasn't nearby when I boarded." }
+        ]
+      },
+      "unlocks": ["Q007"]
+    },
+    {
+      "id": "Q003", "category": "timeline", "targetCharacterIds": ["mila"],
+      "text": "Why was Adrian's passenger record changed so late?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "mila": [
+          { "variantId": "Q003-M-01", "weight": 43, "type": "evasive", "text": "Last-minute travel changes happen." },
+          { "variantId": "Q003-M-02", "weight": 39, "type": "partial_truth", "text": "There was a request to correct something on the manifest." },
+          { "variantId": "Q003-M-03", "weight": 18, "type": "truth", "text": "Someone with authorization asked me to change the record." }
+        ],
+        "unlocks": ["Q008"]
+      }
+    },
+    {
+      "id": "Q004", "category": "security", "targetCharacterIds": ["felix"],
+      "text": "Did the passenger's identity check go normally?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "felix": [
+          { "variantId": "Q004-F-01", "weight": 73, "type": "partial_truth", "text": "There was a short delay." },
+          { "variantId": "Q004-F-02", "weight": 18, "type": "truth", "text": "No. The biometric result took longer than expected." },
+          { "variantId": "Q004-F-03", "weight": 9, "type": "lie", "text": "Everything was normal." }
+        ],
+        "unlocks": ["Q009"]
+      }
+    },
+    {
+      "id": "Q005", "category": "motive", "targetCharacterIds": ["adrian"],
+      "text": "Why was the international trip so important to you?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "adrian": [
+          { "variantId": "Q005-A-01", "weight": 62, "type": "lie", "text": "I had a routine business meeting." },
+          { "variantId": "Q005-A-02", "weight": 23, "type": "partial_truth", "text": "I had business overseas that needed attention." },
+          { "variantId": "Q005-A-03", "weight": 15, "type": "evasive", "text": "You should be asking who used my identity." }
+        ]
+      }
+    },
+    {
+      "id": "Q006", "category": "followup", "targetCharacterIds": ["noah"],
+      "text": "What did Adrian tell you about the flight?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q001", "Q002"] },
+      "responses": {
+        "noah": [
+          { "variantId": "Q006-N-01", "weight": 55, "type": "partial_truth", "text": "He said I just needed to follow the instructions and everything would be fine." },
+          { "variantId": "Q006-N-02", "weight": 31, "type": "truth", "text": "He told me to use his documents and take the flight." },
+          { "variantId": "Q006-N-03", "weight": 14, "type": "evasive", "text": "I was doing what my employer asked." }
+        ],
+        "unlocks": ["Q010"]
+      }
+    },
+    {
+      "id": "Q007", "category": "timeline", "targetCharacterIds": ["noah", "adrian"],
+      "text": "Did Adrian board the aircraft?",
+      "availability": { "type": "unlocked", "requiresAnyClueIds": ["E001"] },
+      "responses": {
+        "noah": [
+          { "variantId": "Q007-N-01", "weight": 81, "type": "truth", "text": "No." },
+          { "variantId": "Q007-N-02", "weight": 19, "type": "evasive", "text": "I never saw him board." }
+        ],
+        "adrian": [
+          { "variantId": "Q007-A-01", "weight": 49, "type": "lie", "text": "Of course I did. That's why my travel record exists." },
+          { "variantId": "Q007-A-02", "weight": 34, "type": "evasive", "text": "You have the records. Why ask me?" },
+          { "variantId": "Q007-A-03", "weight": 17, "type": "partial_truth", "text": "I was supposed to." }
+        ]
+      },
+      "unlocks": ["Q011"]
+    },
+    {
+      "id": "Q008", "category": "evidence", "targetCharacterIds": ["mila"],
+      "text": "Who authorized the late change to Adrian's manifest?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q003"] },
+      "responses": {
+        "mila": [
+          { "variantId": "Q008-M-01", "weight": 61, "type": "partial_truth", "text": "The request came through an authorized company contact." },
+          { "variantId": "Q008-M-02", "weight": 23, "type": "truth", "text": "It was connected to Adrian's office." },
+          { "variantId": "Q008-M-03", "weight": 16, "type": "evasive", "text": "I don't want to speculate." }
+        ],
+        "reveals": ["E002", "F003"]
+      }
+    },
+    {
+      "id": "Q009", "category": "security", "targetCharacterIds": ["felix"],
+      "text": "Why was the passenger allowed through despite the biometric delay?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q004"] },
+      "responses": {
+        "felix": [
+          { "variantId": "Q009-F-01", "weight": 67, "type": "truth", "text": "My supervisor told me to clear the passenger." },
+          { "variantId": "Q009-F-02", "weight": 21, "type": "partial_truth", "text": "I was told the documentation had already been reviewed." },
+          { "variantId": "Q009-F-03", "weight": 12, "type": "uncertain", "text": "I honestly don't remember who gave the instruction." }
+        ],
+        "reveals": ["E001", "F008"]
+      }
+    },
+    {
+      "id": "Q010", "category": "financial", "targetCharacterIds": ["noah"],
+      "text": "Why did Adrian pay you before the flight?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q006"] },
+      "responses": {
+        "noah": [
+          { "variantId": "Q010-N-01", "weight": 45, "type": "partial_truth", "text": "He paid me for handling something important." },
+          { "variantId": "Q010-N-02", "weight": 34, "type": "lie", "text": "It was my normal salary." },
+          { "variantId": "Q010-N-03", "weight": 21, "type": "admission", "text": "He said I'd be paid if I travelled under his name." }
+        ],
+        "reveals": ["E004", "F009"]
+      }
+    },
+    {
+      "id": "Q011", "category": "confrontation", "targetCharacterIds": ["adrian"],
+      "text": "Your records say you travelled, but Noah says you did not board. Which one is true?",
+      "availability": { "type": "unlocked", "requiresAllClueIds": ["C001"] },
+      "responses": {
+        "adrian": [
+          { "variantId": "Q011-A-01", "weight": 36, "type": "lie", "text": "Noah is lying to protect himself." },
+          { "variantId": "Q011-A-02", "weight": 41, "type": "partial_truth", "text": "I didn't personally go through the gate. Someone handled the arrangements for me." },
+          { "variantId": "Q011-A-03", "weight": 23, "type": "evasive", "text": "You seem very certain for someone who wasn't there." }
+        ],
+        "unlocks": ["Q012"]
+      }
+    },
+    {
+      "id": "Q012", "category": "motive", "targetCharacterIds": ["adrian"],
+      "text": "What were you trying to prove by making it appear that you travelled?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q011"] },
+      "responses": {
+        "adrian": [
+          { "variantId": "Q012-A-01", "weight": 29, "type": "lie", "text": "Nothing." },
+          { "variantId": "Q012-A-02", "weight": 46, "type": "evasive", "text": "That is an interesting interpretation of the evidence." },
+          { "variantId": "Q012-A-03", "weight": 25, "type": "partial_truth", "text": "I needed people to believe I was somewhere I wasn't." }
+        ],
+        "unlocks": ["Q013"]
+      }
+    },
+    {
+      "id": "Q013", "category": "confrontation", "targetCharacterIds": ["adrian"],
+      "text": "You needed a record that you had left the country. The manifest, the luggage, the service route — it all points to you. Did you arrange the swap?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q012"] },
+      "responses": {
+        "adrian": [
+          { "variantId": "Q013-A-01", "weight": 30, "type": "lie", "text": "I had nothing to do with any swap." },
+          { "variantId": "Q013-A-02", "weight": 45, "type": "evasive", "text": "The records speak for themselves." },
+          { "variantId": "Q013-A-03", "weight": 25, "type": "partial_truth", "text": "If someone arranged it, they did it to help me appear where I needed to be." }
+        ],
+        "reveals": ["F002", "F003", "F004", "F005"]
+      }
+    }
+  ],
+
+  "discoveryRules": [
+    { "id": "D001", "trigger": "Q004", "reveals": ["E001", "F008"], "unlocksQuestions": ["Q009"] },
+    { "id": "D002", "trigger": "Q003", "reveals": ["E002"], "unlocksQuestions": ["Q008"] },
+    { "id": "D003", "trigger": "Q006", "reveals": ["F003"], "unlocksQuestions": ["Q010"] },
+    { "id": "D004", "trigger": "Q007", "reveals": ["F002", "F004"], "unlocksQuestions": ["Q011"] },
+    { "id": "D005", "trigger": "Q010", "reveals": ["E004", "F009"], "unlocksQuestions": ["Q011"] },
+    { "id": "D006", "trigger": "Q013", "reveals": ["F002", "F003", "F004", "F005"] }
+  ],
+
+  "contradictions": [
+    { "id": "CON001", "type": "identity", "description": "The passenger travelled under Adrian's identity but was actually Noah.", "significance": "critical" },
+    { "id": "CON002", "type": "timeline", "description": "The global travel record says Adrian travelled while testimony establishes that he was absent from boarding.", "significance": "critical", "confrontationQuestionId": "Q011" },
+    { "id": "CON003", "type": "knowledge", "description": "Noah knows details about the identity substitution that an ordinary assistant would not know unless Adrian instructed him.", "significance": "high" },
+    { "id": "CON004", "type": "system", "description": "The late manifest amendment was connected to Adrian's office.", "significance": "high" },
+    { "id": "CON005", "type": "motive", "description": "Adrian has a reason to make it appear he travelled while remaining nearby.", "significance": "critical" }
+  ],
+
+  "redHerrings": [
+    { "id": "RH001", "characterId": "noah", "surfaceSuspicion": "He impersonated Adrian and accepted payment.", "actualReason": "He was following instructions and believed he was helping his employer with a legitimate arrangement.", "crimeConnection": "participant but not mastermind" },
+    { "id": "RH002", "characterId": "mila", "surfaceSuspicion": "She manually altered the manifest.", "actualReason": "She followed an authorized request while trying to protect herself from an unrelated compliance problem.", "crimeConnection": "indirect" },
+    { "id": "RH003", "characterId": "felix", "surfaceSuspicion": "He allowed a suspicious passenger through security.", "actualReason": "He was following a supervisor's instruction and was distracted by a separate mistake.", "crimeConnection": "none" }
+  ],
+
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Identity path", "description": "Felix → biometric discrepancy → Noah → identity substitution → Adrian's absence → false travel record.", "criticalFacts": ["F001", "F002", "F003"], "approximateActions": 8 },
+    { "id": "PATH_B", "name": "Manifest path", "description": "Mila → late manifest change → Adrian's office → Noah's instructions → fabricated travel record.", "criticalFacts": ["F003", "F004", "F006"], "approximateActions": 9 },
+    { "id": "PATH_C", "name": "Motive path", "description": "Adrian's motive → need for fabricated alibi → travel record contradiction → Noah's involvement → identity swap.", "criticalFacts": ["F004", "F006", "F003"], "approximateActions": 11 }
+  ],
+
+  "accusation": {
+    "dimensions": [
+      { "id": "identitySwapOrganizer", "prompt": "Who orchestrated the identity substitution?", "correctValue": "adrian", "options": ["adrian", "noah", "mila", "felix"] },
+      { "id": "traveller", "prompt": "Who actually travelled under Adrian's identity?", "correctValue": "noah", "options": ["adrian", "noah", "mila", "felix"] },
+      { "id": "purpose", "prompt": "Why was the identity swap arranged?", "correctValue": "fabricated_alibi", "options": [
+        { "id": "escape_country", "label": "Adrian wanted to permanently flee the country." },
+        { "id": "fabricated_alibi", "label": "Adrian wanted records proving he had travelled while actually remaining nearby." },
+        { "id": "steal_identity", "label": "Someone wanted to steal Adrian's identity permanently." },
+        { "id": "assist_noah", "label": "Adrian was helping Noah escape from an unrelated problem." }
+      ]}
+    ]
+  },
+
+  "reveal": {
+    "headline": "The identity thief was never the victim.",
+    "narrative": [
+      "The passenger who travelled under Adrian Vale's name was his assistant, Noah Reed.",
+      "But Noah was not the architect of the deception.",
+      "Adrian deliberately arranged the identity substitution and provided Noah with the necessary documents.",
+      "Adrian then left the airport through an authorized service route before the aircraft departed.",
+      "The airline records therefore created a convincing but false record that Adrian had travelled internationally.",
+      "Adrian intended to use that record as an alibi in a financial dispute that would become critical the following morning.",
+      "Noah accepted payment and followed Adrian's instructions, but did not fully understand the larger purpose of the plan.",
+      "Mila's manifest amendment and Felix's biometric concerns provided independent evidence that the travel record was not what it appeared to be.",
+      "The central breakthrough was realizing that the apparent victim of identity theft was actually the person who benefited most from the deception."
+    ],
+    "truthBreakdown": [
+      { "fact": "Noah travelled under Adrian's identity.", "importance": "critical", "discoveredThrough": ["Felix", "Noah"] },
+      { "fact": "Adrian did not board.", "importance": "critical", "discoveredThrough": ["Noah", "boarding records"] },
+      { "fact": "Adrian arranged the identity substitution.", "importance": "critical", "discoveredThrough": ["Noah", "manifest records"] },
+      { "fact": "Adrian needed a fabricated travel record.", "importance": "critical", "discoveredThrough": ["Adrian motive investigation"] },
+      { "fact": "Several innocent people behaved suspiciously for unrelated reasons.", "importance": "structural", "discoveredThrough": ["Mila", "Felix"] }
+    ]
+  },
+
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "singleExactQuestionSequenceRequired": false,
+    "multipleIndependentSolutionPaths": true,
+    "minimumIndependentSolutionPaths": 3,
+    "innocentDeceptionPresent": true,
+    "guiltyPersonIsNotTheOnlyDeceptiveCharacter": true,
+    "truthfulSuspiciousCharacterPresent": true,
+    "sameTopicCanProduceDifferentAnswers": true,
+    "globalCanonicalTruth": true,
+    "playerSpecificResponseVariation": true,
+    "responseVariationCannotMakeCaseUnsolvable": true,
+    "identitySwapSupported": true,
+    "apparentVictimCanBeResponsible": true,
+    "multipleParticipantsWithDifferentResponsibility": true,
+    "criticalFactsHaveRedundantDiscoveryRoutes": true,
+    "contradictionsHaveCanonicalBases": true,
+    "revealExplainsApparentIdentityFraud": true,
+    "targetPlayTimeMinutes": { "minimum": 5, "maximum": 20 }
+  }
+}

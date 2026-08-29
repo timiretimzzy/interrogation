@@ -1,0 +1,11 @@
+
+ RUN  v2.1.9 c:/Users/TIMIRE/Downloads/ai_game
+
+ ✓ src/core/cases.test.ts (6 tests) 4226ms
+   ✓ seed cases pass schema + solver gates > synth-cs-001: solver ok (INV-114 / INV-115 / paths) 3983ms
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  14:36:05
+   Duration  7.80s (transform 252ms, setup 0ms, collect 318ms, tests 4.23s, environment 2.25s, prepare 259ms)
+

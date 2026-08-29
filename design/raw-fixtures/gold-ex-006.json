@@ -1,0 +1,401 @@
+{
+  "caseId": "gold-ex-006",
+  "title": "The Reef Keeper's Warning",
+  "genre": "extortion",
+  "subgenre": "environmental_conspiracy",
+  "tone": "tense_atmospheric",
+  "difficulty": "medium",
+  "estimatedPlayTimeMinutes": { "fast": 7, "typical": 12, "deep": 18 },
+
+  "briefing": {
+    "hook": "At 11:40 PM, station director Amara Pinto reported receiving a third anonymous message threatening to expose a decade-old data fraud unless she falsified an urgent safety report on the Mindelo Reef Platform.",
+    "context": "The platform, a joint desalination and coral-restoration station anchored off Cape Verde, has been slated for a corporate-funded expansion that would double its output — if its structural safety report passes review by tomorrow morning.",
+    "tension": "The report is due at 8:00 AM. If Amara doesn't submit it, the expansion is cancelled and her four-person crew loses their positions. If she falsifies it under duress, a genuinely compromised platform gets approved for heavier use.",
+    "objective": "Determine who is sending the extortion messages, what they actually want, and whether the threat to the platform's safety is real."
+  },
+
+  "playerRules": {
+    "investigationActions": 15,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+
+  "truth": {
+    "incident": "Amara Pinto sent the extortion messages to herself. She had discovered that the platform's mooring structure was failing faster than reported and that the parent company intended to push the expansion through regardless. Rather than blow the whistle directly — which she believed would get her crew blamed and dismissed for 'concealing' the defect — she staged an external threat to force a mandatory safety re-inspection, which would delay the expansion without implicating her team.",
+    "responsibleParty": "amara",
+    "whatHappened": "Two weeks prior, Amara found corrosion readings from the mooring anchors that exceeded safety limits. Corporate compliance officer Inês Rocha was due to review the expansion report the next morning. Amara knew a personal disclosure would trigger an internal audit that historically resulted in junior staff being scapegoated. She used an old shared terminal login (once used by her own mentor, now retired) to send herself three escalating threat messages demanding she falsify the safety data, timed to arrive before the deadline, intending the resulting 'security incident' to force Inês to delay the review and order an independent inspection.",
+    "motive": "To protect her crew — especially junior researcher Kwame Boateng, on his first contract — from being blamed for the corrosion defect, by manufacturing an external crisis that forced a delay without exposing any of them individually.",
+    "method": "Reused an old authenticated terminal session to send anonymous internal messages to her own account, timed around known corporate deadlines, mimicking the phrasing of a real disgruntled contractor she'd previously fired.",
+    "centralTwist": "The person being extorted is the one sending the threats.",
+    "secondaryTwist": "The corrosion data is real and dangerous — this is not a false alarm dressed up as a real one, but a real problem hidden inside a fake crime.",
+    "finalTruth": "There was no external extortionist. Amara fabricated the threats to force a mandatory inspection and protect her crew from blame for a genuine structural defect she had already found and reported internally without success.",
+    "timeline": [
+      { "time": "14 days prior", "eventId": "T001", "description": "Amara records anomalous corrosion readings on the north mooring anchor." },
+      { "time": "10 days prior", "eventId": "T002", "description": "Amara files an internal safety flag; it is deprioritized by corporate." },
+      { "time": "6 days prior", "eventId": "T003", "description": "Amara learns the expansion report is due for final sign-off in two weeks." },
+      { "time": "3 days prior", "eventId": "T004", "description": "First threat message arrives, referencing an old data-fraud case from Amara's past." },
+      { "time": "2 days prior", "eventId": "T005", "description": "Second threat message arrives, demanding falsified corrosion figures." },
+      { "time": "20:10", "eventId": "T006", "description": "Kwame notices Amara accessing a terminal under a login that shouldn't exist anymore." },
+      { "time": "21:45", "eventId": "T007", "description": "Tomás Duarte re-runs the corrosion readings independently and confirms Amara's numbers." },
+      { "time": "23:40", "eventId": "T008", "description": "Third and final threat message arrives, setting the falsification deadline for 8:00 AM." },
+      { "time": "23:55", "eventId": "T009", "description": "Amara formally reports the extortion to Inês Rocha." },
+      { "time": "07:10", "eventId": "T010", "description": "Inês begins reviewing the platform's internal message logs." },
+      { "time": "07:40", "eventId": "T011", "description": "Metadata anomaly is found linking the threats to an internal terminal." }
+    ],
+    "criticalFacts": [
+      "The extortion messages originated from inside the platform's own network.",
+      "The login used to send the messages belonged to Amara's retired mentor.",
+      "The corrosion data referenced in the threats is genuinely accurate and dangerous.",
+      "Amara had already tried and failed to raise the corrosion issue through normal channels.",
+      "Amara's motive was to protect her crew from blame, not to harm anyone.",
+      "The falsification demand and the real defect are the same defect."
+    ],
+    "importantSecondaryTruths": [
+      "Tomás independently verified the corrosion data but was too afraid of corporate retaliation to escalate it himself.",
+      "Kwame saw Amara at the terminal but assumed she was doing routine maintenance.",
+      "Inês had her own pressure to approve the expansion quickly, since her bonus was tied to the project timeline."
+    ]
+  },
+
+  "characters": [
+    {
+      "id": "ines",
+      "name": "Inês Rocha",
+      "role": "corporate_compliance_officer",
+      "visibleDescription": "A compliance officer sent from the mainland to review the expansion. Sharp, time-pressured, and openly annoyed by the disruption.",
+      "personality": "professional_impatient",
+      "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "medium" },
+      "knowledge": {
+        "knows": ["The expansion report is due at 8:00 AM.", "Amara reported receiving extortion threats.", "The platform's message logs can be audited."],
+        "doesNotKnow": ["The messages originated internally.", "The corrosion data is genuine."],
+        "secretFacts": ["Her annual bonus depends on the expansion being approved on schedule."],
+        "lies": ["She initially downplays how much pressure she's under to approve the report quickly."],
+        "lieMotivation": ["career_protection"],
+        "truthfulStatements": ["She is otherwise straightforward and cooperative."]
+      },
+      "alibi": { "claimed": "Reviewing documents in the platform office all night.", "status": "verified" }
+    },
+    {
+      "id": "tomas",
+      "name": "Tomás Duarte",
+      "role": "structural_engineer",
+      "visibleDescription": "A Portuguese engineer on secondment, quiet and precise, visibly uneasy whenever the mooring system comes up.",
+      "personality": "cautious_guilty",
+      "personalityProfile": { "cooperation": "medium", "composure": "medium", "defensiveness": "high", "manipulation": "low", "voluntaryDisclosure": "low" },
+      "knowledge": {
+        "knows": ["The corrosion readings exceed safety thresholds.", "Amara flagged this weeks ago.", "Corporate deprioritized the flag."],
+        "doesNotKnow": ["Amara sent the threats herself.", "The old mentor-login still functioned."],
+        "secretFacts": ["He independently re-ran the numbers and confirmed the danger but said nothing out of fear."],
+        "lies": ["He initially claims the readings were 'within normal variance.'"],
+        "lieMotivation": ["fear", "career_protection"]
+      },
+      "alibi": { "claimed": "In the engineering bay, alone, running diagnostics.", "status": "partially_verified" }
+    },
+    {
+      "id": "kwame",
+      "name": "Kwame Boateng",
+      "role": "junior_marine_researcher",
+      "visibleDescription": "A Ghanaian marine biologist on his first offshore contract, eager but visibly anxious about doing anything wrong.",
+      "personality": "nervous_earnest",
+      "personalityProfile": { "cooperation": "high", "composure": "low", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "medium" },
+      "knowledge": {
+        "knows": ["He saw Amara at a terminal late at night.", "The login name displayed was unfamiliar to him.", "Amara has been unusually stressed for weeks."],
+        "doesNotKnow": ["What Amara was actually doing at the terminal.", "The corrosion data's severity."],
+        "secretFacts": ["He assumed Amara was doing something wrong and has been too scared to mention it."],
+        "lies": ["He initially says he 'didn't really see anything' at the terminal."],
+        "lieMotivation": ["fear", "not_wanting_to_implicate_a_mentor"]
+      },
+      "alibi": { "claimed": "In his quarters, off shift.", "status": "verified" }
+    },
+    {
+      "id": "amara",
+      "name": "Amara Pinto",
+      "role": "station_director",
+      "visibleDescription": "The Cape Verdean director of the platform, composed under pressure but carrying visible exhaustion. Presents herself as the target of the extortion.",
+      "personality": "controlled_protective",
+      "personalityProfile": { "cooperation": "medium", "composure": "high", "defensiveness": "medium", "manipulation": "medium", "voluntaryDisclosure": "low" },
+      "knowledge": {
+        "knows": ["She sent the threat messages to herself.", "The corrosion defect is real.", "Corporate ignored her original safety flag.", "The old mentor-login credentials still worked."],
+        "doesNotKnow": ["Kwame saw her at the terminal.", "Tomás independently verified the corrosion data."],
+        "secretFacts": ["She staged the entire extortion to force a delay and protect her crew from blame."],
+        "lies": ["She claims to have no idea who is threatening her.", "She claims the threats reference a fraud case that 'must be someone from her past.'"],
+        "lieMotivation": ["protecting_her_crew", "avoiding_personal_consequences"]
+      },
+      "alibi": { "claimed": "Alone in her quarters when each message arrived.", "status": "unverifiable" }
+    }
+  ],
+
+  "relationships": [
+    { "id": "REL-AMARA-TOMAS", "a": "amara", "b": "tomas", "type": "supervisor_subordinate", "description": "Tomás reports to Amara on structural matters." },
+    { "id": "REL-AMARA-KWAME", "a": "amara", "b": "kwame", "type": "mentor_mentee", "description": "Amara is Kwame's direct supervisor and informal mentor." },
+    { "id": "REL-AMARA-INES", "a": "amara", "b": "ines", "type": "reporting_relationship", "description": "Amara reports platform status to Inês for corporate review." },
+    { "id": "REL-TOMAS-KWAME", "a": "tomas", "b": "kwame", "type": "colleague", "description": "Tomás and Kwame work adjacent shifts on the platform." }
+  ],
+
+  "facts": [
+    { "id": "F001", "tier": "A", "category": "evidence", "statement": "The threat messages originated from inside the platform's own network.", "critical": true },
+    { "id": "F002", "tier": "A", "category": "identity", "statement": "The messages were sent using a retired staff member's old login credentials.", "critical": true },
+    { "id": "F003", "tier": "A", "category": "evidence", "statement": "The corrosion data referenced in the threats is genuinely accurate.", "critical": true },
+    { "id": "F004", "tier": "A", "category": "motive", "statement": "Amara had already tried to raise the corrosion issue through normal channels and was ignored.", "critical": true },
+    { "id": "F005", "tier": "A", "category": "intent", "statement": "Amara sent the extortion messages to herself.", "critical": true },
+    { "id": "F006", "tier": "A", "category": "motive", "statement": "Amara's goal was to protect her crew from blame, not to harm anyone.", "critical": true },
+    { "id": "F007", "tier": "B", "category": "behavior", "statement": "Tomás independently verified the corrosion readings but stayed silent.", "critical": false },
+    { "id": "F008", "tier": "B", "category": "behavior", "statement": "Kwame saw Amara at the terminal under an unfamiliar login.", "critical": false },
+    { "id": "F009", "tier": "C", "category": "red_herring", "statement": "Inês's bonus depends on fast approval of the expansion.", "critical": false }
+  ],
+
+  "evidence": [
+    { "id": "E001", "name": "Network Origin Log", "description": "Server logs show all three threat messages originated from a terminal physically on the platform, not from an external address.", "discoverability": "Inês interrogation or log review", "supports": ["F001"] },
+    { "id": "E002", "name": "Retired Login Record", "description": "The sending account belonged to a staff member who retired eight months ago and should have no active credentials.", "discoverability": "Inês or Kwame interrogation", "supports": ["F002"] },
+    { "id": "E003", "name": "Corrosion Readings", "description": "Independent readings confirm the north mooring anchor exceeds safety thresholds by a significant margin.", "discoverability": "Tomás interrogation", "supports": ["F003"] },
+    { "id": "E004", "name": "Deprioritized Safety Flag", "description": "An internal ticket shows Amara flagged the corrosion issue ten days before the threats began, and it was closed without action.", "discoverability": "Inês or Amara interrogation", "supports": ["F004"] },
+    { "id": "E005", "name": "Terminal Sighting", "description": "Kwame recalls seeing Amara at a terminal late at night under a login name he didn't recognize.", "discoverability": "Kwame interrogation", "supports": ["F002", "F008"] }
+  ],
+
+  "questions": [
+    {
+      "id": "Q001", "category": "initial", "targetCharacterIds": ["amara", "ines", "tomas", "kwame"],
+      "text": "Walk me through when the threats started.",
+      "availability": { "type": "initial" },
+      "responses": {
+        "amara": [
+          { "variantId": "Q001-A-01", "weight": 70, "type": "partial_truth", "text": "The first one came three nights ago. I didn't take it seriously until the second." },
+          { "variantId": "Q001-A-02", "weight": 30, "type": "evasive", "text": "It's been an unsettling few days, honestly." }
+        ],
+        "ines": [
+          { "variantId": "Q001-I-01", "weight": 85, "type": "truth", "text": "Amara reported the first message four days ago, low priority at the time." },
+          { "variantId": "Q001-I-02", "weight": 15, "type": "partial_truth", "text": "It escalated faster than I expected." }
+        ],
+        "tomas": [
+          { "variantId": "Q001-T-01", "weight": 60, "type": "truth", "text": "I heard about it after the second message. Amara seemed shaken." },
+          { "variantId": "Q001-T-02", "weight": 40, "type": "evasive", "text": "I try to stay out of admin matters." }
+        ],
+        "kwame": [
+          { "variantId": "Q001-K-01", "weight": 55, "type": "truth", "text": "She's been off for almost two weeks, not just since the messages." },
+          { "variantId": "Q001-K-02", "weight": 45, "type": "partial_truth", "text": "I noticed she seemed stressed, but I didn't ask." }
+        ]
+      },
+      "unlocks": ["Q005"]
+    },
+    {
+      "id": "Q002", "category": "evidence", "targetCharacterIds": ["ines"],
+      "text": "Can the message logs tell us where the threats actually came from?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "ines": [
+          { "variantId": "Q002-I-01", "weight": 88, "type": "truth", "text": "Yes — and it's strange. They came from inside our own network." },
+          { "variantId": "Q002-I-02", "weight": 12, "type": "partial_truth", "text": "The routing is unusual. I need more time to confirm it." }
+        ]
+      },
+      "unlocks": ["Q006"], "reveals": ["E001"]
+    },
+    {
+      "id": "Q003", "category": "technical", "targetCharacterIds": ["tomas"],
+      "text": "Is there any truth to the corrosion figures mentioned in the threats?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "tomas": [
+          { "variantId": "Q003-T-01", "weight": 46, "type": "lie", "text": "Those numbers are within normal variance. Nothing to worry about." },
+          { "variantId": "Q003-T-02", "weight": 35, "type": "partial_truth", "text": "The north anchor has some wear. It's being monitored." },
+          { "variantId": "Q003-T-03", "weight": 19, "type": "admission", "text": "I checked myself. The numbers are real, and they're bad." }
+        ]
+      },
+      "unlocks": ["Q007"]
+    },
+    {
+      "id": "Q004", "category": "observation", "targetCharacterIds": ["kwame"],
+      "text": "Did you notice anything unusual around the time the threats arrived?",
+      "availability": { "type": "initial" },
+      "responses": {
+        "kwame": [
+          { "variantId": "Q004-K-01", "weight": 30, "type": "lie", "text": "No, nothing at all." },
+          { "variantId": "Q004-K-02", "weight": 45, "type": "partial_truth", "text": "Amara was at a terminal pretty late one night. Probably just maintenance." },
+          { "variantId": "Q004-K-03", "weight": 25, "type": "admission", "text": "The login on her screen wasn't one I recognized. It looked old." }
+        ]
+      },
+      "unlocks": ["Q008"]
+    },
+    {
+      "id": "Q005", "category": "motive", "targetCharacterIds": ["amara"],
+      "text": "The threats mention a data-fraud case from your past. Who would know about that?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q001"] },
+      "responses": {
+        "amara": [
+          { "variantId": "Q005-A-01", "weight": 55, "type": "lie", "text": "I genuinely don't know. It was a long time ago." },
+          { "variantId": "Q005-A-02", "weight": 30, "type": "evasive", "text": "A lot of people at the company know the story. It's not exactly secret." },
+          { "variantId": "Q005-A-03", "weight": 15, "type": "partial_truth", "text": "Only someone close to my old mentor would phrase it that way." }
+        ]
+      }
+    },
+    {
+      "id": "Q006", "category": "evidence", "targetCharacterIds": ["ines"],
+      "text": "Whose credentials were actually used to send the messages?",
+      "availability": { "type": "unlocked", "requiresAnyClueIds": ["E001"] },
+      "responses": {
+        "ines": [
+          { "variantId": "Q006-I-01", "weight": 91, "type": "truth", "text": "A retired staff member's — someone who left the platform eight months ago." },
+          { "variantId": "Q006-I-02", "weight": 9, "type": "truth", "text": "An old account that should have been deactivated." }
+        ]
+      },
+      "reveals": ["F001", "F002", "E002"], "unlocks": ["Q009"]
+    },
+    {
+      "id": "Q007", "category": "confrontation", "targetCharacterIds": ["tomas"],
+      "text": "You said the readings were normal. Your own diagnostic log says otherwise.",
+      "availability": { "type": "unlocked", "requiresAnyEvidenceIds": ["E003"] },
+      "responses": {
+        "tomas": [
+          { "variantId": "Q007-T-01", "weight": 25, "type": "lie", "text": "There must be an error in the log." },
+          { "variantId": "Q007-T-02", "weight": 40, "type": "partial_truth", "text": "I didn't want to be the one who said it out loud." },
+          { "variantId": "Q007-T-03", "weight": 35, "type": "admission", "text": "Yes. It's bad. I confirmed Amara's numbers weeks ago and said nothing." }
+        ]
+      },
+      "reveals": ["F003", "F007"]
+    },
+    {
+      "id": "Q008", "category": "confrontation", "targetCharacterIds": ["kwame"],
+      "text": "Whose login name was it, exactly, that you saw on Amara's screen?",
+      "availability": { "type": "unlocked", "requiresAnyEvidenceIds": ["E002"] },
+      "responses": {
+        "kwame": [
+          { "variantId": "Q008-K-01", "weight": 20, "type": "evasive", "text": "I really couldn't read it clearly." },
+          { "variantId": "Q008-K-02", "weight": 45, "type": "partial_truth", "text": "It matched the name of someone who used to work here, I think." },
+          { "variantId": "Q008-K-03", "weight": 35, "type": "admission", "text": "It was her old mentor's name. I didn't want to say that out loud." }
+        ]
+      },
+      "reveals": ["F002", "F008"]
+    },
+    {
+      "id": "Q009", "category": "evidence", "targetCharacterIds": ["ines"],
+      "text": "Was there any prior report about the corrosion issue before the threats began?",
+      "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q006"] },
+      "responses": {
+        "ines": [
+          { "variantId": "Q009-I-01", "weight": 80, "type": "truth", "text": "Yes — Amara filed a flag on it ten days ago. It was closed without follow-up." },
+          { "variantId": "Q009-I-02", "weight": 20, "type": "partial_truth", "text": "There's a ticket, but it wasn't treated as urgent at the time." }
+        ]
+      },
+      "reveals": ["F004", "E004"], "unlocks": ["Q010"]
+    },
+    {
+      "id": "Q010", "category": "confrontation", "targetCharacterIds": ["amara"],
+      "text": "The messages came from inside this platform, using your old mentor's login, right after your safety flag was ignored. Did you send these to yourself?",
+      "availability": { "type": "unlocked", "requiresAllEvidenceIds": ["E001", "E002", "E004"] },
+      "responses": {
+        "amara": [
+          { "variantId": "Q010-A-01", "weight": 20, "type": "lie", "text": "That's an absurd accusation." },
+          { "variantId": "Q010-A-02", "weight": 35, "type": "partial_truth", "text": "I did what I had to, to get someone to actually look at that anchor." },
+          { "variantId": "Q010-A-03", "weight": 45, "type": "admission", "text": "Yes. I sent them. Corporate wasn't going to listen otherwise, and I wasn't going to let Kwame or Tomás take the blame for a defect I already reported." }
+        ]
+      },
+      "reveals": ["F005", "F006"]
+    }
+  ],
+
+  "discoveryRules": [
+    { "id": "D001", "trigger": "Q002", "reveals": ["E001"], "unlocksQuestions": ["Q006"] },
+    { "id": "D002", "trigger": "Q003", "reveals": ["F003"], "unlocksQuestions": ["Q007"] },
+    { "id": "D003", "trigger": "Q004", "reveals": ["F008"], "unlocksQuestions": ["Q008"] },
+    { "id": "D004", "trigger": "Q006", "reveals": ["F001", "F002", "E002"], "unlocksQuestions": ["Q009"] },
+    { "id": "D005", "trigger": "Q009", "reveals": ["F004", "E004"], "unlocksQuestions": ["Q010"] },
+    { "id": "D006", "trigger": "Q010", "reveals": ["F005", "F006"] }
+  ],
+
+  "contradictions": [
+    { "id": "CON001", "type": "technical", "description": "Tomás claims the corrosion readings are normal, but his own diagnostic log confirms the danger.", "significance": "critical", "confrontationQuestionId": "Q007" },
+    { "id": "CON002", "type": "identity", "description": "The threats came from inside the network under a retired employee's credentials, not from an outside extortionist.", "significance": "critical", "confrontationQuestionId": "Q006" },
+    { "id": "CON003", "type": "motive", "description": "Amara claims to have no idea who is threatening her, but the login belongs to her own mentor and the demand mirrors her own ignored safety flag.", "significance": "critical", "confrontationQuestionId": "Q010" }
+  ],
+
+  "redHerrings": [
+    { "id": "RH001", "characterId": "ines", "surfaceSuspicion": "She has a financial incentive to make the crisis disappear quickly.", "actualReason": "She is under bonus pressure but has no role in the fabricated threats.", "crimeConnection": "unrelated" },
+    { "id": "RH002", "characterId": "tomas", "surfaceSuspicion": "He lied about the corrosion data and seems evasive.", "actualReason": "He was afraid of retaliation for confirming a defect nobody wanted to hear about.", "crimeConnection": "unrelated" },
+    { "id": "RH003", "characterId": "kwame", "surfaceSuspicion": "He withheld what he saw at the terminal.", "actualReason": "He didn't want to implicate a supervisor he respected without being sure.", "crimeConnection": "unrelated" }
+  ],
+
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Technical path", "description": "Network origin log → retired login → corrosion data confirmed → ignored safety flag → Amara's admission.", "criticalFacts": ["F001", "F002", "F003", "F005"], "approximateActions": 8 },
+    { "id": "PATH_B", "name": "Witness path", "description": "Kwame's terminal sighting → login identification → Tomás's confirmation of the defect → confrontation.", "criticalFacts": ["F008", "F002", "F003", "F006"], "approximateActions": 9 },
+    { "id": "PATH_C", "name": "Motive path", "description": "Ignored safety flag → timeline of threats matching corporate deadline → Amara's protective motive → admission.", "criticalFacts": ["F004", "F005", "F006"], "approximateActions": 10 }
+  ],
+
+  "accusation": {
+    "dimensions": [
+      { "id": "responsibleParty", "prompt": "Who sent the extortion threats?", "correctValue": "amara", "options": ["amara", "tomas", "kwame", "ines", "unknown"] },
+      { "id": "whatHappened", "prompt": "What actually happened?", "correctValue": "self_extortion_to_force_inspection", "options": [
+        { "id": "self_extortion_to_force_inspection", "label": "Amara sent the threats to herself to force a safety inspection." },
+        { "id": "real_external_extortionist", "label": "A genuine outside extortionist targeted Amara." },
+        { "id": "coworker_sabotage", "label": "A coworker sabotaged Amara to get her removed." },
+        { "id": "fabricated_defect", "label": "Amara invented the corrosion defect entirely." }
+      ]},
+      { "id": "motive", "prompt": "Why did she do it?", "correctValue": "protect_crew", "options": [
+        { "id": "protect_crew", "label": "To protect her crew from being blamed for a real defect." },
+        { "id": "financial_gain", "label": "To secure a larger personal payout." },
+        { "id": "revenge", "label": "To get back at corporate for past mistreatment." },
+        { "id": "cover_up", "label": "To hide her own responsibility for the defect." }
+      ]}
+    ]
+  },
+
+  "reveal": {
+    "headline": "The extortion victim was extorting herself.",
+    "narrative": [
+      "Amara Pinto discovered a genuine, dangerous defect in the platform's mooring anchors weeks before any threats appeared.",
+      "When her internal safety flag was ignored ahead of a lucrative expansion deadline, she reused her retired mentor's dormant login to send herself three escalating extortion messages.",
+      "The demand to falsify safety data was designed to look like external sabotage, forcing a mandatory audit that would delay the expansion without pointing blame at any of her crew.",
+      "Tomás had independently confirmed the same corrosion danger but stayed silent out of fear of retaliation.",
+      "Kwame saw Amara at the terminal but didn't understand what he was looking at until the login was traced.",
+      "The 'crime' and the crisis it was hiding turned out to be the same problem: a platform in real danger, and a director unwilling to let her team take the fall for it."
+    ],
+    "truthBreakdown": [
+      { "fact": "The threats originated inside the network.", "importance": "critical", "discoveredThrough": ["Inês", "network logs"] },
+      { "fact": "The sending login belonged to a retired employee.", "importance": "critical", "discoveredThrough": ["Inês", "Kwame"] },
+      { "fact": "The corrosion data is real and dangerous.", "importance": "critical", "discoveredThrough": ["Tomás"] },
+      { "fact": "Amara's earlier safety flag was ignored.", "importance": "critical", "discoveredThrough": ["Inês", "internal ticket"] },
+      { "fact": "Amara sent the threats to herself to protect her crew.", "importance": "critical", "discoveredThrough": ["Amara confrontation"] }
+    ]
+  },
+
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "singleExactQuestionSequenceRequired": false,
+    "multipleIndependentSolutionPaths": true,
+    "minimumIndependentSolutionPaths": 3,
+    "innocentDeceptionPresent": true,
+    "guiltyPersonIsNotTheOnlyDeceptiveCharacter": true,
+    "truthfulSuspiciousCharacterPresent": true,
+    "sameTopicCanProduceDifferentAnswers": true,
+    "globalCanonicalTruth": true,
+    "playerSpecificResponseVariation": true,
+    "responseVariationCannotMakeCaseUnsovlable": true,
+    "selfDirectedExtortionSupported": true,
+    "protectiveMotiveNotSelfPreservation": true,
+    "criticalFactsHaveRedundantDiscoveryRoutes": true,
+    "contradictionsHaveCanonicalBases": true,
+    "revealExplainsApparentExtortion": true,
+    "targetPlayTimeMinutes": { "minimum": 5, "maximum": 20 }
+  },
+
+  "noveltyFingerprint": {
+    "crimeType": "extortion",
+    "settingType": "marine_research_desalination_platform",
+    "settingCountry": "Cape Verde",
+    "revealPattern": "victim_is_self_directed_perpetrator_for_protective_reasons",
+    "culpritStructure": "single_actor_altruistic",
+    "motiveType": "protection_of_others",
+    "deductionMechanism": "technical_metadata_and_testimony_contradiction",
+    "emotionalTone": "tense_atmospheric",
+    "characterNationalities": ["Cape Verde", "Portugal", "Ghana", "Brazil"],
+    "uniqueElements": ["self-extortion for altruistic reasons", "real hazard hidden inside a fake crime", "corporate-deadline-driven whistleblowing workaround"],
+    "structuralNoveltyScore": 9,
+    "creativeNoveltyScore": 9,
+    "globalDiversityScore": 9
+  }
+}

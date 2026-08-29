@@ -1,0 +1,1308 @@
+{
+  "caseId": "gold-fg-007",
+  "title": "The Illuminator's Hand",
+  "genre": "forgery",
+  "subgenre": "cultural_restitution_conspiracy",
+  "tone": "elegant_melancholic",
+  "difficulty": "medium",
+  "estimatedPlayTimeMinutes": {
+    "fast": 7,
+    "typical": 12,
+    "deep": 19
+  },
+  "briefing": {
+    "hook": "During a gala unveiling at the Kutlu Atelier in Istanbul, a 16th-century illuminated manuscript vanished from its display case for eleven minutes — and when it reappeared, the museum's own conservator insisted nothing was wrong.",
+    "context": "The Nizami Ledger, a rare Ottoman-era illuminated manuscript, was restored over eighteen months by chief conservator Leyla Kutlu ahead of its planned sale to a private European collector. Its provenance has long been disputed by scholars who argue it was removed from Tabriz under colonial-era acquisition practices.",
+    "tension": "Museum trustees want the sale finalized within 48 hours. If the manuscript in the case isn't the genuine article, the sale defrauds the buyer — but if investigators wrongly accuse an innocent handler of theft, a career and a reputation are destroyed for nothing.",
+    "objective": "Determine whether the manuscript was actually stolen, what happened during those eleven minutes, and why the museum's own expert is denying anything is wrong."
+  },
+  "playerRules": {
+    "investigationActions": 15,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+  "truth": {
+    "incident": "There was no theft. Leyla Kutlu, the chief conservator, secretly completed a full-fidelity facsimile of the Nizami Ledger months earlier. During the eleven-minute gap, she swapped the genuine manuscript for the facsimile and arranged for the original to be quietly transferred to a cultural foundation in Tabriz, believing its original removal from the region had been improper and that restitution was the only ethical outcome before it vanished into a private European collection forever.",
+    "responsibleParty": "leyla",
+    "whatHappened": "Leyla had spent a year documenting provenance irregularities suggesting the manuscript was taken from a Tabriz library under duress during a 19th-century diplomatic exchange. When the museum board approved a private sale rather than a public repatriation review, she completed a facsimile she had originally built for training purposes, used her authorized access to the case during the gala's chaos, and swapped the original for the copy. She then insisted publicly that nothing was wrong to buy time for the original to leave the country through a foundation contact before anyone examined the manuscript closely enough to notice.",
+    "motive": "Conviction that the manuscript's presence in the museum represented an unresolved historical wrong, and that a private sale would permanently foreclose any chance of restitution.",
+    "method": "A meticulously accurate facsimile substituted during a brief, authorized access window, followed by public denial to delay scrutiny.",
+    "centralTwist": "No theft occurred in the way anyone assumed — the person denying a crime happens is the one who quietly completed it.",
+    "secondaryTwist": "The manuscript in the case right now is a forgery so precise that only Leyla herself can reliably tell the difference.",
+    "finalTruth": "Leyla swapped the real manuscript for her own facsimile and sent the original to Tabriz, then denied anything unusual had occurred to delay detection long enough for the transfer to complete.",
+    "timeline": [
+      {
+        "time": "8 months prior",
+        "eventId": "T001",
+        "description": "Leyla begins provenance research raising doubts about the manuscript's original acquisition."
+      },
+      {
+        "time": "5 months prior",
+        "eventId": "T002",
+        "description": "Leyla completes a training facsimile of the manuscript, technically authorized for education use."
+      },
+      {
+        "time": "6 weeks prior",
+        "eventId": "T003",
+        "description": "The museum board approves a private sale rather than a public provenance review."
+      },
+      {
+        "time": "2 weeks prior",
+        "eventId": "T004",
+        "description": "Leyla contacts a cultural foundation in Tabriz."
+      },
+      {
+        "time": "19:40",
+        "eventId": "T005",
+        "description": "Gala begins; manuscript is on display in a supervised case."
+      },
+      {
+        "time": "20:05",
+        "eventId": "T006",
+        "description": "A power flicker triggers an automatic case lockdown, requiring conservator override."
+      },
+      {
+        "time": "20:06",
+        "eventId": "T007",
+        "description": "Leyla uses her override access, alone, for eleven minutes."
+      },
+      {
+        "time": "20:17",
+        "eventId": "T008",
+        "description": "The case reopens; the facsimile is back on display."
+      },
+      {
+        "time": "20:22",
+        "eventId": "T009",
+        "description": "Security officer Deniz Aydın notices Leyla's hands trembling and flags it informally."
+      },
+      {
+        "time": "20:40",
+        "eventId": "T010",
+        "description": "Collector's representative Farrokh Hosseini requests an unscheduled close inspection."
+      },
+      {
+        "time": "20:55",
+        "eventId": "T011",
+        "description": "Leyla insists the manuscript is untouched and refuses further inspection."
+      },
+      {
+        "time": "21:30",
+        "eventId": "T012",
+        "description": "Trustee Amina El-Sayed orders a formal investigation after Farrokh escalates his concerns."
+      }
+    ],
+    "criticalFacts": [
+      "A facsimile of the manuscript already existed before the gala.",
+      "Leyla had sole authorized access during the eleven-minute lockdown.",
+      "Leyla had contacted a foundation in Tabriz weeks before the gala.",
+      "Leyla is refusing all further close inspection of the manuscript.",
+      "The manuscript's provenance had genuine, documented irregularities.",
+      "Leyla's motive was restitution, not profit or theft for personal gain."
+    ],
+    "importantSecondaryTruths": [
+      "Deniz noticed Leyla's distress but assumed it was ordinary gala stress.",
+      "Farrokh's insistence on inspection was driven by his own fear of being blamed if the sale fell through.",
+      "Amina had privately supported a public provenance review and is quietly relieved the sale is now in question, though she did not know why."
+    ],
+    "culpritId": "leyla"
+  },
+  "characters": [
+    {
+      "id": "deniz",
+      "name": "Deniz Aydın",
+      "role": "security_officer",
+      "visibleDescription": "The atelier's veteran security officer, calm and observant, uncomfortable being asked to second-guess a colleague she respects.",
+      "personality": "steady_reluctant",
+      "personalityProfile": {
+        "cooperation": "high",
+        "composure": "high",
+        "defensiveness": "low",
+        "manipulation": "low",
+        "voluntaryDisclosure": "medium"
+      },
+      "knowledge": {
+        "knows": [
+          "Leyla had sole access during the lockdown.",
+          "Leyla's hands were shaking afterward.",
+          "The case's override log records exactly who accessed it and when."
+        ],
+        "doesNotKnow": [
+          "What Leyla actually did during those eleven minutes.",
+          "The existence of the facsimile."
+        ],
+        "secretFacts": [
+          "She didn't report the trembling immediately because she assumed it was nerves."
+        ],
+        "lies": [
+          "She initially minimizes how unusual Leyla's behavior was."
+        ],
+        "lieMotivation": [
+          "loyalty",
+          "not_wanting_to_implicate_a_colleague"
+        ]
+      },
+      "alibi": {
+        "claimed": "At her security post throughout the gala.",
+        "status": "verified"
+      }
+    },
+    {
+      "id": "farrokh",
+      "name": "Farrokh Hosseini",
+      "role": "collectors_representative",
+      "visibleDescription": "A meticulous Iranian art buyer's agent, polished and anxious, acutely aware his commission depends on the sale closing cleanly.",
+      "personality": "polished_anxious",
+      "personalityProfile": {
+        "cooperation": "medium",
+        "composure": "medium",
+        "defensiveness": "medium",
+        "manipulation": "medium",
+        "voluntaryDisclosure": "medium"
+      },
+      "knowledge": {
+        "knows": [
+          "Leyla refused a close inspection.",
+          "The sale is contractually time-sensitive.",
+          "Provenance disputes could void the sale entirely."
+        ],
+        "doesNotKnow": [
+          "That a facsimile exists.",
+          "Leyla's contact with the Tabriz foundation."
+        ],
+        "secretFacts": [
+          "His commission is at serious financial risk if the sale collapses, which shapes how hard he's pushing."
+        ],
+        "lies": [
+          "He downplays how much money he personally stands to lose."
+        ],
+        "lieMotivation": [
+          "self_interest",
+          "embarrassment"
+        ]
+      },
+      "alibi": {
+        "claimed": "Near the display case, watching the gala proceedings.",
+        "status": "verified"
+      }
+    },
+    {
+      "id": "amina",
+      "name": "Amina El-Sayed",
+      "role": "museum_trustee",
+      "visibleDescription": "An Egyptian-British trustee overseeing the sale, composed and quietly conflicted about the museum's handling of provenance questions.",
+      "personality": "composed_conflicted",
+      "personalityProfile": {
+        "cooperation": "high",
+        "composure": "high",
+        "defensiveness": "low",
+        "manipulation": "low",
+        "voluntaryDisclosure": "high"
+      },
+      "knowledge": {
+        "knows": [
+          "The board rejected a public provenance review in favor of a quick sale.",
+          "The manuscript's history has documented irregularities.",
+          "Leyla was the review's strongest internal advocate."
+        ],
+        "doesNotKnow": [
+          "That Leyla acted on her convictions herself.",
+          "The facsimile's existence."
+        ],
+        "secretFacts": [
+          "She personally supported the provenance review and disagreed with the board's decision to proceed with the sale."
+        ],
+        "lies": [],
+        "truthfulStatements": [
+          "She is open about her disagreement with the board once asked directly."
+        ]
+      },
+      "alibi": {
+        "claimed": "Circulating among gala guests.",
+        "status": "verified"
+      }
+    },
+    {
+      "id": "leyla",
+      "name": "Leyla Kutlu",
+      "role": "chief_conservator",
+      "visibleDescription": "The atelier's chief conservator, precise and quietly formidable, the museum's foremost authority on the manuscript in question.",
+      "personality": "controlled_convicted",
+      "personalityProfile": {
+        "cooperation": "low",
+        "composure": "high",
+        "defensiveness": "high",
+        "manipulation": "medium",
+        "voluntaryDisclosure": "very_low"
+      },
+      "knowledge": {
+        "knows": [
+          "She built the facsimile.",
+          "She swapped the manuscript during the lockdown.",
+          "She arranged the transfer to Tabriz.",
+          "The manuscript's provenance is genuinely disputed."
+        ],
+        "doesNotKnow": [
+          "Deniz noticed her trembling.",
+          "Farrokh's financial stake in the sale."
+        ],
+        "secretFacts": [
+          "She completed the swap and sent the original manuscript to a foundation in Tabriz."
+        ],
+        "lies": [
+          "She insists nothing unusual happened during the lockdown.",
+          "She claims the facsimile was destroyed after its training use.",
+          "She denies any contact with foundations abroad."
+        ],
+        "lieMotivation": [
+          "conviction",
+          "protecting_the_transfer_in_progress"
+        ]
+      },
+      "alibi": {
+        "claimed": "Alone with the case during an authorized maintenance override.",
+        "status": "unverifiable"
+      }
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q001",
+      "mechanic": "initial",
+      "text": "Tell me what happened during the eleven minutes the case was locked down.",
+      "targetCharacterIds": [
+        "deniz",
+        "farrokh",
+        "amina",
+        "leyla"
+      ],
+      "availability": {
+        "type": "initial"
+      },
+      "responses": {
+        "deniz": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q001-D-01",
+                "kind": "truth",
+                "text": "Standard override procedure. Leyla handled it alone, as protocol allows.",
+                "weight": 72
+              },
+              {
+                "id": "Q001-D-02",
+                "kind": "partial_truth",
+                "text": "Nothing unusual on paper. She seemed off afterward, though.",
+                "weight": 28
+              }
+            ]
+          }
+        ],
+        "farrokh": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q001-F-01",
+                "kind": "truth",
+                "text": "I wasn't paying attention to the case itself, just the guests near it.",
+                "weight": 65
+              },
+              {
+                "id": "Q001-F-02",
+                "kind": "partial_truth",
+                "text": "It felt longer than eleven minutes, honestly.",
+                "weight": 35
+              }
+            ]
+          }
+        ],
+        "amina": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q001-A-01",
+                "kind": "truth",
+                "text": "A power flicker triggered an automatic lockdown. Entirely routine, or it should have been.",
+                "weight": 80
+              },
+              {
+                "id": "Q001-A-02",
+                "kind": "partial_truth",
+                "text": "I didn't think much of it at the time.",
+                "weight": 20
+              }
+            ]
+          }
+        ],
+        "leyla": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q001-L-01",
+                "kind": "lie",
+                "text": "Standard maintenance override. Nothing worth discussing.",
+                "weight": 60
+              },
+              {
+                "id": "Q001-L-02",
+                "kind": "evasive",
+                "text": "I handled the lockdown according to protocol, as I always do.",
+                "weight": 40
+              }
+            ]
+          }
+        ]
+      },
+      "unlocks": [
+        "Q005"
+      ]
+    },
+    {
+      "id": "Q002",
+      "mechanic": "evidence",
+      "text": "Who had access to the case during the lockdown, according to your logs?",
+      "targetCharacterIds": [
+        "deniz"
+      ],
+      "availability": {
+        "type": "initial"
+      },
+      "responses": {
+        "deniz": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q002-D-01",
+                "kind": "truth",
+                "text": "Only Leyla. Her credentials, and no one else's, the entire time.",
+                "weight": 90,
+                "reveals": [
+                  "E002"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F002",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q002-D-02",
+                "kind": "truth",
+                "text": "The log is unambiguous — single-user access.",
+                "weight": 10,
+                "reveals": [
+                  "E002"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F002",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "unlocks": [
+        "Q006"
+      ],
+      "reveals": [
+        "E002"
+      ]
+    },
+    {
+      "id": "Q003",
+      "mechanic": "background",
+      "text": "Was there ever a formal question about how the museum acquired this manuscript?",
+      "targetCharacterIds": [
+        "amina"
+      ],
+      "availability": {
+        "type": "initial"
+      },
+      "responses": {
+        "amina": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q003-A-01",
+                "kind": "truth",
+                "text": "Yes. Leyla raised serious concerns months ago. The board chose to proceed with the sale anyway.",
+                "weight": 78,
+                "reveals": [
+                  "E005",
+                  "E003"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F005",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F003",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F006",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q003-A-02",
+                "kind": "partial_truth",
+                "text": "There were questions, but nothing was resolved before the sale was approved.",
+                "weight": 22,
+                "reveals": [
+                  "E005",
+                  "E003"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F005",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F003",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F006",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "unlocks": [
+        "Q007"
+      ],
+      "reveals": [
+        "E005",
+        "E003"
+      ]
+    },
+    {
+      "id": "Q004",
+      "mechanic": "behavior",
+      "text": "Did the conservator cooperate with your request to examine the manuscript closely?",
+      "targetCharacterIds": [
+        "farrokh"
+      ],
+      "availability": {
+        "type": "initial"
+      },
+      "responses": {
+        "farrokh": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q004-F-01",
+                "kind": "truth",
+                "text": "No. She refused outright, citing conservation risk.",
+                "weight": 68,
+                "reveals": [
+                  "E004"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F004",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q004-F-02",
+                "kind": "partial_truth",
+                "text": "She was reluctant. More than I expected for a routine check.",
+                "weight": 32,
+                "reveals": [
+                  "E004"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F004",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "unlocks": [
+        "Q008"
+      ],
+      "reveals": [
+        "E004"
+      ]
+    },
+    {
+      "id": "Q005",
+      "mechanic": "followup",
+      "text": "You said Leyla seemed 'off' afterward. What did you actually notice?",
+      "targetCharacterIds": [
+        "deniz"
+      ],
+      "availability": {
+        "type": "unlocked",
+        "when": {
+          "any": [
+            {
+              "kind": "questionAsked",
+              "id": "Q001"
+            }
+          ]
+        }
+      },
+      "responses": {
+        "deniz": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q005-D-01",
+                "kind": "evasive",
+                "text": "Just gala nerves, probably. It's a stressful night for everyone.",
+                "weight": 30,
+                "discloses": [
+                  {
+                    "factId": "F007",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q005-D-02",
+                "kind": "partial_truth",
+                "text": "Her hands were shaking when she came out. I didn't think much of it then.",
+                "weight": 45,
+                "discloses": [
+                  {
+                    "factId": "F007",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q005-D-03",
+                "kind": "admission",
+                "text": "Honestly, it looked like she'd just done something she couldn't take back.",
+                "weight": 25,
+                "discloses": [
+                  {
+                    "factId": "F007",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "Q006",
+      "mechanic": "evidence",
+      "text": "Was there ever a facsimile made of this manuscript, for any reason?",
+      "targetCharacterIds": [
+        "amina"
+      ],
+      "availability": {
+        "type": "unlocked",
+        "when": {
+          "any": [
+            {
+              "kind": "evidence",
+              "id": "E002"
+            }
+          ]
+        }
+      },
+      "responses": {
+        "amina": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q006-A-01",
+                "kind": "partial_truth",
+                "text": "There was a training copy commissioned a while back. I'd have to check the records.",
+                "weight": 55,
+                "reveals": [
+                  "E001"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F001",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q006-A-02",
+                "kind": "truth",
+                "text": "Yes — Leyla built one for educational use, several months ago.",
+                "weight": 45,
+                "reveals": [
+                  "E001"
+                ],
+                "discloses": [
+                  {
+                    "factId": "F001",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "unlocks": [
+        "Q009"
+      ],
+      "reveals": [
+        "E001"
+      ]
+    },
+    {
+      "id": "Q007",
+      "mechanic": "confrontation",
+      "text": "You raised provenance concerns about this manuscript months ago. What happened to that review?",
+      "targetCharacterIds": [
+        "leyla"
+      ],
+      "availability": {
+        "type": "unlocked",
+        "when": {
+          "any": [
+            {
+              "kind": "evidence",
+              "id": "E005"
+            }
+          ]
+        }
+      },
+      "responses": {
+        "leyla": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q007-L-01",
+                "kind": "evasive",
+                "text": "The board made its decision. It isn't my place to relitigate it.",
+                "weight": 40
+              },
+              {
+                "id": "Q007-L-02",
+                "kind": "partial_truth",
+                "text": "It was dismissed in favor of the sale. I disagreed, for what it's worth.",
+                "weight": 35
+              },
+              {
+                "id": "Q007-L-03",
+                "kind": "admission",
+                "text": "It was buried. I couldn't let this piece disappear into a private collection after that.",
+                "weight": 25
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "Q008",
+      "mechanic": "confrontation",
+      "text": "Why refuse a close inspection if there's nothing to hide?",
+      "targetCharacterIds": [
+        "leyla"
+      ],
+      "availability": {
+        "type": "unlocked",
+        "when": {
+          "any": [
+            {
+              "kind": "evidence",
+              "id": "E004"
+            }
+          ]
+        }
+      },
+      "responses": {
+        "leyla": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q008-L-01",
+                "kind": "lie",
+                "text": "Repeated handling risks damaging a fragile object. That's simply conservation practice.",
+                "weight": 45,
+                "discloses": [
+                  {
+                    "factId": "F004",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q008-L-02",
+                "kind": "partial_truth",
+                "text": "I have my reasons, and they're not about hiding anything improper.",
+                "weight": 35,
+                "discloses": [
+                  {
+                    "factId": "F004",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q008-L-03",
+                "kind": "admission",
+                "text": "Because a close inspection right now would confirm what I don't want confirmed yet.",
+                "weight": 20,
+                "discloses": [
+                  {
+                    "factId": "F004",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "Q009",
+      "mechanic": "confrontation",
+      "text": "A facsimile existed, you had sole access during the lockdown, and you've contacted a foundation in Tabriz. What actually happened to the original manuscript?",
+      "targetCharacterIds": [
+        "leyla"
+      ],
+      "availability": {
+        "type": "unlocked",
+        "when": {
+          "all": [
+            {
+              "kind": "evidence",
+              "id": "E001"
+            },
+            {
+              "kind": "evidence",
+              "id": "E002"
+            },
+            {
+              "kind": "evidence",
+              "id": "E003"
+            }
+          ]
+        }
+      },
+      "responses": {
+        "leyla": [
+          {
+            "context": "initial",
+            "variants": [
+              {
+                "id": "Q009-L-01",
+                "kind": "lie",
+                "text": "The manuscript in that case is genuine. I have no idea what you're implying.",
+                "weight": 15,
+                "discloses": [
+                  {
+                    "factId": "F003",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F005",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F006",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F002",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F001",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q009-L-02",
+                "kind": "partial_truth",
+                "text": "I did what the museum wouldn't. That should tell you enough.",
+                "weight": 35,
+                "discloses": [
+                  {
+                    "factId": "F003",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F005",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F006",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F002",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F001",
+                    "clarity": "full"
+                  }
+                ]
+              },
+              {
+                "id": "Q009-L-03",
+                "kind": "admission",
+                "text": "The manuscript on display is my facsimile. The original is on its way home to Tabriz, where it should have gone years ago.",
+                "weight": 50,
+                "discloses": [
+                  {
+                    "factId": "F003",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F005",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F006",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F002",
+                    "clarity": "full"
+                  },
+                  {
+                    "factId": "F001",
+                    "clarity": "full"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "contradictions": [
+    {
+      "id": "CON001",
+      "type": "access",
+      "description": "Leyla says nothing unusual happened, yet the override log records that she alone accessed the case during the window in question.",
+      "significance": "critical",
+      "confrontationQuestionId": "Q009",
+      "surfaceWhen": {
+        "any": [
+          {
+            "kind": "questionAsked",
+            "id": "Q002"
+          }
+        ]
+      }
+    },
+    {
+      "id": "CON002",
+      "type": "behavior",
+      "description": "Leyla has refused a close inspection even while insisting there is nothing to find.",
+      "significance": "critical",
+      "confrontationQuestionId": "Q008",
+      "surfaceWhen": {
+        "any": [
+          {
+            "kind": "questionAsked",
+            "id": "Q004"
+          }
+        ]
+      }
+    },
+    {
+      "id": "CON003",
+      "type": "motive",
+      "description": "Leyla's own provenance review was dismissed months before the gala, which may help explain why she acted without involving anyone else.",
+      "significance": "high",
+      "confrontationQuestionId": "Q007",
+      "surfaceWhen": {
+        "any": [
+          {
+            "kind": "questionAsked",
+            "id": "Q003"
+          }
+        ]
+      }
+    }
+  ],
+  "accusation": {
+    "dimensions": [
+      {
+        "id": "responsibleParty",
+        "prompt": "Who altered the manuscript on display?",
+        "required": true,
+        "options": [
+          "leyla",
+          "deniz",
+          "farrokh",
+          "amina",
+          "unknown"
+        ],
+        "correctValue": "leyla"
+      },
+      {
+        "id": "whatHappened",
+        "prompt": "What actually happened to the manuscript?",
+        "required": true,
+        "options": [
+          {
+            "value": "swapped_for_facsimile_and_repatriated",
+            "label": "Leyla swapped it for her own facsimile and sent the original to Tabriz."
+          },
+          {
+            "value": "genuinely_stolen",
+            "label": "The manuscript was genuinely stolen by an outside party."
+          },
+          {
+            "value": "never_touched",
+            "label": "Nothing happened; the manuscript on display is genuine."
+          },
+          {
+            "value": "sold_privately",
+            "label": "Leyla sold the original manuscript for personal profit."
+          }
+        ],
+        "correctValue": "swapped_for_facsimile_and_repatriated"
+      },
+      {
+        "id": "motive",
+        "prompt": "Why did she do it?",
+        "required": true,
+        "options": [
+          {
+            "value": "restitution_conviction",
+            "label": "She believed the manuscript belonged back in Tabriz and the sale would foreclose that forever."
+          },
+          {
+            "value": "personal_profit",
+            "label": "She intended to sell the original manuscript herself."
+          },
+          {
+            "value": "revenge_on_board",
+            "label": "She wanted to embarrass the board for rejecting her review."
+          },
+          {
+            "value": "protecting_reputation",
+            "label": "She was covering up an earlier restoration mistake."
+          }
+        ],
+        "correctValue": "restitution_conviction"
+      }
+    ],
+    "correctSolution": {
+      "responsibleParty": "leyla",
+      "whatHappened": "swapped_for_facsimile_and_repatriated",
+      "motive": "restitution_conviction"
+    }
+  },
+  "reveal": {
+    "headline": "There was no theft — only a quiet act of restitution disguised as nothing at all.",
+    "narrative": [
+      "The Nizami Ledger was never stolen in the way anyone assumed.",
+      "Chief conservator Leyla Kutlu had spent months documenting irregularities in how the manuscript left Tabriz over a century ago.",
+      "When the museum board chose a quick private sale over a public provenance review, Leyla used an authorized maintenance lockdown to swap the genuine manuscript for a facsimile she had built months earlier for entirely different reasons.",
+      "She then denied that anything unusual had happened, buying time for the original to reach a cultural foundation in Tabriz before anyone examined it closely enough to notice the substitution.",
+      "Deniz saw her distress but assumed it was ordinary nerves. Farrokh pushed for inspection purely out of his own financial anxiety. Amina's quiet disagreement with the board long predated the swap and played no part in it.",
+      "What looked like a theft to be solved was, underneath, a conviction that had already been acted on — and a manuscript already on its way home."
+    ],
+    "truthBreakdown": [
+      {
+        "fact": "A facsimile existed before the gala.",
+        "importance": "critical",
+        "discoveredThrough": [
+          "Amina",
+          "archive record"
+        ]
+      },
+      {
+        "fact": "Leyla had sole access during the lockdown.",
+        "importance": "critical",
+        "discoveredThrough": [
+          "Deniz",
+          "override log"
+        ]
+      },
+      {
+        "fact": "Leyla contacted a Tabriz foundation in advance.",
+        "importance": "critical",
+        "discoveredThrough": [
+          "Leyla confrontation"
+        ]
+      },
+      {
+        "fact": "The provenance dispute was real and previously dismissed.",
+        "importance": "critical",
+        "discoveredThrough": [
+          "Amina"
+        ]
+      },
+      {
+        "fact": "Leyla's motive was conviction, not profit.",
+        "importance": "critical",
+        "discoveredThrough": [
+          "Leyla confrontation"
+        ]
+      }
+    ]
+  },
+  "relationships": [
+    {
+      "id": "REL-LEYLA-DENIZ",
+      "a": "leyla",
+      "b": "deniz",
+      "type": "colleague",
+      "description": "Leyla and Deniz have worked at the atelier together for years."
+    },
+    {
+      "id": "REL-LEYLA-AMINA",
+      "a": "leyla",
+      "b": "amina",
+      "type": "professional_ally",
+      "description": "Amina supported Leyla's push for a public provenance review."
+    },
+    {
+      "id": "REL-LEYLA-FARROKH",
+      "a": "leyla",
+      "b": "farrokh",
+      "type": "professional_acquaintance",
+      "description": "Farrokh has dealt with Leyla only through formal sale logistics."
+    },
+    {
+      "id": "REL-AMINA-FARROKH",
+      "a": "amina",
+      "b": "farrokh",
+      "type": "business_contact",
+      "description": "Amina oversees the sale terms Farrokh is negotiating on behalf of the buyer."
+    }
+  ],
+  "facts": [
+    {
+      "id": "F001",
+      "tier": "A",
+      "category": "evidence",
+      "statement": "A facsimile of the manuscript already existed before the gala.",
+      "critical": true
+    },
+    {
+      "id": "F002",
+      "tier": "A",
+      "category": "access",
+      "statement": "Leyla had sole authorized access to the case during the eleven-minute lockdown.",
+      "critical": true
+    },
+    {
+      "id": "F003",
+      "tier": "A",
+      "category": "intent",
+      "statement": "Leyla contacted a foundation in Tabriz weeks before the gala.",
+      "critical": true
+    },
+    {
+      "id": "F004",
+      "tier": "A",
+      "category": "behavior",
+      "statement": "Leyla refuses to allow further close inspection of the manuscript.",
+      "critical": true
+    },
+    {
+      "id": "F005",
+      "tier": "A",
+      "category": "background",
+      "statement": "The manuscript's provenance has genuine, documented irregularities.",
+      "critical": true
+    },
+    {
+      "id": "F006",
+      "tier": "A",
+      "category": "motive",
+      "statement": "Leyla's actions were motivated by restitution conviction, not personal profit.",
+      "critical": true
+    },
+    {
+      "id": "F007",
+      "tier": "B",
+      "category": "behavior",
+      "statement": "Deniz noticed Leyla's hands trembling right after the lockdown ended.",
+      "critical": false
+    },
+    {
+      "id": "F008",
+      "tier": "B",
+      "category": "motive",
+      "statement": "Farrokh has a personal financial stake in the sale closing quickly.",
+      "critical": false
+    },
+    {
+      "id": "F009",
+      "tier": "C",
+      "category": "context",
+      "statement": "Amina privately disagreed with the board's decision to skip a provenance review.",
+      "critical": false
+    }
+  ],
+  "evidence": [
+    {
+      "id": "E001",
+      "name": "Facsimile Commission Record",
+      "description": "An internal requisition shows Leyla built a full-fidelity training facsimile of the manuscript five months ago.",
+      "discoverability": "Amina or archive review",
+      "supports": [
+        "F001"
+      ]
+    },
+    {
+      "id": "E002",
+      "name": "Case Override Log",
+      "description": "The display case's access log shows only Leyla's credentials were used during the eleven-minute lockdown.",
+      "discoverability": "Deniz interrogation",
+      "supports": [
+        "F002"
+      ]
+    },
+    {
+      "id": "E003",
+      "name": "Foundation Correspondence",
+      "description": "An email trail shows Leyla arranging a transfer with a cultural foundation in Tabriz two weeks before the gala.",
+      "discoverability": "Amina interrogation or archive review",
+      "supports": [
+        "F003"
+      ]
+    },
+    {
+      "id": "E004",
+      "name": "Inspection Refusal",
+      "description": "Leyla formally declined Farrokh's request for a close technical inspection, citing 'conservation risk.'",
+      "discoverability": "Farrokh interrogation",
+      "supports": [
+        "F004"
+      ]
+    },
+    {
+      "id": "E005",
+      "name": "Provenance Dossier",
+      "description": "Leyla's own research file documents irregularities in the manuscript's 19th-century acquisition.",
+      "discoverability": "Amina interrogation",
+      "supports": [
+        "F005"
+      ]
+    }
+  ],
+  "redHerrings": [
+    {
+      "id": "RH001",
+      "characterId": "farrokh",
+      "surfaceSuspicion": "He's pushing hardest for inspection and has the most to lose from delay.",
+      "actualReason": "His urgency is about his own commission, not any involvement in what happened to the manuscript.",
+      "crimeConnection": "unrelated"
+    },
+    {
+      "id": "RH002",
+      "characterId": "deniz",
+      "surfaceSuspicion": "She noticed something was wrong and didn't report it right away.",
+      "actualReason": "She assumed ordinary stress and stayed loyal to a colleague she trusted.",
+      "crimeConnection": "unrelated"
+    },
+    {
+      "id": "RH003",
+      "characterId": "amina",
+      "surfaceSuspicion": "She quietly disagreed with the board and seems relieved the sale is now in doubt.",
+      "actualReason": "Her disagreement was principled and predates the swap; she had no knowledge of Leyla's plan.",
+      "crimeConnection": "unrelated"
+    }
+  ],
+  "solutionPaths": [
+    {
+      "id": "PATH_A",
+      "name": "Access path",
+      "description": "Override log → sole access → facsimile record → foundation correspondence → confrontation and admission.",
+      "criticalFacts": [
+        "F002",
+        "F001",
+        "F003",
+        "F006"
+      ],
+      "approximateActions": 8
+    },
+    {
+      "id": "PATH_B",
+      "name": "Provenance path",
+      "description": "Dismissed review → Leyla's documented convictions → refusal to allow inspection → admission.",
+      "criticalFacts": [
+        "F005",
+        "F004",
+        "F006"
+      ],
+      "approximateActions": 9
+    },
+    {
+      "id": "PATH_C",
+      "name": "Behavioral path",
+      "description": "Deniz's observation of distress → access log → facsimile discovery → confrontation.",
+      "criticalFacts": [
+        "F007",
+        "F002",
+        "F001",
+        "F006"
+      ],
+      "approximateActions": 10
+    }
+  ],
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "singleExactQuestionSequenceRequired": false,
+    "multipleIndependentSolutionPaths": true,
+    "minimumIndependentSolutionPaths": 3,
+    "innocentDeceptionPresent": true,
+    "guiltyPersonIsNotTheOnlyDeceptiveCharacter": true,
+    "truthfulSuspiciousCharacterPresent": true,
+    "sameTopicCanProduceDifferentAnswers": true,
+    "globalCanonicalTruth": true,
+    "playerSpecificResponseVariation": true,
+    "responseVariationCannotMakeCaseUnsovlable": true,
+    "fabricatedNonEventSupported": true,
+    "ideologicalMotiveNotFinancialOrSelfPreservation": true,
+    "criticalFactsHaveRedundantDiscoveryRoutes": true,
+    "contradictionsHaveCanonicalBases": true,
+    "revealExplainsApparentTheft": true,
+    "targetPlayTimeMinutes": {
+      "minimum": 5,
+      "maximum": 20
+    }
+  }
+}

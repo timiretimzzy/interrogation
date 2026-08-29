@@ -1,0 +1,26 @@
+
+ RUN  v2.1.9 c:/Users/TIMIRE/Downloads/ai_game
+
+ ❯ src/core/engine.test.ts (15 tests | 1 failed) 28ms
+   × context-gated variants unlock when the earned context is present > ravi Q010 admission requires after_clue_C001 context 6ms
+     → Cannot read properties of undefined (reading '0')
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/engine.test.ts > context-gated variants unlock when the earned context is present > ravi Q010 admission requires after_clue_C001 context
+TypeError: Cannot read properties of undefined (reading '0')
+ ❯ src/core/engine.test.ts:92:39
+     90|   it('ravi Q010 admission requires after_clue_C001 context', () => {
+     91|     const ravi10 = gold.questions.find((q) => q.id === 'Q010')!;
+     92|     const rc = ravi10.responses['ravi'][0];
+       |                                       ^
+     93|     const without = eligibleVariants(rc, init());
+     94|     expect(without.some((v) => v.requiresContext === 'after_clue_C001'…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  14:44:38
+   Duration  2.39s (transform 283ms, setup 0ms, collect 384ms, tests 28ms, environment 1.32s, prepare 224ms)
+

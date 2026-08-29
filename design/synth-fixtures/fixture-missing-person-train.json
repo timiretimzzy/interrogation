@@ -1,0 +1,270 @@
+{
+  "caseId": "synth-mpt-001",
+  "title": "The 9:40 Disappears",
+  "genre": "missing_person",
+  "tone": "tense_quiet",
+  "difficulty": "medium",
+  "estimatedPlayTimeMinutes": { "fast": 6, "typical": 11, "deep": 18 },
+  "briefing": {
+    "hook": "At 9:40 PM the overnight train to Greyport slowed for a signal, and passenger Morgan Hale was no longer in their compartment.",
+    "context": "The door was locked from the inside. Morgan's phone, coat, and ticket were still on the seat.",
+    "tension": "No one reported seeing Morgan leave, yet the train had not stopped.",
+    "objective": "Determine what happened to Morgan and who was responsible."
+  },
+  "playerRules": {
+    "investigationActions": 14,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+  "truth": {
+    "incident": "Morgan, facing creditors, chose to disappear. Business partner Ravi helped stage it: he unlocked the compartment from the corridor side and the two stepped into the service vestibule at the slow signal, where Morgan transferred to a waiting contact. The 'locked from inside' door was re-latched from the corridor after they left.",
+    "culpritId": "ravi",
+    "whatHappened": "staged_disappearance_with_help",
+    "motive": "protect_morgan_from_creditors",
+    "method": "corridor_side_unlock_and_service_vestibule_transfer",
+    "timeline": [
+      { "time": "21:10", "eventId": "T1", "description": "Morgan and Ravi share a drink in the lounge." },
+      { "time": "21:38", "eventId": "T2", "description": "Train slows for a signal near Greyport junction." },
+      { "time": "21:40", "eventId": "T3", "description": "Ravi unlocks Morgan's compartment from the corridor; both enter the service vestibule." },
+      { "time": "21:41", "eventId": "T4", "description": "Morgan steps to a waiting contact; Ravi re-latches the door from the corridor." }
+    ],
+    "criticalFacts": [
+      "Morgan left voluntarily with help.",
+      "The compartment was re-latched from the corridor, not the inside.",
+      "Ravi had a key to the corridor-side latch.",
+      "A service vestibule existed between the compartment and the outside.",
+      "Morgan was under creditor pressure.",
+      "No struggle occurred."
+    ],
+    "importantSecondaryTruths": [
+      "Ada lied about seeing Morgan at 21:39 because she was drinking in the lounge and felt embarrassed.",
+      "Lou noticed the corridor door click but assumed it was the conductor."
+    ]
+  },
+  "characters": [
+    {
+      "id": "ravi", "name": "Ravi Sen", "role": "suspect",
+      "visibleDescription": "Morgan's business partner. Polished, calm, oddly unbothered by the disappearance.",
+      "personality": "calculating",
+      "personalityProfile": { "cooperation": "low", "composure": "high", "defensiveness": "medium", "manipulation": "high", "voluntaryDisclosure": "low" },
+      "knowledge": {
+        "knows": ["Morgan wanted to disappear", "He unlocked the compartment from the corridor", "The service vestibule exists"],
+        "doesNotKnow": ["Where Morgan went after", "The contact's name"],
+        "secrets": ["He helped Morgan leave", "He has creditor leverage over Morgan"],
+        "lies": ["He claims he was asleep the whole time", "He claims he never had a compartment key"],
+        "lieMotivation": ["protect_morgan", "self_preservation"]
+      },
+      "alibi": { "claimed": "Asleep in his compartment", "status": "fabricated" }
+    },
+    {
+      "id": "ada", "name": "Ada Cole", "role": "witness",
+      "visibleDescription": "A fellow passenger who spent the evening in the lounge. Friendly but flustered.",
+      "personality": "nervous",
+      "personalityProfile": { "cooperation": "high", "composure": "low", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" },
+      "knowledge": {
+        "knows": ["She saw Morgan around 21:30 in the lounge", "She did not watch the corridor after"],
+        "doesNotKnow": ["How Morgan left"],
+        "secrets": ["She was drinking more than she admitted"],
+        "lies": ["She claimed she saw Morgan at 21:39 near the compartment"],
+        "lieMotivation": ["embarrassment"]
+      },
+      "alibi": { "claimed": "In the lounge", "status": "true" }
+    },
+    {
+      "id": "lou", "name": "Lou Marsh", "role": "witness",
+      "visibleDescription": "A retired engineer in the next compartment. Observant, precise.",
+      "personality": "cold",
+      "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "medium" },
+      "knowledge": {
+        "knows": ["He heard a corridor door click near 21:40", "He saw Ravi near the vestibule earlier"],
+        "doesNotKnow": ["What happened inside"],
+        "secrets": [], "lies": []
+      },
+      "alibi": { "claimed": "Reading in his compartment", "status": "true" }
+    },
+    {
+      "id": "conductor", "name": "Wren Okafor", "role": "employee",
+      "visibleDescription": "The train conductor. Professional, protective of the railway's reputation.",
+      "personality": "cooperative",
+      "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "high" },
+      "knowledge": {
+        "knows": ["The corridor-side latch can be opened with a standard compartment key", "A service vestibule sits between compartment and platform", "No stop was scheduled at 21:40"],
+        "doesNotKnow": ["Who used the latch"], "secrets": [], "lies": []
+      },
+      "alibi": { "claimed": "In the guard's van", "status": "true" }
+    }
+  ],
+  "facts": [
+    { "id": "F001", "tier": "A", "category": "agency", "statement": "Morgan left voluntarily with help.", "critical": true },
+    { "id": "F002", "tier": "A", "category": "access", "statement": "The compartment was re-latched from the corridor, not the inside.", "critical": true },
+    { "id": "F003", "tier": "A", "category": "access", "statement": "Ravi could open the corridor-side latch.", "critical": true },
+    { "id": "F004", "tier": "A", "category": "access", "statement": "A service vestibule exists between compartment and platform.", "critical": true },
+    { "id": "F005", "tier": "A", "category": "motive", "statement": "Morgan was under creditor pressure.", "critical": true },
+    { "id": "F006", "tier": "B", "category": "behavior", "statement": "Ada lied about the time she saw Morgan.", "critical": false },
+    { "id": "F007", "tier": "B", "category": "observation", "statement": "Lou heard a corridor door click near 21:40.", "critical": false }
+  ],
+  "evidence": [
+    { "id": "E001", "name": "Latch Key", "description": "A standard compartment key found in Ravi's kit.", "discoverability": "Ravi interrogation", "supports": ["F003"] },
+    { "id": "E002", "name": "Vestibule Diagram", "description": "Railway schematic showing the service vestibule.", "discoverability": "Conductor interrogation", "supports": ["F004"] },
+    { "id": "E003", "name": "Creditor Letter", "description": "A demand letter addressed to Morgan.", "discoverability": "Background", "supports": ["F005"] }
+  ],
+  "clues": [
+    { "id": "C001", "title": "The Door Was Re-latched", "description": "The latch shows corridor-side engagement.", "importance": "critical" },
+    { "id": "C002", "title": "Ravi Had a Key", "description": "Ravi possessed a compartment key.", "importance": "critical" },
+    { "id": "C003", "title": "Ada's Timeline Slips", "description": "Ada's story about 21:39 does not hold.", "importance": "secondary" }
+  ],
+  "questions": [
+    {
+      "id": "Q001", "mechanic": "TIMELINE", "text": "Where were you around 9:40 PM?",
+      "targetCharacterIds": ["ravi", "ada", "lou", "conductor"], "availability": { "type": "initial" },
+      "responses": {
+        "ravi": [{ "context": "initial", "variants": [
+          { "id": "Q001-R-01", "text": "Asleep in my compartment.", "kind": "DIRECT_LIE", "weight": 12, "discloses": [] },
+          { "id": "Q001-R-02", "text": "Resting. I kept to myself.", "kind": "EVASIVE", "weight": 30, "discloses": [] },
+          { "id": "Q001-R-03", "text": "I was up near the lounge for a while.", "kind": "PARTIAL_TRUTH", "weight": 40, "discloses": [], "unlocks": ["Q010"] },
+          { "id": "Q001-R-04", "text": "I stepped into the corridor briefly.", "kind": "TRUTH", "weight": 18, "discloses": [{ "factId": "F002", "clarity": "partial" }], "unlocks": ["Q011"] }
+        ] }],
+        "ada": [{ "context": "initial", "variants": [
+          { "id": "Q001-A-01", "text": "In the lounge, mostly.", "kind": "TRUTH", "weight": 70, "discloses": [], "unlocks": ["Q012"] },
+          { "id": "Q001-A-02", "text": "Around the car, I suppose.", "kind": "EVASIVE", "weight": 20, "discloses": [] },
+          { "id": "Q001-A-03", "text": "I saw Morgan near the compartment at 21:39.", "kind": "DIRECT_LIE", "weight": 10, "discloses": [], "createsContradiction": "CON001" }
+        ] }],
+        "lou": [{ "context": "initial", "variants": [
+          { "id": "Q001-L-01", "text": "Reading in my compartment.", "kind": "TRUTH", "weight": 80, "discloses": [], "unlocks": ["Q013"] },
+          { "id": "Q001-L-02", "text": "I may have dozed.", "kind": "UNCERTAIN", "weight": 20, "discloses": [] }
+        ] }],
+        "conductor": [{ "context": "initial", "variants": [
+          { "id": "Q001-W-01", "text": "In the guard's van, as required.", "kind": "TRUTH", "weight": 90, "discloses": [], "unlocks": ["Q014"] },
+          { "id": "Q001-W-02", "text": "Doing my rounds.", "kind": "PARTIAL_TRUTH", "weight": 10, "discloses": [] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q010", "mechanic": "FOLLOW_UP", "text": "You said you were near the lounge. Did you see Morgan there?",
+      "targetCharacterIds": ["ravi"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "questionAsked", "id": "Q001" }] } },
+      "responses": {
+        "ravi": [{ "context": "initial", "variants": [
+          { "id": "Q010-R-01", "text": "Briefly, yes.", "kind": "PARTIAL_TRUTH", "weight": 55, "discloses": [{ "factId": "F001", "clarity": "partial" }], "unlocks": ["Q020"] },
+          { "id": "Q010-R-02", "text": "I don't recall.", "kind": "EVASIVE", "weight": 30, "discloses": [] },
+          { "id": "Q010-R-03", "text": "No, I was alone.", "kind": "DIRECT_LIE", "weight": 15, "discloses": [] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q011", "mechanic": "CONFRONTATION", "text": "You said you stepped into the corridor. The latch shows corridor-side engagement. Explain.",
+      "targetCharacterIds": ["ravi"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "clue", "id": "C001" }] } },
+      "responses": {
+        "ravi": [{ "context": "initial", "variants": [
+          { "id": "Q011-R-01", "text": "I may have bumped the door.", "kind": "EVASIVE", "weight": 40, "discloses": [{ "factId": "F002", "clarity": "partial" }] },
+          { "id": "Q011-R-02", "text": "I only checked the latch.", "kind": "PARTIAL_TRUTH", "weight": 35, "discloses": [{ "factId": "F002", "clarity": "partial" }], "unlocks": ["Q021"] },
+          { "id": "Q011-R-03", "text": "Fine. Morgan asked me to help.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F001", "clarity": "full" }, { "factId": "F002", "clarity": "full" }], "unlocks": ["Q022"] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q012", "mechanic": "OBSERVATION", "text": "Did you see Morgan after 9:30?",
+      "targetCharacterIds": ["ada"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "questionAsked", "id": "Q001" }] } },
+      "responses": {
+        "ada": [{ "context": "initial", "variants": [
+          { "id": "Q012-A-01", "text": "Yes, in the lounge around 21:30.", "kind": "TRUTH", "weight": 75, "discloses": [{ "factId": "F001", "clarity": "partial" }] },
+          { "id": "Q012-A-02", "text": "I think so.", "kind": "UNCERTAIN", "weight": 15, "discloses": [] },
+          { "id": "Q012-A-03", "text": "I definitely saw them at the compartment at 21:39.", "kind": "DIRECT_LIE", "weight": 10, "discloses": [], "createsContradiction": "CON001" }
+        ] }]
+      }
+    },
+    {
+      "id": "Q013", "mechanic": "OBSERVATION", "text": "Did you hear anything near the corridor at 9:40?",
+      "targetCharacterIds": ["lou"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "questionAsked", "id": "Q001" }] } },
+      "responses": {
+        "lou": [{ "context": "initial", "variants": [
+          { "id": "Q013-L-01", "text": "A soft click near 21:40, like a latch.", "kind": "TRUTH", "weight": 85, "discloses": [{ "factId": "F002", "clarity": "partial" }], "reveals": ["C001"], "unlocks": ["Q015"] },
+          { "id": "Q013-L-02", "text": "Perhaps. Hard to say.", "kind": "UNCERTAIN", "weight": 15, "discloses": [] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q014", "mechanic": "KNOWLEDGE", "text": "Can the compartment latch be opened from the corridor?",
+      "targetCharacterIds": ["conductor"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "questionAsked", "id": "Q001" }] } },
+      "responses": {
+        "conductor": [{ "context": "initial", "variants": [
+          { "id": "Q014-W-01", "text": "Yes, with a standard compartment key.", "kind": "TRUTH", "weight": 88, "discloses": [{ "factId": "F003", "clarity": "full" }], "unlocks": ["Q016"] },
+          { "id": "Q014-W-02", "text": "There is a way, technically.", "kind": "PARTIAL_TRUTH", "weight": 12, "discloses": [{ "factId": "F003", "clarity": "partial" }] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q020", "mechanic": "MOTIVE", "text": "Why would Morgan want to disappear?",
+      "targetCharacterIds": ["ravi"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "questionAsked", "id": "Q010" }] } },
+      "responses": {
+        "ravi": [{ "context": "initial", "variants": [
+          { "id": "Q020-R-01", "text": "Morgan was under pressure.", "kind": "PARTIAL_TRUTH", "weight": 60, "discloses": [{ "factId": "F005", "clarity": "partial" }], "reveals": ["C002"] },
+          { "id": "Q020-R-02", "text": "I wouldn't know.", "kind": "EVASIVE", "weight": 25, "discloses": [] },
+          { "id": "Q020-R-03", "text": "Creditors were circling.", "kind": "TRUTH", "weight": 15, "discloses": [{ "factId": "F005", "clarity": "full" }] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q021", "mechanic": "CONFRONTATION", "text": "You 'checked the latch.' Where is your key?",
+      "targetCharacterIds": ["ravi"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "evidence", "id": "E001" }] } },
+      "responses": {
+        "ravi": [{ "context": "initial", "variants": [
+          { "id": "Q021-R-01", "text": "It's a standard key. Lots of people have one.", "kind": "EVASIVE", "weight": 45, "discloses": [{ "factId": "F003", "clarity": "full" }] },
+          { "id": "Q021-R-02", "text": "I borrowed it.", "kind": "PARTIAL_TRUTH", "weight": 35, "discloses": [{ "factId": "F003", "clarity": "full" }], "unlocks": ["Q022"] },
+          { "id": "Q021-R-03", "text": "I had it. Morgan asked me to.", "kind": "ADMISSION", "weight": 20, "requiresContext": "after_evidence_E001", "discloses": [{ "factId": "F001", "clarity": "full" }] }
+        ] }]
+      }
+    },
+    {
+      "id": "Q022", "mechanic": "CONFRONTATION", "text": "Ravi, Lou heard the latch and you had the key. Tell the truth.",
+      "targetCharacterIds": ["ravi"], "availability": { "type": "unlocked", "when": { "all": [{ "kind": "questionAsked", "id": "Q011" }, { "kind": "questionAsked", "id": "Q021" }] } },
+      "responses": {
+        "ravi": [{ "context": "initial", "variants": [
+          { "id": "Q022-R-01", "text": "Morgan wanted out. I helped.", "kind": "ADMISSION", "weight": 100, "discloses": [{ "factId": "F001", "clarity": "full" }, { "factId": "F002", "clarity": "full" }], "reveals": ["C001", "C002"] }
+        ] }]
+      }
+    }
+  ],
+  "statements": [
+    { "id": "S-ADA-SEEING", "characterId": "ada", "sourceQuestionId": "Q001", "canonicalMeaning": "Ada claims she saw Morgan at the compartment at 21:39.", "truthState": "DIRECT_LIE" },
+    { "id": "S-ADA-LOUNGE", "characterId": "ada", "sourceQuestionId": "Q012", "canonicalMeaning": "Ada claims she saw Morgan in the lounge at 21:30.", "truthState": "TRUTH" }
+  ],
+  "contradictions": [
+    { "id": "CON001", "type": "timeline", "description": "Ada says she saw Morgan at the compartment at 21:39, but her own lounge account places Morgan elsewhere.", "statementRefs": ["S-ADA-SEEING"], "importance": "secondary", "possibleInterpretations": ["Ada is mistaken", "Ada is lying to seem helpful"], "confrontationQuestionId": "Q012" },
+    { "id": "CON002", "type": "knowledge", "description": "The corridor-side latch was engaged, which only someone with a key could do after the train moved.", "importance": "critical", "surfaceWhen": { "any": [{ "kind": "clue", "id": "C001" }, { "kind": "evidence", "id": "E001" }] }, "confrontationQuestionId": "Q011" }
+  ],
+  "redHerrings": [
+    { "id": "RH001", "characterId": "ada", "surfaceSuspicion": "She lied about seeing Morgan.", "actualReason": "Embarrassment about drinking in the lounge.", "crimeConnection": "unrelated" }
+  ],
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Latch path", "description": "Conductor key fact -> Ravi key -> latch -> admission.", "criticalFacts": ["F002", "F003"], "approximateActions": 9 },
+    { "id": "PATH_B", "name": "Motive path", "description": "Creditor letter -> Ravi help -> admission.", "criticalFacts": ["F005", "F001"], "approximateActions": 10 }
+  ],
+  "accusation": {
+    "dimensions": [
+      { "id": "culprit", "prompt": "Who was responsible for Morgan's disappearance?", "required": true, "options": ["ravi", "ada", "lou", "conductor"], "correctValue": "ravi" },
+      { "id": "what", "prompt": "What actually happened?", "required": true, "options": [{ "value": "abducted", "label": "Morgan was forcibly taken." }, { "value": "staged_disappearance_with_help", "label": "Morgan left voluntarily with help." }, { "value": "accident", "label": "Morgan fell from the train." }], "correctValue": "staged_disappearance_with_help" },
+      { "id": "motive", "prompt": "Why?", "required": true, "options": [{ "value": "protect_morgan_from_creditors", "label": "To protect Morgan from creditors." }, { "value": "ran_away", "label": "Morgan simply ran away alone." }, { "value": "revenge", "label": "Revenge against Morgan." }], "correctValue": "protect_morgan_from_creditors" }
+    ],
+    "correctSolution": { "culprit": "ravi", "what": "staged_disappearance_with_help", "motive": "protect_morgan_from_creditors" }
+  },
+  "reveal": {
+    "headline": "Morgan was never taken. Ravi helped them leave.",
+    "narrative": [
+      "Morgan faced creditor pressure and chose to disappear.",
+      "Ravi, holding leverage, helped: he unlocked the compartment from the corridor at the slow signal.",
+      "Both stepped into the service vestibule; Morgan transferred to a contact while Ravi re-latched the door from the corridor.",
+      "Ada's lie about 21:39 was embarrassment, not involvement.",
+      "The 'locked from inside' detail was the key: it was re-latched from the corridor."
+    ],
+    "truthBreakdown": [
+      { "fact": "Morgan left voluntarily with help.", "importance": "critical", "discoveredThrough": ["Ravi admission"] },
+      { "fact": "The door was re-latched from the corridor.", "importance": "critical", "discoveredThrough": ["Lou", "Latch key"] },
+      { "fact": "Ada lied for an unrelated reason.", "importance": "secondary", "discoveredThrough": ["Ada cross-examination"] }
+    ]
+  }
+}

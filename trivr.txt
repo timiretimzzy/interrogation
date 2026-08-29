@@ -1,0 +1,16 @@
+failed to load config from c:\Users\TIMIRE\Downloads\ai_game\vitest.config.ts
+
+⎯⎯⎯⎯⎯⎯⎯ Startup Error ⎯⎯⎯⎯⎯⎯⎯⎯
+Error: config must export or return an object.
+    at loadConfigFromFile (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:66824:13)
+    at async resolveConfig (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:66416:24)
+    at async _createServer (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:63015:18)
+    at async createViteServer (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js:9842:18)
+    at async createVitest (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js:11461:18)
+    at async prepareVitest (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js:11884:15)
+    at async startVitest (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vitest/dist/chunks/cli-api.DqsSTaIi.js:11813:15)
+    at async start (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vitest/dist/chunks/cac.CB_9Zo9Q.js:1506:17)
+    at async CAC.run (file:///c:/Users/TIMIRE/Downloads/ai_game/node_modules/vitest/dist/chunks/cac.CB_9Zo9Q.js:1486:3)
+
+
+

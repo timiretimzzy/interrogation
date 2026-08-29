@@ -1,0 +1,26 @@
+
+ RUN  v2.1.9 c:/Users/TIMIRE/Downloads/ai_game
+
+ ❯ src/core/engine.test.ts (15 tests | 1 failed) 50ms
+   × cardEngine.ask applies effects > a revealed clue earns a context that unlocks a context-gated variant 23ms
+     → expected [] to include 'C001'
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/engine.test.ts > cardEngine.ask applies effects > a revealed clue earns a context that unlocks a context-gated variant
+AssertionError: expected [] to include 'C001'
+ ❯ src/core/engine.test.ts:92:45
+     90|     const afterQ1 = ask(gold, s0, 'theo', 'Q001');
+     91|     const afterTheo = ask(gold, afterQ1.state, 'theo', 'Q015');
+     92|     expect(afterTheo.state.discoveredClues).toContain('C001');
+       |                                             ^
+     93|     expect(afterTheo.state.contextSwitches).toContain('after_clue_C001…
+     94|     const ravi10 = gold.questions.find((q) => q.id === 'Q010')!;
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  14:43:09
+   Duration  3.80s (transform 292ms, setup 0ms, collect 444ms, tests 50ms, environment 2.10s, prepare 481ms)
+

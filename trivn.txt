@@ -1,0 +1,16 @@
+
+ RUN  v2.1.9 c:/Users/TIMIRE/Downloads/ai_game
+
+ ❯ src/core/trivial.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/trivial.test.ts [ src/core/trivial.test.ts ]
+Error: No test suite found in file c:/Users/TIMIRE/Downloads/ai_game/src/core/trivial.test.ts
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  14:29:10
+   Duration  1.30s (transform 186ms, setup 0ms, collect 128ms, tests 0ms, environment 0ms, prepare 426ms)
+

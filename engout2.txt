@@ -1,0 +1,27 @@
+
+ RUN  v2.1.9 c:/Users/TIMIRE/Downloads/ai_game
+
+ ❯ src/core/engine.test.ts (15 tests | 1 failed) 25ms
+   × cardEngine.ask applies effects > a revealed clue earns a context that unlocks a context-gated variant 8ms
+     → Question Q015 is not available yet
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/core/engine.test.ts > cardEngine.ask applies effects > a revealed clue earns a context that unlocks a context-gated variant
+Error: Question Q015 is not available yet
+ ❯ Module.ask src/core/cardEngine.ts:109:11
+    107|   }
+    108|   if (!isQuestionAvailable(caseFile, state, questionId)) {
+    109|     throw new EngineError(`Question ${questionId} is not available yet…
+       |           ^
+    110|   }
+    111|   if (state.actionsRemaining <= 0) {
+ ❯ src/core/engine.test.ts:90:23
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  14:40:50
+   Duration  2.35s (transform 226ms, setup 0ms, collect 312ms, tests 25ms, environment 1.34s, prepare 233ms)
+

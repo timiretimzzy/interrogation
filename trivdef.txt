@@ -1,0 +1,10 @@
+
+ RUN  v2.1.9 c:/Users/TIMIRE/Downloads/ai_game
+
+ ✓ src/core/trivial.test.ts (1 test) 3ms
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  14:33:27
+   Duration  695ms (transform 85ms, setup 0ms, collect 78ms, tests 3ms, environment 1ms, prepare 212ms)
+

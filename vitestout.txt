@@ -1,0 +1,322 @@
+
+[1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90mc:/Users/TIMIRE/Downloads/ai_game[39m
+
+[90mstderr[2m | src/core/cases.test.ts[2m > [22m[2mseed cases pass schema + solver gates[2m > [22m[2mgold-ex-006: schema valid
+[22m[39mgold-ex-006 schema errors: [
+  [32m'Accusation dimension whatHappened correctValue self_extortion_to_force_inspection not in options'[39m,
+  [32m'Accusation correctSolution.whatHappened self_extortion_to_force_inspection not in options'[39m,
+  [32m'Accusation dimension motive correctValue protect_crew not in options'[39m,
+  [32m'Accusation correctSolution.motive protect_crew not in options'[39m
+]
+
+[90mstderr[2m | src/core/cases.test.ts[2m > [22m[2mseed cases pass schema + solver gates[2m > [22m[2mgold-id-004: schema valid
+[22m[39mgold-id-004 schema errors: [
+  [32m'Question Q003 response for unknown character unlocks'[39m,
+  [32m'Question Q003/unlocks variant undefined has invalid weight'[39m,
+  [32m'Question Q004 response for unknown character unlocks'[39m,
+  [32m'Question Q004/unlocks variant undefined has invalid weight'[39m,
+  [32m'Question Q006 response for unknown character unlocks'[39m,
+  [32m'Question Q006/unlocks variant undefined has invalid weight'[39m,
+  [32m'Question Q008 response for unknown character reveals'[39m,
+  [32m'Question Q008/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q008/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q009 response for unknown character reveals'[39m,
+  [32m'Question Q009/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q009/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q010 response for unknown character reveals'[39m,
+  [32m'Question Q010/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q010/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q011 response for unknown character unlocks'[39m,
+  [32m'Question Q011/unlocks variant undefined has invalid weight'[39m,
+  [32m'Question Q012 response for unknown character reveals'[39m,
+  [32m'Question Q012/reveals variant undefined has invalid weight'[39m,
+  [32m'Question Q012/reveals variant undefined has invalid weight'[39m,
+  [32m'Accusation dimension purpose correctValue fabricated_alibi not in options'[39m,
+  [32m'Accusation correctSolution.purpose fabricated_alibi not in options'[39m
+]
+
+[90mstderr[2m | src/core/cases.test.ts[2m > [22m[2mseed cases pass schema + solver gates[2m > [22m[2mgold-id-004: solver ok (INV-114 / INV-115 / paths)
+[22m[39mgold-id-004 solver: {
+  "caseId": "gold-id-004",
+  "solvable": false,
+  "worstCaseSolvable": false,
+  "criticalFactsTotal": 6,
+  "criticalFactsDisclosed": 4,
+  "independentPaths": 0,
+  "minimumIndependentPaths": 3,
+  "inv114": [
+    {
+      "fact": "F001",
+      "routes": 0,
+      "ok": false
+    },
+    {
+      "fact": "F002",
+      "routes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F003",
+      "routes": 0,
+      "ok": false
+    },
+    {
+      "fact": "F004",
+      "routes": 1,
+      "ok": false
+    },
+    {
+      "fact": "F005",
+      "routes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F006",
+      "routes": 1,
+      "ok": false
+    }
+  ],
+  "inv115": [
+    {
+      "fact": "F001",
+      "worstRoutes": 0,
+      "ok": false
+    },
+    {
+      "fact": "F002",
+      "worstRoutes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F003",
+      "worstRoutes": 0,
+      "ok": false
+    },
+    {
+      "fact": "F004",
+      "worstRoutes": 1,
+      "ok": true
+    },
+    {
+      "fact": "F005",
+      "worstRoutes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F006",
+      "worstRoutes": 1,
+      "ok": true
+    }
+  ],
+  "ok": false,
+  "errors": [
+    "Case is not solvable (cannot disclose all critical facts)",
+    "Case fails worst-case solvability (INV-115)",
+    "Some critical fact lacks >=2 independent routes (INV-114)",
+    "Some critical fact lacks a worst-case route (INV-115)",
+    "Only 0 independent solution paths (need >= 3)"
+  ]
+}
+
+[90mstderr[2m | src/core/cases.test.ts[2m > [22m[2mseed cases pass schema + solver gates[2m > [22m[2mgold-fg-007: schema valid
+[22m[39mgold-fg-007 schema errors: [
+  [32m'Accusation dimension whatHappened correctValue swapped_for_facsimile_and_repatriated not in options'[39m,
+  [32m'Accusation correctSolution.whatHappened swapped_for_facsimile_and_repatriated not in options'[39m,
+  [32m'Accusation dimension motive correctValue restitution_conviction not in options'[39m,
+  [32m'Accusation correctSolution.motive restitution_conviction not in options'[39m
+]
+
+[90mstderr[2m | src/core/cases.test.ts[2m > [22m[2mseed cases pass schema + solver gates[2m > [22m[2mgold-fg-007: solver ok (INV-114 / INV-115 / paths)
+[22m[39mgold-fg-007 solver: {
+  "caseId": "gold-fg-007",
+  "solvable": true,
+  "worstCaseSolvable": true,
+  "criticalFactsTotal": 6,
+  "criticalFactsDisclosed": 7,
+  "independentPaths": 4,
+  "minimumIndependentPaths": 3,
+  "inv114": [
+    {
+      "fact": "F001",
+      "routes": 1,
+      "ok": false
+    },
+    {
+      "fact": "F002",
+      "routes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F003",
+      "routes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F004",
+      "routes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F005",
+      "routes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F006",
+      "routes": 2,
+      "ok": true
+    }
+  ],
+  "inv115": [
+    {
+      "fact": "F001",
+      "worstRoutes": 1,
+      "ok": true
+    },
+    {
+      "fact": "F002",
+      "worstRoutes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F003",
+      "worstRoutes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F004",
+      "worstRoutes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F005",
+      "worstRoutes": 2,
+      "ok": true
+    },
+    {
+      "fact": "F006",
+      "worstRoutes": 2,
+      "ok": true
+    }
+  ],
+  "ok": false,
+  "errors": [
+    "Some critical fact lacks >=2 independent routes (INV-114)"
+  ]
+}
+
+ [31m❯[39m src/core/cases.test.ts [2m([22m[2m12 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[33m 5545[2mms[22m[39m
+   [33m[2m✓[22m[39m seed cases pass schema + solver gates[2m > [22msynth-cs-001: solver ok (INV-114 / INV-115 / paths) [33m2531[2mms[22m[39m
+[31m   [31m×[31m seed cases pass schema + solver gates[2m > [22mgold-ex-006: schema valid[90m 14[2mms[22m[31m[39m
+[31m     → Accusation dimension whatHappened correctValue self_extortion_to_force_inspection not in options; Accusation correctSolution.whatHappened self_extortion_to_force_inspection not in options; Accusation dimension motive correctValue protect_crew not in options; Accusation correctSolution.motive protect_crew not in options: expected false to be true // Object.is equality[39m
+[31m   [31m×[31m seed cases pass schema + solver gates[2m > [22mgold-id-004: schema valid[90m 2[2mms[22m[31m[39m
+[31m     → Question Q003 response for unknown character unlocks; Question Q003/unlocks variant undefined has invalid weight; Question Q004 response for unknown character unlocks; Question Q004/unlocks variant undefined has invalid weight; Question Q006 response for unknown character unlocks; Question Q006/unlocks variant undefined has invalid weight; Question Q008 response for unknown character reveals; Question Q008/reveals variant undefined has invalid weight; Question Q008/reveals variant undefined has invalid weight; Question Q009 response for unknown character reveals; Question Q009/reveals variant undefined has invalid weight; Question Q009/reveals variant undefined has invalid weight; Question Q010 response for unknown character reveals; Question Q010/reveals variant undefined has invalid weight; Question Q010/reveals variant undefined has invalid weight; Question Q011 response for unknown character unlocks; Question Q011/unlocks variant undefined has invalid weight; Question Q012 response for unknown character reveals; Question Q012/reveals variant undefined has invalid weight; Question Q012/reveals variant undefined has invalid weight; Accusation dimension purpose correctValue fabricated_alibi not in options; Accusation correctSolution.purpose fabricated_alibi not in options: expected false to be true // Object.is equality[39m
+[31m   [31m×[31m seed cases pass schema + solver gates[2m > [22mgold-id-004: solver ok (INV-114 / INV-115 / paths)[33m 2634[2mms[22m[31m[39m
+[31m     → solvable=false worst=false paths=0 errors=Case is not solvable (cannot disclose all critical facts)|Case fails worst-case solvability (INV-115)|Some critical fact lacks >=2 independent routes (INV-114)|Some critical fact lacks a worst-case route (INV-115)|Only 0 independent solution paths (need >= 3): expected false to be true // Object.is equality[39m
+[31m   [31m×[31m seed cases pass schema + solver gates[2m > [22mgold-fg-007: schema valid[90m 3[2mms[22m[31m[39m
+[31m     → Accusation dimension whatHappened correctValue swapped_for_facsimile_and_repatriated not in options; Accusation correctSolution.whatHappened swapped_for_facsimile_and_repatriated not in options; Accusation dimension motive correctValue restitution_conviction not in options; Accusation correctSolution.motive restitution_conviction not in options: expected false to be true // Object.is equality[39m
+[31m   [31m×[31m seed cases pass schema + solver gates[2m > [22mgold-fg-007: solver ok (INV-114 / INV-115 / paths)[90m 39[2mms[22m[31m[39m
+[31m     → solvable=true worst=true paths=4 errors=Some critical fact lacks >=2 independent routes (INV-114): expected false to be true // Object.is equality[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[1m[7m Failed Tests 5 [27m[22m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/core/cases.test.ts[2m > [22mseed cases pass schema + solver gates[2m > [22mgold-ex-006: schema valid
+[31m[1mAssertionError[22m: Accusation dimension whatHappened correctValue self_extortion_to_force_inspection not in options; Accusation correctSolution.whatHappened self_extortion_to_force_inspection not in options; Accusation dimension motive correctValue protect_crew not in options; Accusation correctSolution.motive protect_crew not in options: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/core/cases.test.ts:[2m11:41[22m[39m
+    [90m  9| [39m      [35mconst[39m v [33m=[39m [34mvalidateCase[39m(c)[33m;[39m
+    [90m 10| [39m      [35mif[39m ([33m![39mv[33m.[39mok) console[33m.[39m[34merror[39m([32m`[39m[36m${[39mc[33m.[39mcaseId[36m}[39m[32m schema errors:`[39m[33m,[39m v[33m.[39merrors)[33m;[39m
+    [90m 11| [39m      [34mexpect[39m(v[33m.[39mok[33m,[39m v[33m.[39merrors[33m.[39m[34mjoin[39m([32m'; '[39m))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                                        [31m^[39m
+    [90m 12| [39m    })[33m;[39m
+    [90m 13| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/core/cases.test.ts[2m > [22mseed cases pass schema + solver gates[2m > [22mgold-id-004: schema valid
+[31m[1mAssertionError[22m: Question Q003 response for unknown character unlocks; Question Q003/unlocks variant undefined has invalid weight; Question Q004 response for unknown character unlocks; Question Q004/unlocks variant undefined has invalid weight; Question Q006 response for unknown character unlocks; Question Q006/unlocks variant undefined has invalid weight; Question Q008 response for unknown character reveals; Question Q008/reveals variant undefined has invalid weight; Question Q008/reveals variant undefined has invalid weight; Question Q009 response for unknown character reveals; Question Q009/reveals variant undefined has invalid weight; Question Q009/reveals variant undefined has invalid weight; Question Q010 response for unknown character reveals; Question Q010/reveals variant undefined has invalid weight; Question Q010/reveals variant undefined has invalid weight; Question Q011 response for unknown character unlocks; Question Q011/unlocks variant undefined has invalid weight; Question Q012 response for unknown character reveals; Question Q012/reveals variant undefined has invalid weight; Question Q012/reveals variant undefined has invalid weight; Accusation dimension purpose correctValue fabricated_alibi not in options; Accusation correctSolution.purpose fabricated_alibi not in options: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/core/cases.test.ts:[2m11:41[22m[39m
+    [90m  9| [39m      [35mconst[39m v [33m=[39m [34mvalidateCase[39m(c)[33m;[39m
+    [90m 10| [39m      [35mif[39m ([33m![39mv[33m.[39mok) console[33m.[39m[34merror[39m([32m`[39m[36m${[39mc[33m.[39mcaseId[36m}[39m[32m schema errors:`[39m[33m,[39m v[33m.[39merrors)[33m;[39m
+    [90m 11| [39m      [34mexpect[39m(v[33m.[39mok[33m,[39m v[33m.[39merrors[33m.[39m[34mjoin[39m([32m'; '[39m))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                                        [31m^[39m
+    [90m 12| [39m    })[33m;[39m
+    [90m 13| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/core/cases.test.ts[2m > [22mseed cases pass schema + solver gates[2m > [22mgold-id-004: solver ok (INV-114 / INV-115 / paths)
+[31m[1mAssertionError[22m: solvable=false worst=false paths=0 errors=Case is not solvable (cannot disclose all critical facts)|Case fails worst-case solvability (INV-115)|Some critical fact lacks >=2 independent routes (INV-114)|Some critical fact lacks a worst-case route (INV-115)|Only 0 independent solution paths (need >= 3): expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/core/cases.test.ts:[2m17:132[22m[39m
+    [90m 15| [39m      [35mconst[39m r [33m=[39m [34msolveCase[39m(c)[33m;[39m
+    [90m 16| [39m      [35mif[39m ([33m![39mr[33m.[39mok) console[33m.[39m[34merror[39m([32m`[39m[36m${[39mc[33m.[39mcaseId[36m}[39m[32m solver:`[39m[33m,[39m [33mJSON[39m[33m.[39m[34mstringify[39m(r…
+    [90m 17| [39m      [34mexpect[39m(r[33m.[39mok[33m,[39m [32m`solvable=[39m[36m${[39mr[33m.[39msolvable[36m}[39m[32m worst=[39m[36m${[39mr[33m.[39mworstCaseSolvable…
+    [90m   | [39m                                                                                                                                   [31m^[39m
+    [90m 18| [39m    })[33m;[39m
+    [90m 19| [39m  }
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/core/cases.test.ts[2m > [22mseed cases pass schema + solver gates[2m > [22mgold-fg-007: schema valid
+[31m[1mAssertionError[22m: Accusation dimension whatHappened correctValue swapped_for_facsimile_and_repatriated not in options; Accusation correctSolution.whatHappened swapped_for_facsimile_and_repatriated not in options; Accusation dimension motive correctValue restitution_conviction not in options; Accusation correctSolution.motive restitution_conviction not in options: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/core/cases.test.ts:[2m11:41[22m[39m
+    [90m  9| [39m      [35mconst[39m v [33m=[39m [34mvalidateCase[39m(c)[33m;[39m
+    [90m 10| [39m      [35mif[39m ([33m![39mv[33m.[39mok) console[33m.[39m[34merror[39m([32m`[39m[36m${[39mc[33m.[39mcaseId[36m}[39m[32m schema errors:`[39m[33m,[39m v[33m.[39merrors)[33m;[39m
+    [90m 11| [39m      [34mexpect[39m(v[33m.[39mok[33m,[39m v[33m.[39merrors[33m.[39m[34mjoin[39m([32m'; '[39m))[33m.[39m[34mtoBe[39m([35mtrue[39m)[33m;[39m
+    [90m   | [39m                                        [31m^[39m
+    [90m 12| [39m    })[33m;[39m
+    [90m 13| [39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯[22m[39m
+
+[31m[1m[7m FAIL [27m[22m[39m src/core/cases.test.ts[2m > [22mseed cases pass schema + solver gates[2m > [22mgold-fg-007: solver ok (INV-114 / INV-115 / paths)
+[31m[1mAssertionError[22m: solvable=true worst=true paths=4 errors=Some critical fact lacks >=2 independent routes (INV-114): expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m src/core/cases.test.ts:[2m17:132[22m[39m
+    [90m 15| [39m      [35mconst[39m r [33m=[39m [34msolveCase[39m(c)[33m;[39m
+    [90m 16| [39m      [35mif[39m ([33m![39mr[33m.[39mok) console[33m.[39m[34merror[39m([32m`[39m[36m${[39mc[33m.[39mcaseId[36m}[39m[32m solver:`[39m[33m,[39m [33mJSON[39m[33m.[39m[34mstringify[39m(r…
+    [90m 17| [39m      [34mexpect[39m(r[33m.[39mok[33m,[39m [32m`solvable=[39m[36m${[39mr[33m.[39msolvable[36m}[39m[32m worst=[39m[36m${[39mr[33m.[39mworstCaseSolvable…
+    [90m   | [39m                                                                                                                                   [31m^[39m
+    [90m 18| [39m    })[33m;[39m
+    [90m 19| [39m  }
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯[22m[39m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m5 failed[39m[22m[2m | [22m[1m[32m7 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 16:57:56
+[2m   Duration [22m 24.55s[2m (transform 341ms, setup 0ms, collect 428ms, tests 5.54s, environment 16.02s, prepare 1.79s)[22m
+
