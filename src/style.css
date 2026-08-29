@@ -121,3 +121,11 @@ button:hover { border-color: var(--accent); }
   font: inherit; font-size: 14px;
 }
 .theory-note { resize: vertical; }
+
+/* Phase 3 tester UI (subtle, off core gameplay) */
+.site-footer{margin-top:2.5rem;padding-top:1rem;border-top:1px solid #222;display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;font-size:.8rem;color:#8a8a8a}
+.test-badge{background:#2a2410;color:#e8c87a;border:1px solid #4a3f1a;border-radius:999px;padding:.1rem .6rem;font-size:.72rem;letter-spacing:.03em;text-transform:uppercase}
+.build-id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.feedback-link{color:#9bbad6;text-decoration:none}
+.feedback-link:hover{text-decoration:underline}
+.test-badge-inline{margin-left:.5rem;vertical-align:middle}

@@ -85,6 +85,10 @@ export function loadState(caseId: string): PlayerState | null {
   } catch {
     /* corrupt; ignore */
   }
+  // Corrupt, structurally invalid, or case-id-mismatched state: discard it so a
+  // refresh/reload never re-parses a broken blob. The caller falls back to a
+  // fresh, recoverable case (store.startCase re-inits and overwrites the key).
+  clearState(caseId);
   return null;
 }
 

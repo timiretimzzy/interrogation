@@ -21,6 +21,32 @@ import { Transcript } from './Transcript.tsx';
 import { Accusation } from './Accusation.tsx';
 import { Reveal } from './Reveal.tsx';
 
+const APP_VERSION = import.meta.env.VITE_APP_VERSION ?? 'dev';
+
+// Subtle tester footer: a build identifier (so testers can report "bug on build
+// X") plus a no-backend feedback path via GitHub Issues. Kept off the core
+// gameplay surface so it does not read as a finished product.
+function SiteFooter() {
+  const issuesUrl =
+    'https://github.com/timiretimzzy/interrogation/issues/new?title=' +
+    encodeURIComponent('Test feedback') +
+    '&body=' +
+    encodeURIComponent(
+      'Build: ' +
+        APP_VERSION +
+        '\n\nWhat confused you?\n\nWhat felt good?\n\nWhere did you get stuck?\n',
+    );
+  return (
+    <footer class="site-footer">
+      <span class="test-badge">Test build</span>
+      <span class="build-id">{APP_VERSION}</span>
+      <a class="feedback-link" href={issuesUrl} target="_blank" rel="noopener noreferrer">
+        Report a problem / feedback
+      </a>
+    </footer>
+  );
+}
+
 function CaseSelect() {
   return (
     <div class="case-select">
@@ -36,6 +62,7 @@ function CaseSelect() {
           </li>
         ))}
       </ul>
+      <SiteFooter />
     </div>
   );
 }
@@ -95,6 +122,7 @@ function GameHeader() {
       <div class="game-meta">
         Actions left: <strong>{s.actionsRemaining}</strong>
         {canAccuse() && <span> · Accusation available</span>}
+        <span class="test-badge test-badge-inline">Test build</span>
       </div>
       {s.status === 'playing' && (
         <button

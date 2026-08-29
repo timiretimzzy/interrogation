@@ -235,10 +235,15 @@ Faithful fact disclosures added where the raw story supports a route the trigger
 
 ### Verification (this phase)
 - npx tsc --noEmit -> clean.
-- npx vitest run -> 99/99 (engine.test.ts 15; cases.test.ts 84 across all 11 cases: schema plus solver gates INV-114/115/paths, full playthrough win+loss, determinism, and every documented solution path disclosing its critical facts through the engine).
+- npx vitest run -> 113/113 (engine.test.ts 15; cases.test.ts 84 across all 11 cases; persistence.test.ts 14). Cases cover schema plus solver gates INV-114/115/paths, full playthrough win+loss, determinism, and every documented solution path disclosing its critical facts through the engine.
 - npm run build -> success (39 modules).
 - npm run validate:cases -> 84/84; npm run validate:build -> passed.
-- In-browser gameplay (briefing to interrogation to cross-character to contradiction to confrontation to theory to accusation to reveal to refresh determinism to persistence to mobile to blind play) verified in the prior turn; engine logic is additionally fully covered by the 99 automated tests.
+- In-browser gameplay (briefing to interrogation to cross-character to contradiction to confrontation to theory to accusation to reveal to refresh determinism to persistence to mobile to blind play) verified in the prior turn; engine logic is additionally fully covered by the 113 automated tests.
+
+### Persistence hardening (recovery contract) — added this phase
+- `core/persistence.ts loadState` hardened: corrupt JSON, structurally-invalid objects, wrong-typed fields (e.g. actionsRemaining:'lots'), invalid status enum, and case-id-mismatched blobs are all **discarded** (the bad key is cleared) and loadState returns null — the caller falls back to a fresh, recoverable case (store.startCase re-inits). The loader never throws on malformed input of any shape. This closes the "refresh re-parses a broken blob" failure mode.
+- `src/core/persistence.test.ts` (replaced the empty `persistCheck.test.ts`) is a real regression suite over the LocalStorage-backed code: 14 tests covering valid round-trips (in-progress / won) and 9 corrupt/invalid failure modes (malformed JSON, missing props, wrong action type, unknown case id, impossible status, ghost char/question ids, empty accusation, malformed theory, recovery produces a fresh recoverable state), plus empty/cleared storage.
+- npx vitest run src/core/persistence.test.ts -> 14/14 (recovery contract).
 
 ### Remaining non-blocking gaps (unchanged from Phase 2, acceptable for review)
 - INV-119 probability-band enforcement is authoring guidance only (loader checks weights greater than 0).
@@ -247,3 +252,63 @@ Faithful fact disclosures added where the raw story supports a route the trigger
 
 ### Next action
 Await human review/approval. Do NOT begin Phase 3. Recommended follow-ups if approved: enforce INV-119/qualityGates in the loader, and add a Playwright e2e harness (currently dev-only; test:e2e script exists but Playwright is not installed).
+
+---
+
+## Phase 3 — Controlled test-build deployment (COMPLETE, live)
+
+Deployed the **existing** deterministic game as a controlled user-testing build. This is
+**NOT** the final public launch and contains **NO** LLM case-generation pipeline, novelty
+engine, accounts, analytics, or backend (all later phases). The engine/content from
+Phase 2.2 (11 seed cases, 113 automated tests) is unchanged; Phase 3 adds the
+deployment surface only.
+
+### Live URL
+**https://timiretimzzy.github.io/interrogation/** (served under project-pages subpath `/interrogation/`)
+
+### Changes this phase (deployment surface only — no engine logic touched)
+- `vite.config.ts`: `base: '/interrogation/'`; added `vite-plugin-pwa` (`registerType:
+  autoUpdate`, `injectRegister: null`, manifest with `start_url`/`scope` = `/interrogation/`,
+  SVG icon); injects `APP_VERSION = '0.3.0-test+<git short hash>'` as
+  `import.meta.env.VITE_APP_VERSION` (build traceability per INV-001).
+- `src/main.tsx`: registers the service worker via `virtual:pwa-register` (`immediate: true`).
+- `src/vite-env.d.ts`: references `vite/client` + `vite-plugin-pwa/client`; declares
+  `ImportMetaEnv.VITE_APP_VERSION`.
+- `public/icon.svg`: added app icon (magnifier + "?") so favicon and PWA manifest do not 404.
+- `index.html`: `<link rel="icon" href="/icon.svg">` (Vite rewrites to `/interrogation/icon.svg`);
+  existing strict CSP unchanged.
+- `src/ui/App.tsx`: subtle tester footer — "Test build" badge + version id + pre-filled
+  GitHub Issues feedback link; inline "Test build" badge in the game header. Off the core
+  gameplay surface so it does not read as a finished product.
+- `src/style.css`: footer/badge styles.
+- `.github/workflows/deploy.yml`: Node 20, `npm ci`, gates
+  (`typecheck` -> `test` -> `validate:cases` -> `build` -> `validate:build`),
+  `upload-pages-artifact` (dist) -> `deploy-pages`. `concurrency` group `pages`
+  (no cancel-in-progress). Permissions scoped to Pages deploy.
+- `DEPLOYMENT.md` / `TESTING.md`: tester-facing deployment and playtest docs.
+- `.gitignore`: added `dist/`, `*.log`, `*.tmp`.
+- Repo hygiene: scratch output files removed from the tree; `dist/` untracked (build output
+  is never committed).
+
+### Verification
+- Local canonical gates green: `npm run typecheck` clean; `npm test` **113/113**;
+  `npm run validate:cases` **84/84**; `npm run build` success (42 modules, PWA `sw.js` +
+  `workbox` generated); `npm run validate:build` passed (initial JS 76.9 KB gzipped).
+- Built `index.html` correctly roots icon, assets, and manifest under `/interrogation/`.
+- GitHub Pages enabled with **source = GitHub Actions** (`build_type: workflow`) via the
+  REST API; `https://timiretimzzy.github.io/interrogation/` resolves.
+- `git push origin main` triggers the `Deploy to GitHub Pages` workflow; the
+  `deploy-pages` step publishes the `dist/` artifact.
+- Browser smoke (local `vite preview` at `/interrogation/`): app shell, case select,
+  briefing, interrogation, theory, accusation, reveal, service-worker registration, and
+  the footer version/feedback link all render with no fatal console errors.
+
+### Known limitations (unchanged from Phase 2.2, acceptable for a test build)
+- Content is 11 hand-authored seed cases (intentional case picker, not "Today's Case").
+- PWA offline is best-effort (precaches app shell); not yet claimed as full offline play.
+- No backend: progress persists only in this browser via LocalStorage.
+- INV-119 probability-band enforcement and qualityGates metadata remain authoring guidance.
+
+### Next action
+Collect tester feedback via the in-app GitHub Issues link. Do NOT begin the LLM
+generation / novelty / accounts / backend phases until explicitly approved.
