@@ -1,0 +1,11 @@
+
+> the-interrogation@1.0.0 validate:build
+> node scripts/validate-build.mjs
+
+JS assets (gzipped):
+  index-C9RkqSGm.js: 72.9 KB
+
+Total JS (gzipped): 72.9 KB
+✓ Within initial JS budget.
+
+Build audit passed.

@@ -350,11 +350,11 @@
   ],
 
   "contradictions": [
-    { "id": "CON001", "type": "identity", "description": "The passenger travelled under Adrian's identity but was actually Noah.", "significance": "critical" },
-    { "id": "CON002", "type": "timeline", "description": "The global travel record says Adrian travelled while testimony establishes that he was absent from boarding.", "significance": "critical", "confrontationQuestionId": "Q011" },
-    { "id": "CON003", "type": "knowledge", "description": "Noah knows details about the identity substitution that an ordinary assistant would not know unless Adrian instructed him.", "significance": "high" },
+    { "id": "CON001", "type": "identity", "description": "The passenger who used Adrian's documents does not match the person who arranged the travel.", "significance": "critical", "confrontationQuestionId": "Q011", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q001" }] } },
+    { "id": "CON002", "type": "timeline", "description": "The travel record lists Adrian as having travelled, but his own assistant says he never boarded the aircraft.", "significance": "critical", "confrontationQuestionId": "Q011", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q007" }] } },
+    { "id": "CON003", "type": "knowledge", "description": "Noah can describe the identity arrangement in detail that an ordinary assistant would not normally know.", "significance": "high", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q006" }] } },
     { "id": "CON004", "type": "system", "description": "The late manifest amendment was connected to Adrian's office.", "significance": "high" },
-    { "id": "CON005", "type": "motive", "description": "Adrian has a reason to make it appear he travelled while remaining nearby.", "significance": "critical" }
+    { "id": "CON005", "type": "motive", "description": "Adrian appears to have a reason to make it look as though he had left the country while staying close by.", "significance": "critical", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q012" }] } }
   ],
 
   "redHerrings": [

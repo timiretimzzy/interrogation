@@ -1,0 +1,17 @@
+
+> the-interrogation@1.0.0 validate:cases
+> vitest run src/core/cases.test.ts
+
+
+[1m[7m[36m RUN [39m[27m[22m [36mv2.1.9 [39m[90mc:/Users/TIMIRE/Downloads/ai_game[39m
+
+ [32m✓[39m src/core/cases.test.ts [2m([22m[2m45 tests[22m[2m)[22m[33m 10545[2mms[22m[39m
+   [33m[2m✓[22m[39m seed cases pass schema + solver gates[2m > [22mgold-hh-001: solver ok (INV-114 / INV-115 / paths) [33m359[2mms[22m[39m
+   [33m[2m✓[22m[39m seed cases pass schema + solver gates[2m > [22msynth-cs-001: solver ok (INV-114 / INV-115 / paths) [33m8789[2mms[22m[39m
+   [33m[2m✓[22m[39m seed cases pass schema + solver gates[2m > [22mgold-id-004: solver ok (INV-114 / INV-115 / paths) [33m801[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m45 passed[39m[22m[90m (45)[39m
+[2m   Start at [22m 18:45:22
+[2m   Duration [22m 16.11s[2m (transform 447ms, setup 0ms, collect 634ms, tests 10.54s, environment 3.61s, prepare 424ms)[22m
+

@@ -1,0 +1,192 @@
+{
+  "caseId": "gold-tc-008",
+  "title": "The Terrace That Gave Way",
+  "genre": "infrastructure_failure",
+  "subgenre": "dual_negligence",
+  "tone": "somber_grounded",
+  "difficulty": "medium",
+  "estimatedPlayTimeMinutes": { "fast": 7, "typical": 12, "deep": 18 },
+  "briefing": {
+    "hook": "During the harvest at Ccollana, a century-old irrigation terrace wall gave way without warning, killing twenty-three-year-old field worker Julio Mamani and injuring two others.",
+    "context": "The terrace had been reinforced eight months earlier as part of a cooperative-funded repair project in the highlands above Ccollana, Peru. The repair was signed off as complete and safe by the cooperative's contracted engineer before the harvest season began.",
+    "tension": "Julio's sister Flor is demanding someone be held accountable. The cooperative's leadership insists the collapse was an act of nature. A regional ministry auditor has arrived to determine whether negligence occurred — and whether anyone tried to hide it.",
+    "objective": "Determine what actually caused the wall to fail, whether anyone knew about a problem beforehand, and whether responsibility lies with one person, several people, or no one at all."
+  },
+  "playerRules": {
+    "investigationActions": 16,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+  "truth": {
+    "incident": "The terrace wall failed due to two independent, non-malicious decisions that combined to remove the structure's safety margin: mason Rosa Quispe substituted a portion of the specified quarried stone with cheaper local fieldstone to keep the repair within the cooperative's reduced budget, without flagging the substitution as a compromise; separately, engineer Wilmer Cárdenas signed off on the final inspection after a visibly rushed, incomplete check, having reused a prior season's drainage assessment instead of re-testing it, because he was covering three other sites that week. Neither failure alone would likely have caused the collapse; together, under an unusually heavy harvest-season irrigation load, they did.",
+    "responsibleParty": ["rosa", "wilmer"],
+    "whatHappened": "Eight months before the collapse, the cooperative's board cut the terrace repair budget by nearly a third partway through the project. Rosa, under pressure to finish on schedule and within the new budget, substituted roughly a fifth of the specified stone with weaker local material and did not document the change in the completion report. Weeks later, Wilmer inspected the site as part of his contracted safety sign-off, but reused an old drainage survey rather than re-measuring water flow after that season's unusually heavy rains, and did not physically test the section Rosa had altered. Both signed off on a project that was, individually, within each person's understanding of acceptable risk. The wall held for eight months until an unusually intense harvest-season irrigation cycle exceeded the terrace's now-reduced tolerance.",
+    "motive": "Neither party intended harm. Rosa acted under financial pressure to keep her contract and meet a budget she had no authority to renegotiate. Wilmer acted out of an overloaded schedule and overconfidence that a site he had inspected many times before did not need full re-testing.",
+    "method": "A material substitution during construction, left undocumented, combined with an inspection sign-off based on stale data rather than a fresh assessment.",
+    "centralTwist": "There is no single culprit and no deliberate cover-up of the collapse itself — two ordinary, separately-explainable shortcuts combined to cause a death that neither person could have predicted alone.",
+    "secondaryTwist": "After the collapse, cooperative president Ignacio Farfán did attempt a genuine cover-up — not of the original negligence, but of the mid-project budget cut that created the pressure in the first place, fearing it would implicate the whole board rather than any one person.",
+    "finalTruth": "The wall failed because of two independent shortcuts, neither of which was criminal or individually reckless by the standard either person normally worked to. The only deliberate deception in the case was Ignacio's after-the-fact attempt to hide the board's budget cut, not the failure itself.",
+    "timeline": [
+      { "time": "9 months prior", "eventId": "T001", "description": "Cooperative board approves full-budget terrace repair." },
+      { "time": "8 months prior", "eventId": "T002", "description": "Board votes to cut the repair budget mid-project due to a shortfall elsewhere." },
+      { "time": "8 months prior", "eventId": "T003", "description": "Rosa substitutes local fieldstone for roughly a fifth of the specified quarried stone." },
+      { "time": "7 months prior", "eventId": "T004", "description": "Rosa submits a completion report that does not mention the substitution." },
+      { "time": "6 months prior", "eventId": "T005", "description": "Wilmer conducts the final safety inspection, reusing a prior drainage survey." },
+      { "time": "6 months prior", "eventId": "T006", "description": "Wilmer signs off on the terrace as safe for the coming season." },
+      { "time": "2 weeks prior", "eventId": "T007", "description": "Unusually heavy rains raise water flow well above the reused survey's assumptions." },
+      { "time": "day of, 06:20", "eventId": "T008", "description": "Harvest-season irrigation begins at full volume." },
+      { "time": "day of, 07:05", "eventId": "T009", "description": "The altered section of the terrace wall gives way; Julio Mamani is killed, two others injured." },
+      { "time": "day of, 09:00", "eventId": "T010", "description": "Ignacio publicly attributes the collapse to 'an act of nature.'" },
+      { "time": "day of, 14:30", "eventId": "T011", "description": "Ministry auditor Elena Torres arrives to begin a formal inquiry." }
+    ],
+    "criticalFacts": [
+      "Rosa substituted weaker local stone for part of the repair without documenting it.",
+      "Wilmer's safety inspection relied on an outdated drainage survey rather than a fresh assessment.",
+      "The cooperative board cut the repair budget mid-project, creating the pressure behind the substitution.",
+      "Neither Rosa nor Wilmer knew about the other's shortcut.",
+      "Ignacio tried to hide the mid-project budget cut after the collapse, not the collapse itself.",
+      "The collapse required both shortcuts together; either alone would likely have held."
+    ],
+    "importantSecondaryTruths": [
+      "Flor initially suspected Wilmer alone because he was the last person to formally approve the terrace.",
+      "Elena's inquiry was originally framed around finding a single responsible party, which nearly caused her to overlook Rosa's undocumented substitution.",
+      "Rosa did report the budget cut to Ignacio at the time and was told to 'make it work.'"
+    ]
+  },
+  "characters": [
+    { "id": "flor", "name": "Flor Mamani", "role": "victims_sister", "visibleDescription": "Julio's older sister, a schoolteacher in the village. Grieving, precise, and determined not to let the collapse be dismissed as bad luck.", "personality": "grieving_precise", "personalityProfile": { "cooperation": "high", "composure": "medium", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" }, "knowledge": { "knows": ["The terrace was repaired eight months ago.", "Wilmer signed off on its safety.", "Ignacio called it an act of nature almost immediately, which struck her as too fast"], "doesNotKnow": ["The stone substitution.", "The reused drainage survey.", "The mid-project budget cut"], "secretFacts": [], "lies": [], "truthfulStatements": ["She is open and cooperative throughout, though her suspicion is initially misdirected at Wilmer alone."] }, "alibi": { "claimed": "In the village schoolhouse at the time of the collapse.", "status": "verified" } },
+    { "id": "rosa", "name": "Rosa Quispe", "role": "contracted_mason", "visibleDescription": "The mason who led the terrace repair, respected in the village for decades of careful work. Guarded when the repair itself comes up.", "personality": "proud_guarded", "personalityProfile": { "cooperation": "medium", "composure": "medium", "defensiveness": "high", "manipulation": "low", "voluntaryDisclosure": "low" }, "knowledge": { "knows": ["She substituted local stone for part of the repair.", "The budget was cut mid-project.", "Ignacio told her to 'make it work' within the new budget.", "She did not document the substitution"], "doesNotKnow": ["Wilmer reused an old drainage survey instead of re-testing."], "secretFacts": ["The undocumented stone substitution."], "lies": ["She initially claims the repair used the originally specified materials throughout."], "lieMotivation": ["professional_reputation", "fear_of_blame"] }, "alibi": { "claimed": "At home, preparing for the day's harvest work.", "status": "verified" } },
+    { "id": "wilmer", "name": "Wilmer Cárdenas", "role": "contracted_engineer", "visibleDescription": "The regional engineer who signed off on the terrace's safety. Confident, overextended, visibly uncomfortable discussing his inspection schedule.", "personality": "confident_overextended", "personalityProfile": { "cooperation": "medium", "composure": "medium", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "medium" }, "knowledge": { "knows": ["He reused a prior season's drainage survey for his sign-off.", "He was covering three other sites that same week.", "He did not physically re-test the section Rosa altered."], "doesNotKnow": ["That Rosa had substituted materials in that exact section."], "secretFacts": ["He did not conduct a fresh drainage assessment despite that season's heavier rains."], "lies": ["He initially states his inspection was 'thorough and complete.'"], "lieMotivation": ["professional_reputation", "liability_concern"] }, "alibi": { "claimed": "At a different site that morning.", "status": "verified" } },
+    { "id": "ignacio", "name": "Ignacio Farfán", "role": "cooperative_president", "visibleDescription": "The cooperative's elected president, smooth and quick to reassure, uneasy whenever the repair's finances come up.", "personality": "smooth_evasive", "personalityProfile": { "cooperation": "medium", "composure": "high", "defensiveness": "high", "manipulation": "medium", "voluntaryDisclosure": "low" }, "knowledge": { "knows": ["The board cut the repair budget mid-project.", "Rosa told him about the pressure this created.", "He told her to 'make it work.'", "He called the collapse 'an act of nature' before any inquiry began"], "doesNotKnow": ["The specific details of Wilmer's inspection shortcuts."], "secretFacts": ["He is actively trying to keep the mid-project budget cut out of the official record to protect the board, not to protect himself specifically."], "lies": ["He denies that the budget was ever reduced.", "He insists the repair was fully funded as originally planned."], "lieMotivation": ["protecting_the_board", "avoiding_institutional_liability"] }, "alibi": { "claimed": "At the cooperative office that morning.", "status": "verified" } },
+    { "id": "elena", "name": "Elena Torres", "role": "ministry_auditor", "visibleDescription": "A regional agricultural ministry auditor sent to determine the cause of the collapse. Methodical, fair, initially focused on finding one responsible party.", "personality": "methodical_fair", "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" }, "knowledge": { "knows": ["Wilmer's inspection report exists and can be checked against weather records.", "The cooperative's financial records are auditable.", "A structural sample from the collapsed section can be tested."], "doesNotKnow": ["The substitution and the reused survey until the player's investigation surfaces them."], "secretFacts": [], "lies": [], "truthfulStatements": ["She is candid throughout and updates her own theory as evidence comes in."] }, "alibi": { "claimed": "Not present at the time; arrived after the collapse.", "status": "verified" } }
+  ],
+  "relationships": [
+    { "id": "REL-FLOR-ROSA", "a": "flor", "b": "rosa", "type": "community_acquaintance", "description": "Flor and Rosa have known each other for years in the same village." },
+    { "id": "REL-ROSA-IGNACIO", "a": "rosa", "b": "ignacio", "type": "contractor_client", "description": "Rosa was contracted by the cooperative, led by Ignacio, to perform the repair." },
+    { "id": "REL-WILMER-IGNACIO", "a": "wilmer", "b": "ignacio", "type": "contractor_client", "description": "Wilmer was contracted by the cooperative to inspect and certify the repair." },
+    { "id": "REL-ELENA-IGNACIO", "a": "elena", "b": "ignacio", "type": "regulatory_relationship", "description": "Elena's ministry audit oversees cooperative-funded infrastructure projects like Ignacio's." }
+  ],
+  "facts": [
+    { "id": "F001", "tier": "A", "category": "cause", "statement": "Rosa substituted weaker local stone for part of the repair without documenting it.", "critical": true },
+    { "id": "F002", "tier": "A", "category": "cause", "statement": "Wilmer's inspection relied on a reused drainage survey rather than a fresh assessment.", "critical": true },
+    { "id": "F003", "tier": "A", "category": "context", "statement": "The cooperative board cut the repair budget mid-project.", "critical": true },
+    { "id": "F004", "tier": "A", "category": "cause", "statement": "The collapse required both shortcuts together; neither alone was sufficient.", "critical": true },
+    { "id": "F005", "tier": "A", "category": "deception", "statement": "Ignacio concealed the mid-project budget cut after the collapse, not the collapse's cause.", "critical": true },
+    { "id": "F006", "tier": "B", "category": "behavior", "statement": "Rosa reported the budget pressure to Ignacio at the time.", "critical": false },
+    { "id": "F007", "tier": "B", "category": "behavior", "statement": "Wilmer was covering three other inspection sites the same week.", "critical": false },
+    { "id": "F008", "tier": "C", "category": "red_herring", "statement": "Flor initially suspected Wilmer alone as the sole responsible party.", "critical": false }
+  ],
+  "evidence": [
+    { "id": "E001", "name": "Structural Sample Report", "description": "Lab analysis of the collapsed section shows a mix of specified quarried stone and weaker local fieldstone in the failed segment.", "discoverability": "Elena investigation", "supports": ["F001"] },
+    { "id": "E002", "name": "Inspection Report", "description": "Wilmer's sign-off references drainage figures dated to the prior season, not the season of the collapse.", "discoverability": "Elena or Wilmer interrogation", "supports": ["F002"] },
+    { "id": "E003", "name": "Cooperative Budget Ledger", "description": "Financial records show a documented reduction to the terrace repair budget partway through the project.", "discoverability": "Elena or Rosa interrogation", "supports": ["F003"] },
+    { "id": "E004", "name": "Weather Records", "description": "Regional rainfall data shows the season of the collapse had significantly higher water flow than the season Wilmer's reused survey was based on.", "discoverability": "Elena investigation", "supports": ["F002", "F004"] },
+    { "id": "E005", "name": "Ignacio's Public Statement", "description": "Ignacio's same-day statement calling the collapse 'an act of nature' was made before any inspection of the site had occurred.", "discoverability": "Flor or Elena interrogation", "supports": ["F005"] }
+  ],
+  "questions": [
+    { "id": "Q001", "category": "initial", "targetCharacterIds": ["flor", "rosa", "wilmer", "ignacio", "elena"], "text": "What do you believe caused the wall to collapse?", "availability": { "type": "initial" }, "responses": {
+      "flor": [{ "variantId": "Q001-F-01", "weight": 70, "type": "truth", "text": "I don't believe it was just bad luck. Someone signed off on that repair." }, { "variantId": "Q001-F-02", "weight": 30, "type": "partial_truth", "text": "I don't know yet. I just know my brother is dead." }],
+      "rosa": [{ "variantId": "Q001-R-01", "weight": 65, "type": "lie", "text": "The repair used exactly the materials specified. I don't know what went wrong." }, { "variantId": "Q001-R-02", "weight": 35, "type": "evasive", "text": "These walls are old. Sometimes they fail no matter what you do." }],
+      "wilmer": [{ "variantId": "Q001-W-01", "weight": 60, "type": "lie", "text": "My inspection was thorough and complete. This wasn't a failure of oversight." }, { "variantId": "Q001-W-02", "weight": 40, "type": "evasive", "text": "These things can happen even with a proper sign-off." }],
+      "ignacio": [{ "variantId": "Q001-I-01", "weight": 75, "type": "lie", "text": "An act of nature. Nothing more to it." }, { "variantId": "Q001-I-02", "weight": 25, "type": "evasive", "text": "The rains this season were unusual. That's really all I can say." }],
+      "elena": [{ "variantId": "Q001-E-01", "weight": 85, "type": "truth", "text": "I don't assume anything yet. I intend to test the structure and the paperwork both." }, { "variantId": "Q001-E-02", "weight": 15, "type": "truth", "text": "My job is to find out, not to guess." }]
+    }, "unlocks": ["Q005"] },
+    { "id": "Q002", "category": "evidence", "targetCharacterIds": ["elena"], "text": "Can the collapsed section itself tell us anything?", "availability": { "type": "initial" }, "responses": {
+      "elena": [{ "variantId": "Q002-E-01", "weight": 90, "type": "truth", "text": "We've sent a sample for lab analysis. It should tell us exactly what the wall was made of." }, { "variantId": "Q002-E-02", "weight": 10, "type": "truth", "text": "Results are pending, but structural samples don't lie." }]
+    }, "unlocks": ["Q006"] },
+    { "id": "Q003", "category": "financial", "targetCharacterIds": ["ignacio"], "text": "Was the repair fully funded from start to finish?", "availability": { "type": "initial" }, "responses": {
+      "ignacio": [{ "variantId": "Q003-I-01", "weight": 55, "type": "lie", "text": "Fully funded, exactly as planned. No changes at all." }, { "variantId": "Q003-I-02", "weight": 30, "type": "evasive", "text": "Cooperative finances are complicated. I'd rather not get into specifics." }, { "variantId": "Q003-I-03", "weight": 15, "type": "partial_truth", "text": "There were some adjustments along the way, like with any large project." }]
+    }, "unlocks": ["Q007"] },
+    { "id": "Q004", "category": "inspection", "targetCharacterIds": ["wilmer"], "text": "Walk me through your inspection process before signing off.", "availability": { "type": "initial" }, "responses": {
+      "wilmer": [{ "variantId": "Q004-W-01", "weight": 50, "type": "lie", "text": "Full re-assessment, top to bottom, as always." }, { "variantId": "Q004-W-02", "weight": 30, "type": "partial_truth", "text": "I checked the visible structure carefully. Drainage was assessed using our standard data." }, { "variantId": "Q004-W-03", "weight": 20, "type": "admission", "text": "I was covering three sites that week. I used the prior season's drainage figures instead of re-measuring." }]
+    }, "unlocks": ["Q008"] },
+    { "id": "Q005", "category": "followup", "targetCharacterIds": ["flor"], "text": "Why do you suspect Wilmer specifically?", "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q001"] }, "responses": {
+      "flor": [{ "variantId": "Q005-F-01", "weight": 80, "type": "truth", "text": "He's the one who signed the paper saying it was safe. That has to mean something." }, { "variantId": "Q005-F-02", "weight": 20, "type": "partial_truth", "text": "He's just the name on the last document before it fell." }]
+    } },
+    { "id": "Q006", "category": "confrontation", "targetCharacterIds": ["rosa"], "text": "Lab analysis shows the collapsed section contains stone that doesn't match the original specification. Can you explain that?", "availability": { "type": "unlocked", "requiresAnyEvidenceIds": ["E001"] }, "responses": {
+      "rosa": [{ "variantId": "Q006-R-01", "weight": 20, "type": "lie", "text": "That's not possible. I used the specified materials throughout." }, { "variantId": "Q006-R-02", "weight": 35, "type": "partial_truth", "text": "There may have been a small adjustment in one section. It shouldn't have mattered." }, { "variantId": "Q006-R-03", "weight": 45, "type": "admission", "text": "Yes. I substituted local stone for part of it. The budget was cut and I had no other way to finish on schedule." }]
+    }, "reveals": ["F001"] },
+    { "id": "Q007", "category": "confrontation", "targetCharacterIds": ["ignacio"], "text": "The cooperative's own ledger shows the terrace budget was reduced partway through the project. Why deny it?", "availability": { "type": "unlocked", "requiresAnyEvidenceIds": ["E003"] }, "responses": {
+      "ignacio": [{ "variantId": "Q007-I-01", "weight": 25, "type": "lie", "text": "The ledger must be showing something unrelated." }, { "variantId": "Q007-I-02", "weight": 40, "type": "partial_truth", "text": "There was a cut, yes. I didn't think it was relevant to the collapse itself." }, { "variantId": "Q007-I-03", "weight": 35, "type": "admission", "text": "I didn't want the board blamed for a budget decision that had nothing to do with anyone dying. I was wrong to hide it." }]
+    }, "reveals": ["F003", "F005"] },
+    { "id": "Q008", "category": "confrontation", "targetCharacterIds": ["wilmer"], "text": "Weather records show this season's rainfall was well above the figures your inspection relied on. Did you know that at the time?", "availability": { "type": "unlocked", "requiresAllEvidenceIds": ["E002", "E004"] }, "responses": {
+      "wilmer": [{ "variantId": "Q008-W-01", "weight": 20, "type": "lie", "text": "The figures I used were perfectly adequate." }, { "variantId": "Q008-W-02", "weight": 35, "type": "partial_truth", "text": "I should have re-measured. I didn't think it would matter that much." }, { "variantId": "Q008-W-03", "weight": 45, "type": "admission", "text": "I knew the rains were heavier. I told myself the margin would hold anyway. It didn't." }]
+    }, "reveals": ["F002", "F004"] },
+    { "id": "Q009", "category": "final", "targetCharacterIds": ["elena"], "text": "So who is actually responsible for this?", "availability": { "type": "unlocked", "requiresAllClueIds": ["F001", "F002", "F004"] }, "responses": {
+      "elena": [{ "variantId": "Q009-E-01", "weight": 100, "type": "truth", "text": "Neither shortcut alone would have brought that wall down. Both of them together did. That's the honest answer, even if it isn't a simple one." }]
+    }, "reveals": ["F004"] }
+  ],
+  "discoveryRules": [
+    { "id": "D001", "trigger": "Q002", "reveals": ["E001"], "unlocksQuestions": ["Q006"] },
+    { "id": "D002", "trigger": "Q003", "reveals": ["E003"], "unlocksQuestions": ["Q007"] },
+    { "id": "D003", "trigger": "Q004", "reveals": ["E002"], "unlocksQuestions": ["Q008"] },
+    { "id": "D004", "trigger": "Q006", "reveals": ["F001"] },
+    { "id": "D005", "trigger": "Q007", "reveals": ["F003", "F005"] },
+    { "id": "D006", "trigger": "Q008", "reveals": ["F002", "F004"], "unlocksQuestions": ["Q009"] }
+  ],
+  "contradictions": [
+    { "id": "CON001", "type": "material", "description": "Rosa claims the specified materials were used throughout, but lab analysis of the collapsed section shows otherwise.", "significance": "critical", "confrontationQuestionId": "Q006", "surfaceWhen": { "any": [{ "kind": "evidence", "id": "E001" }] } },
+    { "id": "CON002", "type": "financial", "description": "Ignacio denies any budget change, but the cooperative's own ledger records a mid-project cut.", "significance": "critical", "confrontationQuestionId": "Q007", "surfaceWhen": { "any": [{ "kind": "evidence", "id": "E003" }] } },
+    { "id": "CON003", "type": "technical", "description": "Wilmer claims a thorough inspection, but his own report cites drainage data from a season with measurably lower rainfall.", "significance": "critical", "confrontationQuestionId": "Q008", "surfaceWhen": { "all": [{ "kind": "evidence", "id": "E002" }, { "kind": "evidence", "id": "E004" }] } }
+  ],
+  "redHerrings": [
+    { "id": "RH001", "characterId": "wilmer", "surfaceSuspicion": "He's the one who formally certified the terrace as safe, making him an obvious sole target.", "actualReason": "His shortcut is real but only half of what caused the collapse — treating him as the sole culprit is the trap.", "crimeConnection": "partial_contributor" },
+    { "id": "RH002", "characterId": "ignacio", "surfaceSuspicion": "He lied immediately and confidently, which makes him look like he's hiding the real cause of the collapse.", "actualReason": "His concealment is about the budget cut and institutional embarrassment, not about causing or covering up the collapse itself.", "crimeConnection": "unrelated_deception" }
+  ],
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Material path", "description": "Structural sample -> stone mismatch -> Rosa's admission -> budget pressure -> Ignacio's concealment.", "criticalFacts": ["F001", "F003", "F005"], "approximateActions": 8 },
+    { "id": "PATH_B", "name": "Inspection path", "description": "Inspection report -> weather records -> Wilmer's admission -> combined-failure conclusion.", "criticalFacts": ["F002", "F004"], "approximateActions": 8 },
+    { "id": "PATH_C", "name": "Financial path", "description": "Budget ledger -> Ignacio's concealment -> Rosa's pressure -> material substitution -> dual-failure conclusion.", "criticalFacts": ["F003", "F001", "F004", "F005"], "approximateActions": 10 }
+  ],
+  "accusation": {
+    "dimensions": [
+      { "id": "primaryContributingFailure", "prompt": "Which failure most directly caused the wall to give way?", "correctValue": "both_combined", "options": [{ "id": "material_only", "label": "Rosa's stone substitution, on its own." }, { "id": "inspection_only", "label": "Wilmer's outdated inspection, on its own." }, { "id": "both_combined", "label": "Both shortcuts together — neither alone was enough." }, { "id": "natural_causes", "label": "Genuinely unforeseeable natural causes, with no human failure involved." }] },
+      { "id": "coverUpAttempted", "prompt": "Did anyone deliberately try to hide something after the collapse?", "correctValue": "budget_cut_only", "options": [{ "id": "no_coverup", "label": "No, everyone was forthcoming from the start." }, { "id": "collapse_cause_hidden", "label": "Yes, someone hid the true cause of the collapse itself." }, { "id": "budget_cut_only", "label": "Yes, but only the mid-project budget cut, not the collapse's cause." }, { "id": "everyone_conspired", "label": "Yes, all parties conspired together to hide everything." }] }
+    ]
+  },
+  "reveal": {
+    "headline": "No single person brought the wall down — but two shortcuts, and one cover-up, still mattered.",
+    "narrative": [
+      "The terrace wall did not fail because of one person's negligence or any deliberate act.",
+      "Mason Rosa Quispe substituted weaker local stone for part of the repair after the cooperative's board cut her budget mid-project, and she never documented the change.",
+      "Separately, engineer Wilmer Cárdenas signed off on the terrace's safety using a prior season's drainage survey rather than re-testing after that year's heavier rains, stretched thin across three other inspection sites.",
+      "Neither shortcut alone would likely have caused the wall to fail. Together, under an unusually heavy harvest-season irrigation load, they did.",
+      "The only person who deliberately deceived anyone after the fact was cooperative president Ignacio Farfán, who hid the mid-project budget cut to protect the board from blame — not to hide the cause of Julio's death, which he genuinely believed, at least at first, was bad luck.",
+      "Flor's search for a single responsible party was understandable, but the truth was more distributed, and more ordinary, than any one villain."
+    ],
+    "truthBreakdown": [
+      { "fact": "Rosa substituted weaker stone without documenting it.", "importance": "critical", "discoveredThrough": ["structural sample", "Rosa confrontation"] },
+      { "fact": "Wilmer's inspection relied on stale drainage data.", "importance": "critical", "discoveredThrough": ["inspection report", "weather records", "Wilmer confrontation"] },
+      { "fact": "The budget cut created the pressure behind the substitution.", "importance": "critical", "discoveredThrough": ["cooperative ledger", "Ignacio confrontation"] },
+      { "fact": "Both shortcuts were necessary together for the collapse to occur.", "importance": "critical", "discoveredThrough": ["Elena's final assessment"] },
+      { "fact": "Ignacio's cover-up concerned the budget cut, not the collapse's cause.", "importance": "critical", "discoveredThrough": ["Ignacio confrontation"] }
+    ]
+  },
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "singleExactQuestionSequenceRequired": false,
+    "multipleIndependentSolutionPaths": true,
+    "minimumIndependentSolutionPaths": 3,
+    "innocentDeceptionPresent": true,
+    "guiltyPersonIsNotTheOnlyDeceptiveCharacter": true,
+    "truthfulSuspiciousCharacterPresent": true,
+    "sameTopicCanProduceDifferentAnswers": true,
+    "globalCanonicalTruth": true,
+    "playerSpecificResponseVariation": true,
+    "responseVariationCannotMakeCaseUnsovlable": true,
+    "multipleResponsiblePartiesSupported": true,
+    "nonMaliciousDualNegligenceSupported": true,
+    "coverUpSeparateFromCentralIncident": true,
+    "criticalFactsHaveRedundantDiscoveryRoutes": true,
+    "contradictionsHaveCanonicalBases": true,
+    "revealExplainsApparentSingleCulpritAssumption": true,
+    "targetPlayTimeMinutes": { "minimum": 5, "maximum": 20 }
+  }
+}

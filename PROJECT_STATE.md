@@ -204,3 +204,46 @@ Registered: `gold-hh-001.json` (heist), `synth-mpt-001.json` (missing-person-tra
 
 ### Next action
 Await review. Then: add `gold-vd-002` + a 5th adversarial fixture; fix the `validate:cases` script; optionally enforce INV-119/qualityGates in the loader; perform manual browser play-through (Gate D). Still must NOT begin Phase 3 (LLM pipeline, novelty DB, accounts, backend).
+---
+
+## Phase 2.2 - Seed-case expansion & engine consistency (COMPLETE)
+
+Carried the engine from 3 hand-authored seed cases to a verified 11-case library and closed two open deviations. All canonical gates are green: tsc --noEmit clean, vitest run 99/99, npm run build success, npm run validate:cases 84/84, npm run validate:build passed.
+
+### Cases registered (data/cases/index.ts - 11 total)
+Gold-standard: gold-hh-001 (heist), gold-vd-002 (staged-disappearance), gold-ex-006 (self-extortion), gold-id-004, gold-fg-007. User-style: gold-sb-003 (dual independent wrongdoing - blackout sabotage + prototype theft), gold-tc-008, gold-mp-009 (no-wrongdoing family reunion). Synthetic: synth-mpt-001, synth-cs-001. Adversarial: adv-001.
+
+### Prior deviations resolved
+- Deviation #1 (4th fixture missing): gold-vd-002 registered; adversarial adv-001 also added.
+- Deviation #2 (dangling validate:cases): package.json now points validate:cases to vitest run src/core/cases.test.ts (the real validator); npm run validate:cases is green.
+
+### Engine fix - unlocks availability consistency (substantive change this phase)
+The authoring format (and scripts/normalize-case.mjs) records follow-up chaining on the question-level unlocks field, but two runtime paths disagreed:
+- core/solver.ts moveOutcome only read variant-level unlocks, so question-level unlocks never chained follow-ups in the solver -> cases depending on question-level edges (e.g. gold-sb-003: Q002 to Q006 to Q007/Q008) reported 0 solvable paths.
+- core/gating.ts isQuestionAvailable ignored state.unlockedQuestions, so a question force-unlocked by ask() (follow-up unlocks or an active contradiction confrontationQuestionId) was not actually askable in the runtime - unlocks was effectively decorative.
+Both corrected so solver and runtime share identical availability semantics (matching ask(), which already populates unlockedQuestions from variant- and question-level unlocks):
+- gating.ts isQuestionAvailable: returns true if state.unlockedQuestions.includes(questionId).
+- solver.ts moveOutcome: merges q.unlocks (question-level) into both optimistic and worst-case outcomes. This only ever adds availability, so it cannot regress any previously-passing case; it strictly repairs traversal of question-level unlock chains.
+
+### gold-vd-002 confrontation mechanic
+gold-vd-002 contradictions originally pointed confrontationQuestionId at initial-type evidence questions, so the runtime playthroughs a-confrontation-card-unlocks assertion (confrontUnlocked greater than 0) could never fire. Repointed CON001 to Q007 and CON004 to Q008 (the existing unlocked-type follow-ups), available once Q001/Q003 are asked. No solvability change (all Tier-A facts already disclosed by initial questions).
+
+### Redundancy augmentation (scripts/normalize-case.mjs CONFIG.aug)
+Faithful fact disclosures added where the raw story supports a route the trigger question does not yet state, to satisfy INV-114 (greater than or equal to 2 independent routes per Tier-A critical fact):
+- gold-sb-003: Q005 to F011 (Maya knows Nadia pressured staff to reclassify defects) - closes solution-path B.
+- gold-mp-009: Q001 to F004 (the detained woman is unrelated) - gives F004 a 2nd route (was 1).
+
+### Verification (this phase)
+- npx tsc --noEmit -> clean.
+- npx vitest run -> 99/99 (engine.test.ts 15; cases.test.ts 84 across all 11 cases: schema plus solver gates INV-114/115/paths, full playthrough win+loss, determinism, and every documented solution path disclosing its critical facts through the engine).
+- npm run build -> success (39 modules).
+- npm run validate:cases -> 84/84; npm run validate:build -> passed.
+- In-browser gameplay (briefing to interrogation to cross-character to contradiction to confrontation to theory to accusation to reveal to refresh determinism to persistence to mobile to blind play) verified in the prior turn; engine logic is additionally fully covered by the 99 automated tests.
+
+### Remaining non-blocking gaps (unchanged from Phase 2, acceptable for review)
+- INV-119 probability-band enforcement is authoring guidance only (loader checks weights greater than 0).
+- qualityGates metadata beyond the solver-enforced subset is not enforced in the loader.
+- Phase 3 (LLM generation plus novelty DB plus accounts plus backend) not started - out of scope per gate.
+
+### Next action
+Await human review/approval. Do NOT begin Phase 3. Recommended follow-ups if approved: enforce INV-119/qualityGates in the loader, and add a Playwright e2e harness (currently dev-only; test:e2e script exists but Playwright is not installed).

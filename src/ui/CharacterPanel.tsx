@@ -1,45 +1,82 @@
-import { currentCase, activeCharacter, availableQuestions, ask, selectCharacter } from './store.ts';
+import {
+  currentCase,
+  activeCharacter,
+  availableQuestions,
+  ask,
+  selectCharacter,
+  playerState,
+} from './store.ts';
+
+function prettifyRole(role: string): string {
+  return String(role).replace(/_/g, ' ');
+}
 
 export function CharacterPanel() {
   const cf = currentCase();
+  const s = playerState.value;
   if (!cf) return null;
   const activeId = activeCharacter.value ?? cf.characters[0]?.id;
   const character = cf.characters.find((c) => c.id === activeId);
+
+  const askedOfActive = new Set<string>(
+    character ? (s?.interrogations[character.id] ?? []).map((r) => r.questionId) : [],
+  );
+  const available = availableQuestions(character?.id ?? '').filter((q) => !askedOfActive.has(q.id));
+  const askedQuestions = character
+    ? cf.questions.filter((q) => askedOfActive.has(q.id))
+    : [];
 
   return (
     <section class="panel character-panel">
       <h2>People</h2>
       <div class="character-tabs">
-        {cf.characters.map((c) => (
-          <button
-            key={c.id}
-            class={c.id === activeId ? 'tab active' : 'tab'}
-            onClick={() => selectCharacter(c.id)}
-          >
-            {c.name}
-          </button>
-        ))}
+        {cf.characters.map((c) => {
+          const interviewed = (s?.interrogations[c.id]?.length ?? 0) > 0;
+          return (
+            <button
+              key={c.id}
+              class={c.id === activeId ? 'tab active' : 'tab'}
+              onClick={() => selectCharacter(c.id)}
+            >
+              {c.name}
+              {interviewed && <span class="tab-dot" title="Interrogated">●</span>}
+            </button>
+          );
+        })}
       </div>
 
       {character && (
         <div class="character-detail">
           <div class="character-name">{character.name}</div>
-          <div class="character-role">{character.role} · {character.personality}</div>
+          <div class="character-role">{prettifyRole(character.role)} · {character.personality}</div>
           <p class="character-desc">{character.visibleDescription}</p>
 
           <h3>Ask</h3>
           <ul class="question-list">
-            {availableQuestions(character.id).map((q) => (
+            {available.map((q) => (
               <li key={q.id}>
                 <button class="question-btn" onClick={() => ask(character.id, q.id)}>
-                  <span class="q-mech">{q.mechanic}</span> {q.text}
+                  {q.text}
                 </button>
               </li>
             ))}
-            {availableQuestions(character.id).length === 0 && (
+            {available.length === 0 && askedQuestions.length === 0 && (
               <li class="muted">No questions available yet.</li>
             )}
           </ul>
+
+          {askedQuestions.length > 0 && (
+            <>
+              <h3>Asked</h3>
+              <ul class="question-list asked-list">
+                {askedQuestions.map((q) => (
+                  <li key={q.id} class="muted">
+                    ✓ {q.text}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
       )}
     </section>

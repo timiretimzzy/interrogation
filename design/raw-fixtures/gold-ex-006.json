@@ -307,9 +307,9 @@
   ],
 
   "contradictions": [
-    { "id": "CON001", "type": "technical", "description": "Tomás claims the corrosion readings are normal, but his own diagnostic log confirms the danger.", "significance": "critical", "confrontationQuestionId": "Q007" },
-    { "id": "CON002", "type": "identity", "description": "The threats came from inside the network under a retired employee's credentials, not from an outside extortionist.", "significance": "critical", "confrontationQuestionId": "Q006" },
-    { "id": "CON003", "type": "motive", "description": "Amara claims to have no idea who is threatening her, but the login belongs to her own mentor and the demand mirrors her own ignored safety flag.", "significance": "critical", "confrontationQuestionId": "Q010" }
+    { "id": "CON001", "type": "technical", "description": "Tomás's account of the corrosion readings does not appear to match his own diagnostic log.", "significance": "critical", "confrontationQuestionId": "Q007", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q003" }] } },
+    { "id": "CON002", "type": "identity", "description": "The messages came from inside the network, under credentials that should no longer be active.", "significance": "critical", "confrontationQuestionId": "Q006", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q006" }] } },
+    { "id": "CON003", "type": "motive", "description": "Amara says she has no idea who is threatening her, yet the login used belongs to someone close to her and the demand resembles a safety flag she had already filed.", "significance": "critical", "confrontationQuestionId": "Q010", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q006" }, { "kind": "questionAsked", "id": "Q009" }] } }
   ],
 
   "redHerrings": [

@@ -1,0 +1,289 @@
+{
+  "caseId": "adv-001",
+  "title": "The Bell Tower Hour",
+  "genre": "anomalous_event",
+  "tone": "quiet_uncanny",
+  "difficulty": "easy",
+  "estimatedPlayTimeMinutes": { "fast": 4, "typical": 7, "deep": 12 },
+
+  "briefing": {
+    "hook": "At the stroke of the midnight bell, the village bell sounded though the rope in the tower was never pulled and the door was bolted from the inside the entire time.",
+    "context": "The bell tower is sealed and unattended after dusk. The rope hangs untouched; the single door bolts from within.",
+    "tension": "Either something rang the bell without anyone touching it, or someone inside the tower rang it and the door was never opened. The two facts do not sit easily together.",
+    "objective": "Decide who caused the bell to sound, how, and why without assuming the obvious answer."
+  },
+
+  "playerRules": {
+    "investigationActions": 8,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+
+  "truth": {
+    "incident": "The apprentice built a small mechanical striker in the tower as a prank, timed to ring the bell at midnight without anyone pulling the rope. He did it alone, from inside, before bolting the door and leaving by the roof hatch the villagers do not know about.",
+    "culpritId": "b",
+    "whatHappened": "A hidden mechanical striker, not a person at the rope, produced the sound.",
+    "motive": "A practical joke that got out of hand.",
+    "method": "Pre-built mechanism triggered by a candle timer, operated from inside the sealed tower.",
+    "centralTwist": "The impossible-seeming event had a plain mechanical cause made by an insider.",
+    "finalTruth": "No ghost, no outsider: the apprentice's prank device rang the bell.",
+    "timeline": [
+      { "time": "Dusk", "eventId": "T001", "description": "The apprentice enters the tower alone." },
+      { "time": "21:30", "eventId": "T002", "description": "He finishes a small mechanical striker and sets a candle timer." },
+      { "time": "21:40", "eventId": "T003", "description": "He bolts the door from inside and leaves via the roof hatch." },
+      { "time": "00:00", "eventId": "T004", "description": "The mechanism strikes the bell." }
+    ],
+    "criticalFacts": [
+      "The bell rang without anyone pulling the rope.",
+      "The tower door stayed bolted from the inside the whole time.",
+      "A hidden mechanism, not something supernatural, produced the sound.",
+      "The apprentice built the mechanism as a prank."
+    ],
+    "importantSecondaryTruths": [
+      "The warden suspected the apprentice but had no proof.",
+      "The visitor assumed a trick of the wind."
+    ]
+  },
+
+  "characters": [
+    {
+      "id": "a",
+      "name": "Warden Aldous",
+      "role": "suspect",
+      "visibleDescription": "The tower warden. Stern, protective of the bell, quick to blame outsiders.",
+      "personality": "stern_suspicious",
+      "personalityProfile": { "cooperation": "medium", "composure": "medium", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "low" },
+      "knowledge": {
+        "knows": ["The door was bolted inside.", "He was outside when the bell sounded."],
+        "doesNotKnow": ["The mechanism existed."],
+        "secretFacts": ["He suspects the apprentice but cannot prove it."],
+        "lies": ["He claims he never left the tower door unlocked."],
+        "lieMotivation": ["pride"]
+      }
+    },
+    {
+      "id": "b",
+      "name": "Apprentice Pip",
+      "role": "witness",
+      "visibleDescription": "The warden's young apprentice. Fidgety, proud of his cleverness, visibly guilty about something.",
+      "personality": "nervous_clever",
+      "personalityProfile": { "cooperation": "low", "composure": "low", "defensiveness": "high", "manipulation": "low", "voluntaryDisclosure": "very_low" },
+      "knowledge": {
+        "knows": ["He built the striker.", "He left by the roof hatch."],
+        "doesNotKnow": ["That the warden suspected him."],
+        "secretFacts": ["He made the bell ring as a prank."],
+        "lies": ["He claims he built nothing in the tower."],
+        "lieMotivation": ["shame", "fear_of_punishment"]
+      }
+    },
+    {
+      "id": "c",
+      "name": "Visitor Mara",
+      "role": "bystander",
+      "visibleDescription": "A traveller who happened to be in the square. Observant, inclined to the poetic explanation.",
+      "personality": "fanciful_observant",
+      "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "medium" },
+      "knowledge": {
+        "knows": ["The door was shut and bolted.", "No one ran from the tower."],
+        "doesNotKnow": ["The mechanism."],
+        "secretFacts": [],
+        "lies": [],
+        "truthfulStatements": ["She reports only what she saw."]
+      }
+    },
+    {
+      "id": "d",
+      "name": "Investigator Crane",
+      "role": "investigator",
+      "visibleDescription": "A methodical outsider investigator. Unimpressed by ghost stories.",
+      "personality": "dry_methodical",
+      "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" },
+      "knowledge": {
+        "knows": ["The rope never moved.", "The door was bolted inside."],
+        "doesNotKnow": ["The precise device."],
+        "secretFacts": [],
+        "lies": []
+      }
+    }
+  ],
+
+  "facts": [
+    { "id": "F1", "tier": "A", "category": "event", "statement": "The bell rang without anyone pulling the rope.", "critical": true },
+    { "id": "F2", "tier": "A", "category": "access", "statement": "The tower door stayed bolted from the inside the whole time.", "critical": true },
+    { "id": "F3", "tier": "A", "category": "cause", "statement": "A hidden mechanism, not something supernatural, produced the sound.", "critical": true },
+    { "id": "F4", "tier": "A", "category": "agent", "statement": "The apprentice built the mechanism as a prank.", "critical": true }
+  ],
+
+  "evidence": [
+    { "id": "E1", "name": "Rope Tension Log", "description": "The bell rope showed no movement at the time of the sound.", "discoverability": "Investigator review", "supports": ["F1"] },
+    { "id": "E2", "name": "Door Bolt Record", "description": "The tower door was bolted from the inside and never unbolted that night.", "discoverability": "Investigator review", "supports": ["F2"] }
+  ],
+
+  "clues": [
+    { "id": "C1", "title": "Untouched rope", "description": "No one pulled the rope.", "importance": "critical" },
+    { "id": "C2", "title": "Inside bolt", "description": "The door was bolted from within.", "importance": "critical" },
+    { "id": "C3", "title": "Mechanical marks", "description": "Fresh tool marks near the bell.", "importance": "critical" },
+    { "id": "C4", "title": "Pip's pride", "description": "Pip boasted of a 'trick' days earlier.", "importance": "critical" }
+  ],
+
+  "questions": [
+    {
+      "id": "Q1", "category": "initial", "targetCharacterIds": ["a", "b", "c"],
+      "text": "When the bell sounded, what did you see or hear?",
+      "availability": { "type": "initial" },
+      "reveals": ["F1", "F4", "F2"],
+      "unlocks": ["Q4"],
+      "responses": {
+        "a": [
+          { "variantId": "Q1-A-01", "weight": 70, "type": "truth", "text": "I was outside. I heard it clearly but the rope never moved; I would have seen it." },
+          { "variantId": "Q1-A-02", "weight": 30, "type": "partial_truth", "text": "Strange night. The rope looked untouched, which makes no sense." }
+        ],
+        "b": [
+          { "variantId": "Q1-B-01", "weight": 55, "type": "truth", "text": "I built something up there, a little trick. It was only a joke." },
+          { "variantId": "Q1-B-02", "weight": 45, "type": "evasive", "text": "I was in bed. I didn't hear a thing until everyone ran out." }
+        ],
+        "c": [
+          { "variantId": "Q1-C-01", "weight": 80, "type": "truth", "text": "The door was shut and bolted and nobody came running from the tower." },
+          { "variantId": "Q1-C-02", "weight": 20, "type": "partial_truth", "text": "It felt like the tower rang itself, if such a thing is possible." }
+        ]
+      }
+    },
+    {
+      "id": "Q2", "category": "evidence", "targetCharacterIds": ["d"],
+      "text": "What does the rope log show?",
+      "availability": { "type": "initial" },
+      "reveals": ["E1"],
+      "responses": {
+        "d": [
+          { "variantId": "Q2-D-01", "weight": 90, "type": "truth", "text": "The rope did not move. Whatever rang the bell, it was not a hand on the rope." },
+          { "variantId": "Q2-D-02", "weight": 10, "type": "partial_truth", "text": "The log is clean. No pull was recorded." }
+        ]
+      }
+    },
+    {
+      "id": "Q3", "category": "evidence", "targetCharacterIds": ["d"],
+      "text": "The door - was it forced or opened?",
+      "availability": { "type": "initial" },
+      "reveals": ["E2"],
+      "responses": {
+        "d": [
+          { "variantId": "Q3-D-01", "weight": 90, "type": "truth", "text": "Bolted from the inside the entire time. No one came or went through it." },
+          { "variantId": "Q3-D-02", "weight": 10, "type": "partial_truth", "text": "The bolt was set from within. That is the puzzle." }
+        ]
+      }
+    },
+    {
+      "id": "Q4", "category": "evidence", "targetCharacterIds": ["b"],
+      "text": "Have you built anything in the tower lately?",
+      "availability": { "type": "initial" },
+      "reveals": ["F4"],
+      "responses": {
+        "b": [
+          { "variantId": "Q4-B-01", "weight": 45, "type": "partial_truth", "text": "A small device, for practice. Nothing that could matter." },
+          { "variantId": "Q4-B-02", "weight": 35, "type": "evasive", "text": "I tinker. Every apprentice tinkers." },
+          { "variantId": "Q4-B-03", "weight": 20, "type": "admission", "text": "Yes. I built a striker. It was meant to be funny." }
+        ]
+      }
+    },
+    {
+      "id": "Q5", "category": "confrontation", "targetCharacterIds": ["a"],
+      "text": "You say you were outside, yet the door was bolted inside the whole time - how do you explain that?",
+      "availability": { "type": "unlocked", "requiresAnyEvidenceIds": ["E2"] },
+      "reveals": ["F3"],
+      "responses": {
+        "a": [
+          { "variantId": "Q5-A-01", "weight": 50, "type": "evasive", "text": "I stepped out only for a moment, after bolting it myself." },
+          { "variantId": "Q5-A-02", "weight": 50, "type": "partial_truth", "text": "The bolt was mine to set. I set it, then returned to the square." }
+        ]
+      }
+    },
+    {
+      "id": "Q6", "category": "evidence", "targetCharacterIds": ["d"],
+      "text": "Is there a mechanism that could fake the bell?",
+      "availability": { "type": "initial" },
+      "reveals": ["F3"],
+      "responses": {
+        "d": [
+          { "variantId": "Q6-D-01", "weight": 85, "type": "truth", "text": "Easily. A striker on a timer would ring it with no hand at the rope and no door opened." },
+          { "variantId": "Q6-D-02", "weight": 15, "type": "partial_truth", "text": "A simple device would explain everything the logs show." }
+        ]
+      }
+    }
+  ],
+
+  "statements": [
+    { "id": "S-BUILT", "characterId": "b", "sourceQuestionId": "Q4", "canonicalMeaning": "The apprentice claims he built nothing in the tower.", "truthState": "DIRECT_LIE" }
+  ],
+
+  "contradictions": [
+    { "id": "CON-A", "type": "testimony", "description": "The apprentice says he built nothing in the tower, yet admits tinkering when pressed.", "significance": "high", "confrontationQuestionId": "Q4", "statementRefs": ["S-BUILT"] },
+    { "id": "CON-B", "type": "procedural", "description": "The door was bolted from inside, yet the bell sounded from within; the two facts do not sit together on their own.", "significance": "critical", "confrontationQuestionId": "Q5", "surfaceWhen": { "any": [{ "kind": "evidence", "id": "E2" }] } }
+  ],
+
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Mechanical path", "description": "Rope log -> no pull -> door bolted -> mechanism theory -> apprentice's device.", "criticalFacts": ["F1", "F2", "F3", "F4"], "approximateActions": 6 },
+    { "id": "PATH_B", "name": "Testimony path", "description": "Apprentice's tinkering -> contradiction -> admission -> mechanism.", "criticalFacts": ["F4", "F3", "F1"], "approximateActions": 6 }
+  ],
+
+  "accusation": {
+    "dimensions": [
+      { "id": "agent", "prompt": "Who made the bell sound?", "correctValue": "b", "options": ["a", "b", "c", "d", "unknown"] },
+      { "id": "means", "prompt": "How was the sound produced?", "correctValue": "hidden_mechanism", "options": [
+        { "id": "hidden_mechanism", "label": "A hidden mechanical device." },
+        { "id": "supernatural", "label": "Something supernatural." },
+        { "id": "outsider", "label": "An outsider rang it." },
+        { "id": "accident", "label": "It was an accident of the wind." }
+      ]},
+      { "id": "intent", "prompt": "Why?", "correctValue": "prank", "options": [
+        { "id": "prank", "label": "A practical joke." },
+        { "id": "sabotage", "label": "An act of sabotage." },
+        { "id": "warning", "label": "A warning to the village." },
+        { "id": "none", "label": "No intent; it was random." }
+      ]}
+    ]
+  },
+
+  "reveal": {
+    "headline": "No ghost rang the bell. The apprentice did - with a trick.",
+    "narrative": [
+      "The rope never moved, so no hand rang the bell.",
+      "The door was bolted from inside, so no one came or went through it.",
+      "A small mechanical striker built by the apprentice as a prank struck the bell on a timer.",
+      "The apprentice set it, bolted the door, and left by a hatch the villagers had forgotten.",
+      "The 'impossible' event had the plainest of causes: a clever boy and a borrowed candle."
+    ],
+    "truthBreakdown": [
+      { "fact": "The bell rang without a hand on the rope.", "importance": "critical", "discoveredThrough": ["Investigator", "rope log"] },
+      { "fact": "The door was bolted from inside throughout.", "importance": "critical", "discoveredThrough": ["Investigator", "bolt record"] },
+      { "fact": "A hidden mechanism caused the sound.", "importance": "critical", "discoveredThrough": ["Investigator", "mechanism theory"] },
+      { "fact": "The apprentice built it as a prank.", "importance": "critical", "discoveredThrough": ["Apprentice admission"] }
+    ]
+  },
+
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "singleExactQuestionSequenceRequired": false,
+    "multipleIndependentSolutionPaths": true,
+    "minimumIndependentSolutionPaths": 2,
+    "innocentDeceptionPresent": false,
+    "guiltyPersonIsNotTheOnlyDeceptiveCharacter": false,
+    "truthfulSuspiciousCharacterPresent": true,
+    "sameTopicCanProduceDifferentAnswers": true,
+    "globalCanonicalTruth": true,
+    "playerSpecificResponseVariation": true,
+    "responseVariationCannotMakeCaseUnsovlable": true,
+    "minimalEvidence": true,
+    "nonStandardAccusationDimensions": true,
+    "criticalFactsHaveRedundantDiscoveryRoutes": true,
+    "contradictionsHaveCanonicalBases": true,
+    "revealExplainsAnomaly": true,
+    "targetPlayTimeMinutes": { "minimum": 4, "maximum": 12 }
+  }
+}

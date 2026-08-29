@@ -1,0 +1,181 @@
+{
+  "caseId": "gold-mp-009",
+  "title": "The Grandmother Who Wasn't Missing",
+  "genre": "missing_person",
+  "subgenre": "no_wrongdoing_reunion",
+  "tone": "warm_bittersweet",
+  "difficulty": "easy",
+  "estimatedPlayTimeMinutes": { "fast": 5, "typical": 9, "deep": 14 },
+  "briefing": {
+    "hook": "At the height of the Đền Voi Phục temple festival in Hanoi, seventy-eight-year-old Bà Tuyết was seen walking away with a stranger and did not return. Her family reported her missing within the hour.",
+    "context": "Bà Tuyết lives with her son's family and has recently started showing signs of forgetting familiar faces in crowds, which made her sudden disappearance during the festival's dense evening crowds especially alarming.",
+    "tension": "Festival security has closed the temple gates and is treating this as a possible abduction. Bà Tuyết's family is frantic, and a stranger matching witness descriptions has already been identified and detained for questioning.",
+    "objective": "Determine who the stranger was, why Bà Tuyết left with them, and whether any wrongdoing actually occurred."
+  },
+  "playerRules": {
+    "investigationActions": 12,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+  "truth": {
+    "incident": "The 'stranger' was Bà Tuyết's estranged granddaughter, Mai, who emigrated to Australia twelve years ago after a painful family falling-out and had not been in contact since. Mai recognized her grandmother in the festival crowd, approached her, and Bà Tuyết — who did not recognize Mai at first due to the years apart and the crowd's chaos — went along cheerfully, assuming she was an old family friend, before the two ended up talking for hours at a nearby tea stall and losing track of time entirely.",
+    "responsibleParty": [],
+    "whatHappened": "Mai returned to Vietnam for a work conference and visited the festival on a whim, hoping to see the old neighborhood. She spotted Bà Tuyết in the crowd, and after twelve years and grief over the falling-out, impulsively approached her. Bà Tuyết, whose memory for recent faces has grown unreliable, didn't immediately place her but warmly accepted the stranger's invitation to sit and talk, as she often does with friendly festival-goers. The two ended up in a long, emotional conversation at a tea stall two streets away, both losing track of time. Neither realized the family had been searching for hours until a festival announcer's missing-person notice reached them.",
+    "motive": "Mai wanted to reconnect with her grandmother without the pressure of a formal family confrontation; Bà Tuyết simply enjoyed the company of someone she experienced as a kind stranger.",
+    "method": "No method — there was no plan, deception, or wrongdoing of any kind, only an unplanned reunion and a loss of track of time.",
+    "centralTwist": "There is no perpetrator and no victim — the 'stranger' is family, and the apparent disappearance was a joyful, unplanned reunion that simply went on too long.",
+    "secondaryTwist": "The initial witness description of the stranger as 'suspicious' arose from her keeping her face partly covered with a scarf — not out of guilt, but because she was overwhelmed and crying after seeing her grandmother for the first time in over a decade.",
+    "finalTruth": "Mai is Bà Tuyết's granddaughter. There was no abduction, no coercion, and no crime. Both simply lost track of time during an emotional, unplanned reunion.",
+    "timeline": [
+      { "time": "17:30", "eventId": "T001", "description": "Bà Tuyết arrives at the festival with her son's family." },
+      { "time": "18:10", "eventId": "T002", "description": "The family becomes separated in the evening crowd." },
+      { "time": "18:22", "eventId": "T003", "description": "Mai, visiting from Australia, spots Bà Tuyết near the temple gate." },
+      { "time": "18:25", "eventId": "T004", "description": "Mai approaches and speaks with Bà Tuyết, who does not immediately recognize her." },
+      { "time": "18:35", "eventId": "T005", "description": "The two walk together to a tea stall two streets from the temple." },
+      { "time": "18:40", "eventId": "T006", "description": "Bà Tuyết's son Đức reports her missing to festival security." },
+      { "time": "19:15", "eventId": "T007", "description": "Witness Cô Hạnh describes seeing an unfamiliar woman leading Bà Tuyết away." },
+      { "time": "19:40", "eventId": "T008", "description": "Security detains a woman matching the description near the festival's south gate — not Mai." },
+      { "time": "20:05", "eventId": "T009", "description": "A festival missing-person announcement is broadcast over the loudspeakers." },
+      { "time": "20:12", "eventId": "T010", "description": "Mai and Bà Tuyết hear the announcement at the tea stall and realize the time." },
+      { "time": "20:20", "eventId": "T011", "description": "Mai brings Bà Tuyết back toward the temple gate." }
+    ],
+    "criticalFacts": [
+      "The stranger seen with Bà Tuyết was her estranged granddaughter, Mai.",
+      "Bà Tuyết did not initially recognize Mai due to the years apart and crowd confusion.",
+      "No coercion, deception, or harm occurred at any point.",
+      "The person detained by security was a different, unrelated woman.",
+      "Mai and Bà Tuyết were both unaware of the search underway.",
+      "The 'suspicious' scarf-covered face was Mai concealing that she was crying, not hiding her identity."
+    ],
+    "importantSecondaryTruths": [
+      "Đức, Bà Tuyết's son, has not spoken to his sister Mai since the family falling-out twelve years ago and did not initially consider she might be in the country.",
+      "The detained woman was a festival vendor unrelated to the case, wrongly matched to a vague witness description.",
+      "Cô Hạnh's witness account was accurate in every detail except her assumption that the stranger's behavior was suspicious."
+    ]
+  },
+  "characters": [
+    { "id": "duc", "name": "Đức Nguyễn", "role": "victims_son", "visibleDescription": "Bà Tuyết's son, frantic and guilt-ridden about losing track of his mother in the crowd. Reluctant to discuss his estranged sister.", "personality": "anxious_guarded", "personalityProfile": { "cooperation": "high", "composure": "low", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "medium" }, "knowledge": { "knows": ["His mother has had trouble recognizing familiar faces lately.", "The family became separated in the crowd.", "He has a sister, Mai, who moved to Australia and hasn't spoken to the family in twelve years."], "doesNotKnow": ["That Mai is currently in Vietnam.", "That the 'stranger' is Mai."], "secretFacts": ["He hasn't told his mother he still thinks about reconciling with Mai."], "lies": ["He initially avoids mentioning Mai exists at all."], "lieMotivation": ["old_family_pain", "not_wanting_to_reopen_the_wound"] }, "alibi": { "claimed": "Searching the festival grounds for his mother.", "status": "verified" } },
+    { "id": "hanh", "name": "Cô Hạnh", "role": "witness_vendor", "visibleDescription": "A festival food vendor who saw Bà Tuyết leave with the stranger. Honest and cooperative, but quick to read menace into what she saw.", "personality": "helpful_alarmist", "personalityProfile": { "cooperation": "high", "composure": "medium", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" }, "knowledge": { "knows": ["She saw a woman with her face partly covered by a scarf leading Bà Tuyết away.", "The woman seemed to be speaking urgently to Bà Tuyết.", "They walked in the direction of the tea stalls, not toward the exits."], "doesNotKnow": ["The woman's identity.", "That the 'urgency' was emotion, not coercion."], "secretFacts": [], "lies": [], "truthfulStatements": ["Her account is accurate in every observable detail; only her interpretation of it is wrong."] }, "alibi": { "claimed": "At her food stall throughout the evening.", "status": "verified" } },
+    { "id": "security", "name": "Officer Bình", "role": "festival_security", "visibleDescription": "A festival security officer coordinating the search, methodical and eager to close the case quickly given the crowd's growing unease.", "personality": "procedural_eager", "personalityProfile": { "cooperation": "high", "composure": "high", "defensiveness": "low", "manipulation": "low", "voluntaryDisclosure": "high" }, "knowledge": { "knows": ["A woman matching a vague description was detained near the south gate.", "The detained woman denies any involvement and has no connection to Bà Tuyết.", "The temple's perimeter cameras cover the main gate but not the side streets near the tea stalls."], "doesNotKnow": ["Where Bà Tuyết and the real 'stranger' actually went."], "secretFacts": ["He detained the wrong woman based on an overly broad description and is reluctant to admit the mistake."], "lies": ["He initially overstates his confidence that the detained woman is involved."], "lieMotivation": ["professional_pride", "pressure_to_resolve_the_case_quickly"] }, "alibi": { "claimed": "Coordinating the search from the security post.", "status": "verified" } },
+    { "id": "mai", "name": "Mai Nguyễn", "role": "estranged_granddaughter", "visibleDescription": "A Vietnamese-Australian woman visiting Hanoi for a work conference, warm but visibly nervous and emotionally raw when approached.", "personality": "emotional_hopeful", "personalityProfile": { "cooperation": "high", "composure": "low", "defensiveness": "medium", "manipulation": "low", "voluntaryDisclosure": "medium" }, "knowledge": { "knows": ["She is Bà Tuyết's granddaughter.", "She approached her grandmother on impulse after twelve years apart.", "Bà Tuyết did not recognize her at first.", "They lost track of time talking at a tea stall."], "doesNotKnow": ["That the family had reported Bà Tuyết missing and called festival security."], "secretFacts": ["She left Vietnam twelve years ago after a falling-out with her father, Đức, and has been afraid to reach out ever since."], "lies": ["She initially avoids explaining her full connection to Bà Tuyết, worried about how the family will react."], "lieMotivation": ["fear_of_rejection", "old_family_pain"] }, "alibi": { "claimed": "At a tea stall with Bà Tuyết the entire time.", "status": "verified" } }
+  ],
+  "relationships": [
+    { "id": "REL-DUC-MAI", "a": "duc", "b": "mai", "type": "estranged_siblings", "description": "Đức and Mai are siblings who have not spoken in twelve years." },
+    { "id": "REL-MAI-BATUYET", "a": "mai", "b": "duc", "type": "family", "description": "Mai is Bà Tuyết's granddaughter through Đức." },
+    { "id": "REL-HANH-SECURITY", "a": "hanh", "b": "security", "type": "witness_to_officer", "description": "Cô Hạnh reported what she saw directly to Officer Bình." }
+  ],
+  "facts": [
+    { "id": "F001", "tier": "A", "category": "identity", "statement": "The 'stranger' seen with Bà Tuyết was her estranged granddaughter, Mai.", "critical": true },
+    { "id": "F002", "tier": "B", "category": "context", "statement": "Bà Tuyết has recently had trouble recognizing familiar faces in crowds.", "critical": false },
+    { "id": "F003", "tier": "A", "category": "family", "statement": "Mai and her family have been estranged for twelve years.", "critical": true },
+    { "id": "F004", "tier": "A", "category": "evidence", "statement": "The woman detained by security is unrelated to the case.", "critical": true },
+    { "id": "F005", "tier": "A", "category": "resolution", "statement": "No coercion, deception, or harm occurred at any point.", "critical": true },
+    { "id": "F006", "tier": "B", "category": "misinterpretation", "statement": "The scarf covering the stranger's face was Mai hiding tears, not her identity.", "critical": false },
+    { "id": "F007", "tier": "C", "category": "red_herring", "statement": "Officer Bình detained a vendor based on an overly broad description.", "critical": false }
+  ],
+  "evidence": [
+    { "id": "E001", "name": "Witness Description", "description": "Cô Hạnh's detailed account of the stranger's clothing and direction of travel toward the tea stalls.", "discoverability": "Cô Hạnh interrogation", "supports": ["F001", "F006"] },
+    { "id": "E002", "name": "Detained Woman's Statement", "description": "The woman detained by security has an alibi unrelated to Bà Tuyết and no family connection to her.", "discoverability": "Officer Bình interrogation", "supports": ["F004"] },
+    { "id": "E003", "name": "Family History Note", "description": "Đức reluctantly confirms he has a sister, Mai, who left for Australia after a falling-out and hasn't been in contact since.", "discoverability": "Đức interrogation", "supports": ["F003"] },
+    { "id": "E004", "name": "Tea Stall Confirmation", "description": "A nearby vendor recalls an older woman and a younger woman talking for hours, both visibly emotional.", "discoverability": "Follow-up investigation near the tea stalls", "supports": ["F001", "F005"] }
+  ],
+  "questions": [
+    { "id": "Q001", "category": "initial", "targetCharacterIds": ["duc", "hanh", "security"], "text": "What can you tell me about the moment Bà Tuyết disappeared?", "availability": { "type": "initial" }, "responses": {
+      "duc": [{ "variantId": "Q001-D-01", "weight": 75, "type": "truth", "text": "One moment she was beside me, the next the crowd had swallowed her. I panicked." }, { "variantId": "Q001-D-02", "weight": 25, "type": "partial_truth", "text": "It happened so fast. I still don't understand it." }],
+      "hanh": [{ "variantId": "Q001-H-01", "weight": 80, "type": "truth", "text": "I saw a woman with a scarf over part of her face leading her away, toward the tea stalls." }, { "variantId": "Q001-H-02", "weight": 20, "type": "partial_truth", "text": "It looked odd to me, the way she kept her face covered." }],
+      "security": [{ "variantId": "Q001-S-01", "weight": 70, "type": "truth", "text": "We've closed the gates and detained a woman matching the description near the south exit." }, { "variantId": "Q001-S-02", "weight": 30, "type": "partial_truth", "text": "We're treating this as a potential abduction until proven otherwise." }]
+    }, "unlocks": ["Q004"] },
+    { "id": "Q002", "category": "background", "targetCharacterIds": ["duc"], "text": "Does Bà Tuyết have any family we haven't been told about?", "availability": { "type": "initial" }, "responses": {
+      "duc": [{ "variantId": "Q002-D-01", "weight": 40, "type": "lie", "text": "No, it's just the immediate family you've already met." }, { "variantId": "Q002-D-02", "weight": 35, "type": "evasive", "text": "There's... a complicated history. I'd rather not get into it right now." }, { "variantId": "Q002-D-03", "weight": 25, "type": "admission", "text": "I have a sister, Mai. She left for Australia twelve years ago after we had a falling-out. We haven't spoken since." }]
+    }, "reveals": ["E003"], "unlocks": ["Q006"] },
+    { "id": "Q003", "category": "evidence", "targetCharacterIds": ["security"], "text": "Is the detained woman actually connected to Bà Tuyết in any way?", "availability": { "type": "initial" }, "responses": {
+      "security": [{ "variantId": "Q003-S-01", "weight": 55, "type": "partial_truth", "text": "She matches the general description. We're still confirming details." }, { "variantId": "Q003-S-02", "weight": 45, "type": "admission", "text": "Honestly, her alibi checks out and she has no connection to the family at all. We may have detained the wrong person." }]
+    }, "reveals": ["E002", "F004"] },
+    { "id": "Q004", "category": "followup", "targetCharacterIds": ["hanh"], "text": "Why did the scarf over her face seem odd to you?", "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q001"] }, "responses": {
+      "hanh": [{ "variantId": "Q004-H-01", "weight": 60, "type": "partial_truth", "text": "It just seemed like she didn't want to be seen. That worried me." }, { "variantId": "Q004-H-02", "weight": 40, "type": "truth", "text": "Thinking back, her shoulders were shaking. It might not have been about hiding at all — she might have been crying." }]
+    }, "reveals": ["F006"] },
+    { "id": "Q005", "category": "location", "targetCharacterIds": ["security", "hanh"], "text": "Has anyone checked the tea stalls near where the two were headed?", "availability": { "type": "unlocked", "requiresAnyQuestionIds": ["Q001", "Q004"] }, "responses": {
+      "security": [{ "variantId": "Q005-S-01", "weight": 65, "type": "truth", "text": "Not yet — we focused the search on the main gates. I'll send someone now." }, { "variantId": "Q005-S-02", "weight": 35, "type": "partial_truth", "text": "That's outside our camera coverage. Good instinct, though." }],
+      "hanh": [{ "variantId": "Q005-H-01", "weight": 70, "type": "truth", "text": "I didn't think to check there myself, but that's definitely the direction they went." }]
+    }, "reveals": ["E004"], "unlocks": ["Q007"] },
+    { "id": "Q006", "category": "confrontation", "targetCharacterIds": ["duc"], "text": "Is it possible your sister Mai is here in Vietnam right now?", "availability": { "type": "unlocked", "requiresAnyEvidenceIds": ["E003"] }, "responses": {
+      "duc": [{ "variantId": "Q006-D-01", "weight": 35, "type": "evasive", "text": "I have no idea. We don't exactly keep in touch." }, { "variantId": "Q006-D-02", "weight": 40, "type": "partial_truth", "text": "I hadn't even considered that. It would be strange timing, but... maybe." }, { "variantId": "Q006-D-03", "weight": 25, "type": "admission", "text": "Actually — I heard secondhand she had a work trip to Hanoi this month. I didn't think anything of it until now." }]
+    } },
+    { "id": "Q007", "category": "final", "targetCharacterIds": ["mai"], "text": "You've been found at a tea stall with Bà Tuyết. Can you explain what happened?", "availability": { "type": "unlocked", "requiresAllEvidenceIds": ["E004"] }, "responses": {
+      "mai": [{ "variantId": "Q007-M-01", "weight": 100, "type": "admission", "text": "I'm her granddaughter. I saw her in the crowd and I just... I couldn't stop myself from going to her. She didn't recognize me at first, but she was so kind about it, and we just talked, and talked, and I completely lost track of time. I'm so sorry for the fright I caused." }]
+    }, "reveals": ["F001", "F003", "F005"] }
+  ],
+  "discoveryRules": [
+    { "id": "D001", "trigger": "Q002", "reveals": ["E003"], "unlocksQuestions": ["Q006"] },
+    { "id": "D002", "trigger": "Q003", "reveals": ["E002", "F004"] },
+    { "id": "D003", "trigger": "Q004", "reveals": ["F006"] },
+    { "id": "D004", "trigger": "Q005", "reveals": ["E004"], "unlocksQuestions": ["Q007"] },
+    { "id": "D005", "trigger": "Q007", "reveals": ["F001", "F003", "F005"] }
+  ],
+  "contradictions": [
+    { "id": "CON001", "type": "assumption", "description": "Security treated the disappearance as a likely abduction and detained a woman who turns out to have no connection to the case at all.", "significance": "high", "confrontationQuestionId": "Q003", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q003" }] } },
+    { "id": "CON002", "type": "family", "description": "Đức initially denies any additional family exists, but later confirms an estranged sister who may currently be in the country.", "significance": "critical", "confrontationQuestionId": "Q006", "surfaceWhen": { "any": [{ "kind": "evidence", "id": "E003" }] } },
+    { "id": "CON003", "type": "interpretation", "description": "Cô Hạnh's alarm about the scarf-covered face was based on an assumption of concealment that turns out to be simple emotion.", "significance": "medium", "confrontationQuestionId": "Q004", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q004" }] } }
+  ],
+  "redHerrings": [
+    { "id": "RH001", "characterId": "security", "surfaceSuspicion": "A woman matching the description was detained, suggesting the culprit is already caught.", "actualReason": "She is an unrelated festival vendor wrongly matched to a vague description.", "crimeConnection": "none" },
+    { "id": "RH002", "characterId": "hanh", "surfaceSuspicion": "Her account of a scarf-covered stranger 'leading' Bà Tuyết away sounds sinister.", "actualReason": "The stranger was simply overwhelmed with emotion, and the pair walked together willingly.", "crimeConnection": "none" }
+  ],
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Family path", "description": "Question Đức about hidden family → estranged sister Mai → possible presence in Vietnam → confirmed at tea stall.", "criticalFacts": ["F003", "F001"], "approximateActions": 6 },
+    { "id": "PATH_B", "name": "Witness reinterpretation path", "description": "Witness account → scarf misread as concealment → reinterpreted as emotion → tea stall location → confirmation.", "criticalFacts": ["F006", "F001", "F005"], "approximateActions": 7 },
+    { "id": "PATH_C", "name": "Elimination path", "description": "Detained woman cleared → search redirected to uncovered area → tea stall found → reunion confirmed.", "criticalFacts": ["F004", "F001", "F005"], "approximateActions": 6 }
+  ],
+  "accusation": {
+    "dimensions": [
+      { "id": "wrongdoingOccurred", "prompt": "Did any wrongdoing actually occur?", "correctValue": "no_wrongdoing", "options": [{ "id": "no_wrongdoing", "label": "No — nothing improper happened at any point." }, { "id": "minor_negligence", "label": "Some carelessness occurred, but nothing intentional." }, { "id": "deliberate_deception", "label": "Someone deliberately misled or manipulated Bà Tuyết." }, { "id": "abduction", "label": "This was an attempted abduction." }] },
+      { "id": "strangerIdentity", "prompt": "Who was the 'stranger' seen with Bà Tuyết?", "correctValue": "mai", "options": ["mai", "the_detained_vendor", "unknown_person", "no_one_bà_tuyết_was_alone"] }
+    ]
+  },
+  "reveal": {
+    "headline": "There was no stranger, and there was no crime — only a grandmother and a granddaughter finding their way back to each other.",
+    "narrative": [
+      "The woman seen leading Bà Tuyết away from the festival crowd was not a stranger at all.",
+      "She was Mai, Bà Tuyết's granddaughter, who left Vietnam twelve years ago after a painful falling-out with her father, Đức, and hadn't spoken to the family since.",
+      "Spotting her grandmother by chance during a work trip to Hanoi, Mai approached her on impulse.",
+      "Bà Tuyết, whose memory for recent faces has grown unreliable, didn't recognize her granddaughter immediately, but welcomed the company as she often does with friendly festival-goers.",
+      "The two ended up talking for hours at a nearby tea stall, both too absorbed in the conversation to notice the time or the search underway.",
+      "The scarf that made Cô Hạnh suspicious wasn't concealment — it was Mai hiding that she was crying.",
+      "Festival security detained an unrelated vendor based on an overly broad description, a mistake made under pressure to resolve the case quickly.",
+      "In the end, nothing needed solving except a family's twelve-year silence — and that resolution belongs to Bà Tuyết, Đức, and Mai now, not to the investigation."
+    ],
+    "truthBreakdown": [
+      { "fact": "The stranger was Bà Tuyết's estranged granddaughter, Mai.", "importance": "critical", "discoveredThrough": ["Đức", "tea stall confirmation", "Mai's own account"] },
+      { "fact": "No coercion or deception occurred.", "importance": "critical", "discoveredThrough": ["Mai's account", "tea stall witness"] },
+      { "fact": "The detained woman was unrelated to the case.", "importance": "critical", "discoveredThrough": ["Officer Bình"] },
+      { "fact": "The scarf reflected emotion, not concealment.", "importance": "supporting", "discoveredThrough": ["Cô Hạnh, reconsidered"] },
+      { "fact": "The family had been estranged for twelve years.", "importance": "critical", "discoveredThrough": ["Đức"] }
+    ]
+  },
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "singleExactQuestionSequenceRequired": false,
+    "multipleIndependentSolutionPaths": true,
+    "minimumIndependentSolutionPaths": 2,
+    "innocentDeceptionPresent": true,
+    "guiltyPersonIsNotTheOnlyDeceptiveCharacter": false,
+    "truthfulSuspiciousCharacterPresent": true,
+    "sameTopicCanProduceDifferentAnswers": true,
+    "globalCanonicalTruth": true,
+    "playerSpecificResponseVariation": true,
+    "responseVariationCannotMakeCaseUnsovlable": true,
+    "noWrongdoingEndingSupported": true,
+    "emptyResponsiblePartyArraySupported": true,
+    "criticalFactsHaveRedundantDiscoveryRoutes": true,
+    "contradictionsHaveCanonicalBases": true,
+    "revealExplainsApparentAbduction": true,
+    "targetPlayTimeMinutes": { "minimum": 5, "maximum": 20 }
+  }
+}

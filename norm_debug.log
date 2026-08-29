@@ -3,16 +3,42 @@ OUT=c:\Users\TIMIRE\Downloads\ai_game\src\data\cases
 normalized gold-ex-006 -> 10 questions
 normalized gold-id-004 -> 12 questions
 normalized gold-fg-007 -> 9 questions
+normalized gold-vd-002 -> 8 questions
+normalized adv-001 -> 6 questions
+normalized gold-sb-003 -> 14 questions
+normalized gold-tc-008 -> 9 questions
+normalized gold-mp-009 -> 7 questions
 done
 ROOT=c:\Users\TIMIRE\Downloads\ai_game
 OUT=c:\Users\TIMIRE\Downloads\ai_game\src\data\cases
 normalized gold-ex-006 -> 10 questions
 normalized gold-id-004 -> 12 questions
 normalized gold-fg-007 -> 9 questions
+normalized gold-vd-002 -> 8 questions
+normalized adv-001 -> 6 questions
+normalized gold-sb-003 -> 14 questions
+normalized gold-tc-008 -> 9 questions
+normalized gold-mp-009 -> 7 questions
 done
 ROOT=c:\Users\TIMIRE\Downloads\ai_game
 OUT=c:\Users\TIMIRE\Downloads\ai_game\src\data\cases
 normalized gold-ex-006 -> 10 questions
 normalized gold-id-004 -> 12 questions
 normalized gold-fg-007 -> 9 questions
+normalized gold-vd-002 -> 8 questions
+normalized adv-001 -> 6 questions
+normalized gold-sb-003 -> 14 questions
+normalized gold-tc-008 -> 9 questions
+normalized gold-mp-009 -> 7 questions
+done
+ROOT=c:\Users\TIMIRE\Downloads\ai_game
+OUT=c:\Users\TIMIRE\Downloads\ai_game\src\data\cases
+normalized gold-ex-006 -> 10 questions
+normalized gold-id-004 -> 12 questions
+normalized gold-fg-007 -> 9 questions
+normalized gold-vd-002 -> 8 questions
+normalized adv-001 -> 6 questions
+normalized gold-sb-003 -> 14 questions
+normalized gold-tc-008 -> 9 questions
+normalized gold-mp-009 -> 7 questions
 done

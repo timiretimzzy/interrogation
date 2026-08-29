@@ -285,9 +285,9 @@
   ],
 
   "contradictions": [
-    { "id": "CON001", "type": "access", "description": "Leyla claims nothing unusual happened, but the override log shows she alone accessed the case during the exact window in question.", "significance": "critical", "confrontationQuestionId": "Q009" },
-    { "id": "CON002", "type": "behavior", "description": "Leyla refuses close inspection while insisting there's nothing to find.", "significance": "critical", "confrontationQuestionId": "Q008" },
-    { "id": "CON003", "type": "motive", "description": "Leyla's own dismissed provenance review predates the swap and directly explains why she'd act alone.", "significance": "high", "confrontationQuestionId": "Q007" }
+    { "id": "CON001", "type": "access", "description": "Leyla says nothing unusual happened, yet the override log records that she alone accessed the case during the window in question.", "significance": "critical", "confrontationQuestionId": "Q009", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q002" }] } },
+    { "id": "CON002", "type": "behavior", "description": "Leyla has refused a close inspection even while insisting there is nothing to find.", "significance": "critical", "confrontationQuestionId": "Q008", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q004" }] } },
+    { "id": "CON003", "type": "motive", "description": "Leyla's own provenance review was dismissed months before the gala, which may help explain why she acted without involving anyone else.", "significance": "high", "confrontationQuestionId": "Q007", "surfaceWhen": { "any": [{ "kind": "questionAsked", "id": "Q003" }] } }
   ],
 
   "redHerrings": [
