@@ -1,0 +1,7 @@
+d` (full forensic report: control, subpath
+reproduction, hypothesis matrix, code/dist/SW audit, live HTTP audit, root cause, fix,
+prevention, build identity, direct links).
+
+**Next action:** enable Pages (Source = GitHub Actions) + connect Vercel; verify live;
+then continue controlled tester feedback. Do NOT begin Phase 3.5 (case ingestion) or the LLM
+/ novelty / accounts / backend phases.

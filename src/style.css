@@ -129,3 +129,15 @@ button:hover { border-color: var(--accent); }
 .feedback-link{color:#9bbad6;text-decoration:none}
 .feedback-link:hover{text-decoration:underline}
 .test-badge-inline{margin-left:.5rem;vertical-align:middle}
+
+
+/* ===== Transcript: player question / character response grouping ===== */
+.transcript-entries { display: flex; flex-direction: column; gap: 10px; }
+.tx-entry { padding: 8px 0; border-bottom: 1px solid var(--line); }
+.tx-q { font-size: 14px; }
+.tx-tag { display: inline-block; color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; margin-right: 6px; }
+.tx-qtext { color: var(--text); }
+.tx-a { margin-top: 4px; padding-left: 12px; border-left: 2px solid var(--accent); font-size: 14px; }
+.tx-char { display: inline-block; color: var(--accent); font-weight: 600; margin-right: 6px; }
+.tx-atext { color: var(--text); }
+.asked-item { padding: 6px 0; }

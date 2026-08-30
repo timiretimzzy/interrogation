@@ -69,21 +69,34 @@ export function buildNotebook(caseFile: CaseFile, state: PlayerState): NotebookV
       }),
   }));
 
-  const transcript: TranscriptEntry[] = [];
+  const transcriptRaw: { entry: TranscriptEntry; seq: number }[] = [];
+  let fallbackSeq = 0;
   for (const [characterId, records] of Object.entries(state.interrogations)) {
     const character = charById.get(characterId);
     for (const rec of records) {
       const q = caseFile.questions.find((x) => x.id === rec.questionId);
-      transcript.push({
-        characterId,
-        characterName: character?.name ?? characterId,
-        questionId: rec.questionId,
-        questionText: q?.text ?? rec.questionId,
-        responseText: rec.text,
-        contextId: rec.contextId,
+      const recSeq =
+        typeof (rec as { sequence?: unknown }).sequence === 'number'
+          ? (rec as { sequence: number }).sequence
+          : fallbackSeq++;
+      transcriptRaw.push({
+        seq: recSeq,
+        entry: {
+          characterId,
+          characterName: character?.name ?? characterId,
+          questionId: rec.questionId,
+          questionText: q?.text ?? rec.questionId,
+          responseText: rec.text,
+          contextId: rec.contextId,
+        },
       });
     }
   }
+  // Merge every character's interrogations into ONE chronological transcript,
+  // sorted by global interaction sequence (cross-character order preserved).
+  const transcript = transcriptRaw
+    .sort((a, b) => a.seq - b.seq)
+    .map((t) => t.entry);
 
   const clueById = new Map((caseFile.clues ?? []).map((c) => [c.id, c]));
   const evidenceById = new Map((caseFile.evidence ?? []).map((e) => [e.id, e]));

@@ -64,7 +64,7 @@ function toPlayerState(caseFile: CaseFile, s: SimState): PlayerState {
     interrogations: Object.fromEntries(
       [...s.asked].map((qId) => [
         qId,
-        [{ questionId: qId, variantId: 'sim', text: '', contextId: 'initial', kind: '' }],
+        [{ questionId: qId, variantId: 'sim', text: '', contextId: 'initial', kind: '', characterId: '', sequence: 0 }],
       ]),
     ),
     recordedStatements: [...s.statements],
@@ -74,7 +74,7 @@ function toPlayerState(caseFile: CaseFile, s: SimState): PlayerState {
     activeContradictions: [...s.contradictions],
     flaggedContradictions: [],
     contextSwitches: [...s.contexts],
-    actionsRemaining: caseFile.playerRules.investigationActions,
+    actionsRemaining: caseFile.playerRules.investigationActions, conversationSeq: 0,
     status: 'playing',
   };
 }

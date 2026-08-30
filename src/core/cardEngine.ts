@@ -25,6 +25,7 @@ function cloneState(state: PlayerState): PlayerState {
     interrogations: Object.fromEntries(
       Object.entries(state.interrogations).map(([k, v]) => [k, [...v]]),
     ),
+    conversationSeq: state.conversationSeq,
     recordedStatements: [...state.recordedStatements],
     discoveredClues: [...state.discoveredClues],
     discoveredEvidence: [...state.discoveredEvidence],
@@ -125,15 +126,19 @@ export function ask(
   const { variant, contextId } = selected;
 
   // 1. Record the interrogation.
+  const seq = typeof next.conversationSeq === 'number' ? next.conversationSeq : 0;
   const record = {
     questionId,
     variantId: variant.id,
     text: variant.text,
     contextId,
     kind: variant.kind,
+    characterId,
+    sequence: seq,
   };
   const prior = next.interrogations[characterId] ?? [];
   next.interrogations = { ...next.interrogations, [characterId]: [...prior, record] };
+  next.conversationSeq = seq + 1;
 
   // 2. Record the canonical statement (if any) for this character/question.
   const sid = statementIdFor(caseFile, characterId, questionId);

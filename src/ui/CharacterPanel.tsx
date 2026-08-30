@@ -22,8 +22,10 @@ export function CharacterPanel() {
     character ? (s?.interrogations[character.id] ?? []).map((r) => r.questionId) : [],
   );
   const available = availableQuestions(character?.id ?? '').filter((q) => !askedOfActive.has(q.id));
-  const askedQuestions = character
-    ? cf.questions.filter((q) => askedOfActive.has(q.id))
+  const askedRecords = character
+    ? (s?.interrogations[character.id] ?? [])
+        .map((rec) => ({ rec, q: cf.questions.find((x) => x.id === rec.questionId) }))
+        .filter((x) => x.q)
     : [];
 
   return (
@@ -60,18 +62,25 @@ export function CharacterPanel() {
                 </button>
               </li>
             ))}
-            {available.length === 0 && askedQuestions.length === 0 && (
+            {available.length === 0 && askedRecords.length === 0 && (
               <li class="muted">No questions available yet.</li>
             )}
           </ul>
 
-          {askedQuestions.length > 0 && (
+          {askedRecords.length > 0 && (
             <>
               <h3>Asked</h3>
               <ul class="question-list asked-list">
-                {askedQuestions.map((q) => (
-                  <li key={q.id} class="muted">
-                    ✓ {q.text}
+                {askedRecords.map(({ rec, q }) => (
+                  <li key={rec.questionId} class="asked-item">
+                    <div class="tx-q">
+                      <span class="tx-tag">You</span>
+                      <span class="tx-qtext">{q!.text}</span>
+                    </div>
+                    <div class="tx-a">
+                      <span class="tx-char">{character.name}</span>
+                      <span class="tx-atext">{rec.text}</span>
+                    </div>
                   </li>
                 ))}
               </ul>

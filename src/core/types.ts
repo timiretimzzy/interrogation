@@ -348,6 +348,21 @@ export interface InterrogationRecord {
   text: string;
   contextId: ContextId;
   kind: ResponseKind;
+  /**
+   * The character this interrogation was of. Stored explicitly (not just
+   * implied by the per-character `interrogations` key) so a single
+   * chronological transcript can be reconstructed across characters.
+   */
+  characterId: CharacterId;
+  /**
+   * Global monotonically-increasing interaction order. Assigned at ask
+   * time so the merged transcript preserves real player-interaction
+   * sequence across character switches (Amelia -> Daniel -> Amelia), not
+   * per-character bucket order. Always present on records produced by
+   * this build; old saves without it are backfilled with a stable
+   * fallback during notebook projection.
+   */
+  sequence: number;
 }
 
 export interface PlayerState {
@@ -363,6 +378,7 @@ export interface PlayerState {
   flaggedContradictions: ContradictionId[];
   contextSwitches: ContextId[];
   actionsRemaining: number;
+  conversationSeq: number;
   theory?: Record<string, string>;
   accusation?: Record<string, string>;
   status: 'playing' | 'won' | 'lost';
@@ -386,6 +402,7 @@ export function createInitialPlayerState(
     flaggedContradictions: [],
     contextSwitches: ['initial'],
     actionsRemaining: caseFile.playerRules.investigationActions,
+    conversationSeq: 0,
     status: 'playing',
   };
 }
