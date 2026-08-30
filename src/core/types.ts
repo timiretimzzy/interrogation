@@ -128,12 +128,24 @@ export interface Relationship {
   visibility?: 'public' | 'discoverable' | 'secret' | string;
 }
 
+export type ResponseVariantType =
+  | 'truth'
+  | 'partial_truth'
+  | 'evasive'
+  | 'lie'
+  | 'admission';
+
 export interface Fact {
   id: FactId;
-  tier: Tier;
-  category: string;
+  tier?: Tier;
+  category?: string;
   statement: string;
   critical?: boolean;
+  role?: string;
+  supports?: FactId[];
+  contradicts?: FactId[];
+  unlocks?: FactId[];
+  prerequisites?: FactId[];
 }
 
 export interface Evidence {
@@ -143,6 +155,8 @@ export interface Evidence {
   discoverability: string;
   supports: FactId[];
   optional?: boolean;
+  source?: string;
+  factIds?: FactId[];
 }
 
 export interface Clue {
@@ -181,10 +195,13 @@ export interface FactDisclosure {
 export interface ResponseVariant {
   id: string;
   text: string;
-  kind: ResponseKind;
+  kind?: ResponseKind;
+  type?: ResponseVariantType;
   cooperation?: Cooperation;
   weight: number;
   requiresContext?: ContextId;
+  requires?: string[];
+  excludes?: string[];
   discloses?: FactDisclosure[];
   reveals?: ClueId[];
   unlocks?: QuestionId[];
@@ -238,12 +255,52 @@ export interface RedHerring {
   fairnessRole?: string;
 }
 
+export interface Deduction {
+  id: string;
+  requires: FactId[];
+  result: {
+    statement: string;
+  };
+  surface: 'automatic' | 'player_triggered';
+}
+
+export interface TheoryBoard {
+  who?: string;
+  why?: string;
+  citedEvidence: string[];
+  notes?: Record<string, string>;
+}
+
+export interface PlayerProgress {
+  discovered: string[];
+  understood: string[];
+  theory?: TheoryBoard | Record<string, string>;
+  questionsAsked: string[];
+  recentTopics: string[];
+  closedLeads: string[];
+}
+
 export interface SolutionPath {
   id: string;
   name: string;
   description: string;
   criticalFacts?: FactId[];
   approximateActions?: number;
+}
+
+export interface MinimumSolutionPath {
+  id: string;
+  name?: string;
+  description?: string;
+  requiredEvidenceIds?: EvidenceId[];
+  criticalFactIds?: FactId[];
+}
+
+export interface SolutionClaim {
+  id: string;
+  dimension: string;
+  correctValue: string;
+  requiredEvidenceIds: EvidenceId[];
 }
 
 export interface AccusationOption {
@@ -257,6 +314,7 @@ export interface AccusationDimension {
   required: boolean;
   options: (string | AccusationOption)[];
   correctValue: string;
+  diagnosticOnMismatch?: Record<string, string>;
 }
 
 export interface Accusation {
@@ -333,8 +391,12 @@ export interface CaseFile {
   questions: CaseQuestion[];
   statements?: Statement[];
   contradictions: Contradiction[];
+  deductions?: Deduction[];
   redHerrings?: RedHerring[];
+  criticalFactIds?: FactId[];
   solutionPaths?: SolutionPath[];
+  minimumSolutionPaths?: MinimumSolutionPath[];
+  solutionClaims?: SolutionClaim[];
   accusation: Accusation;
   reveal: Reveal;
   fingerprint?: CaseFingerprint;
@@ -373,13 +435,19 @@ export interface PlayerState {
   recordedStatements: StatementId[];
   discoveredClues: ClueId[];
   discoveredEvidence: EvidenceId[];
+  discovered?: string[];
+  understood?: string[];
   unlockedQuestions: QuestionId[];
   activeContradictions: ContradictionId[];
   flaggedContradictions: ContradictionId[];
   contextSwitches: ContextId[];
   actionsRemaining: number;
   conversationSeq: number;
-  theory?: Record<string, string>;
+  theory?: TheoryBoard | Record<string, string>;
+  theoryBoard?: TheoryBoard;
+  questionsAsked?: string[];
+  recentTopics?: string[];
+  closedLeads?: string[];
   accusation?: Record<string, string>;
   status: 'playing' | 'won' | 'lost';
 }
@@ -397,12 +465,19 @@ export function createInitialPlayerState(
     recordedStatements: [],
     discoveredClues: [],
     discoveredEvidence: [],
+    discovered: [],
+    understood: [],
     unlockedQuestions: [],
     activeContradictions: [],
     flaggedContradictions: [],
     contextSwitches: ['initial'],
     actionsRemaining: caseFile.playerRules.investigationActions,
     conversationSeq: 0,
+    theory: undefined,
+    theoryBoard: undefined,
+    questionsAsked: [],
+    recentTopics: [],
+    closedLeads: [],
     status: 'playing',
   };
 }

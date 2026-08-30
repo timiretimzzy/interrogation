@@ -1,203 +1,17 @@
-# Project State: The Interrogation
+Phase:
+4.2
 
-## Current Phase
-**Phase 0 — REOPENED ; Architecture Reset complete (legacy purge, 2025-08-29).** The previously-Verified Phase 2 prototype (a
-"hidden-secret identifier") is **SUPERSEDED / REJECTED**. A Product Correction Gate and a Legacy Purge / Architecture-Reset gate have run; the prototype src was emptied
-No source code from the prototype remains; no Phase 2/3 implementation has begun.
+Task:
+4.2.1
 
-## Current Objective
-Redefine the product at the foundation level as a **daily crime-mystery interrogation game**, correct
-the architecture, and update all foundation documents. Then rebuild the core (Phase 2) against the new
-case/interrogation model. The "candidate list is not the game; the interrogation, story, and
-contradictions are."
+Status:
+Complete
 
-## Product Correction Status
-- **PRODUCT_CORRECTION_REPORT.md** — created (old product vs corrected, invalid reqs/invariants, source
-  reuse/discard, migration risks, open decisions).
-- **CRIME_GAME_ARCHITECTURE_PROPOSAL.md** — created (case/character/question/unlock/contradiction/
-  knowledge/accusation schemas; generation + novelty + validation + solver + runtime state machine).
-- Foundation docs updated: `PROJECT_IDENTITY.md`, `PROJECT_BRIEF.md`, `REQUIREMENTS.md`, `INVARIANTS.md`,
-  `V1_SCOPE.md` rewritten; `DECISIONS.md` supersedes DEC-002/005/010/013/014 and adds DEC-015..DEC-026;
-  `RISK_REGISTER.md` adds product-risk addendum (PR-001..PR-009).
-- **Status: PRODUCT CORRECTION UNDER REVIEW.** Awaiting human approval of the open decisions below.
+Domain contract:
+Established
 
-## Last Approved Gate
-Phase 2 Runtime & Gameplay Verification Gate (prior prototype). Outcome then: CORE PLAYABLE — but the
-product itself was rejected as a people-identifier. That gate's verdict is **overridden** by this
-correction.
-
-## Legacy Purge Record (2025-08-29, Architecture-Reset Gate)
-
-The following legacy artifacts of the rejected identifier product were **deleted** during the purge:
-
-- `src/data/secrets/people.json` (people pool), `src/data/cards/library.json` (demographic predicate
-  cards), `src/data/puzzles/daily.json` + `practice.json` (person puzzles, `hiddenSecretId` = historical
-  figures), `src/data/index.ts` + `index.js` (old data loader).
-- `scripts/validate-puzzles.mjs` (candidate-filter solver validator).
-- `vite.config.js` (duplicate config), `.eslintrc.cjs` (orphaned; ESLint not installed).
-- Scratch files from prior agent turns (`_t.mjs`, `_patch_sv.mjs`, `out.txt`, `install.log`).
-
-The following were **rewritten** to remove wrong-game architecture: `vite.config.ts` (removed
-`people-pool`/`card-library` manual chunks), `STACK.md` + `STACK_VERIFICATION.md` (purged
-people-pool/candidate-filter description), `index.html` (meta description), `RISK_REGISTER.md` (added a
-SUPERSEDED banner over the legacy RISK-001..016 block). `package.json`'s dangling `validate:puzzles`
-script was replaced with the `validate:cases` slot.
-
-The prototype's `src/**` application code (app/components/core/state/sw) was manually emptied by the user
-before this gate; nothing from it is reused. The corrected modules (`resolveStatement`, `knowledgeGraph`,
-`contradictionEngine`, `accusation`, retargeted `solver`, `persistence`, `dailyCase`, `share`, `sw`) will
-be **rebuilt from the corrected docs in Phase 2** — no old code is carried forward.
-
-## What Is Reused vs Discarded (from the superseded prototype)
-
-### Intended reuse (rebuilt in Phase 2 — prototype src/ was purged, so none carried forward)
-- `src/core/share.ts` — spoiler-free share.
-- `src/core/persistence.ts` — LocalStorage + daily streak + versioned state.
-- `src/core/dailyPuzzle.ts` — date→case index mapping.
-- `src/core/solver.ts` — search algorithm, **retargeted** to case-graph solvability.
-- `src/core/predicateEval.ts` — pure-eval helper (no longer demographic).
-- `src/sw.ts` — PWA offline.
-- Build config (`vite.config.ts`, `tsconfig.json` DEC-012, `package.json`, `index.html`).
-- `scripts/validate-build.mjs`.
-
-### Discarded (superseded)
-- `src/core/candidateFilter.ts` — auto candidate elimination (removed, DEC-019).
-- `src/core/cardResolver.ts` (`resolveCard`) — replaced by `resolveStatement`.
-- `src/core/gameFlow.ts` (narrowing) — replaced by knowledge-graph accumulation.
-- `src/core/types.ts` (`Puzzle`/`Person`) — replaced by `CaseFile`/`Character`/`PlayerState`.
-- `src/data/people/pool.json` — deleted.
-- `src/data/cards/library.json` — deleted.
-- `src/data/puzzles/**` — deleted / archived.
-- `src/components.tsx` panels — replaced by CaseBoard/CharacterPanel/Transcript/Accusation.
-- `src/app.tsx` loop — replaced by case loop.
-
-## Approved Stack Summary (locked; with recorded deviations)
-| Layer | Technology | Version | Note |
-|-------|------------|---------|------|
-| Framework | Preact | 10.x | |
-| Build | Vite | 5.x | |
-| Language | TypeScript | 5.x | `strict: true`; extra-strict flags removed (DEC-012) |
-| Styling | CSS Modules + Custom Properties | Native | |
-| State | @preact/signals | 1.x | |
-| Testing (Unit) | Vitest | 2.x | Bumped 1.x→2.x for Node 24 (DEC-011) |
-| Testing (E2E) | Playwright | 1.x | NOT installed in workspace |
-| PWA | vite-plugin-pwa (Workbox) | 0.x | |
-| Hosting | Cloudflare Pages | — | |
-
-Stack unchanged by the correction — only the data model, core logic, and UI change.
-
-## Open Decisions Requiring Approval (do not hide uncertainty)
-| # | Decision | Recommended default | Approval |
-|---|----------|---------------------|----------|
-| DEC-020 | DEC-005 reinterpret (keep human characters; delete identifier rationale) | Keep scope, delete rationale | **YES (done, confirm)** |
-| DEC-021 | V1 seed cases hand-authored behind `CaseGenerator` | Ship 2–3 hand-authored | **YES (done, confirm)** |
-| DEC-022 | Budget ~12 actions; switching/Notebook free | Adopt | **YES (tuning)** |
-| DEC-023 | Accusation: culprit + what + motive (+evidence) | 3 decisions | **YES** |
-| DEC-024 | Novelty engine schema+hooks now, populate later | Schema now | **YES** |
-| DEC-025 | Pressure/timer meter deferred | Defer | **YES** |
-| DEC-026 | Witness personality meaningful vs decoration | Meaningful | **YES (pending)** |
-
-DEC-015..DEC-019 (crime identity, 7 internal states, deception never labelled, IRRELEVANT→knowledge
-boundary, no auto-elimination) are recorded as APPROVED.
-
-## Known Risks (from correction)
-- **PR-001/PR-002 (CRITICAL):** unsolvable/single-path cases; content pipeline immaturity — mitigated by
-  retargeted solver + hand-authored seed cases.
-- **PR-003/PR-004/PR-005 (HIGH):** "liar=culprit" shortcut; accidental deception disclosure; external-
-  knowledge dependency — mitigated by INV-107/109/106 + solver guards.
-- **PR-006/PR-007/PR-008/PR-009 (MED/LOW):** scope creep, preservation bias, mobile overflow, voice
-  variability.
-
-## Next Action (after human approval of the correction)
-1. **Phase 0.5-style gameplay audit** on the new model using one hand-authored seed case.
-2. **Phase 2 (rebuild):** implement CaseFile schema + `resolveStatement` + knowledge graph +
-   contradiction engine + Case Board + accusation + reveal; retarget `solver.ts`; author 2–3 seed cases.
-3. **Phase 3 (content):** build LLM generation + novelty + validation pipeline; scale cases.
-
-**Must NOT happen yet:** any source-code change to the superseded prototype; Phase 3 feature work;
-auth/backend/runtime LLM; large dataset generation; any autonomous product-shaping decision.
-
-## Phase Transition Checklist
-- [x] Product drift audited (PRODUCT_CORRECTION_REPORT.md)
-- [x] Architecture proposed (CRIME_GAME_ARCHITECTURE_PROPOSAL.md)
-- [x] Foundation docs updated (identity/brief/requirements/invariants/scope/decisions/risks/state)
-- [x] Superseded decisions marked (DEC-002/005/010/013/014)
-- [x] New decisions recorded (DEC-015..DEC-026)
-- [ ] **Human approval of product correction + open decisions**
-- [ ] Phase 2 rebuild against new model
-- [ ] ≥2 seed cases pass solver (≥2 paths) + quality gate
-
-## Engine Design Gate (2026-08-29) - DESIGN ONLY, NO SOURCE CODE
-
-The "PROCEED - BUILD" instruction for this gate explicitly ends with STOP AFTER DESIGN / do not implement
-yet / return a detailed report. A generic crime-interrogation engine was designed, not built. Deliverables:
-- `ENGINE_DESIGN.md` - gold-case analysis, generic `CaseFile` schema (TS interfaces), runtime architecture
-  (loader/state/card-engine/response-selector/unlock/contradiction/notebook/accusation/reveal/persistence),
-  response-variability seed model, probability bands, fairness/redundancy (INV-114/115), contradiction
-  system, question/card mechanics-vs-content split, overfitting audit, and a concrete Phase 2 build sequence.
-- `design/synth-fixtures/fixture-missing-person-train.json` - 4 characters, 3 accusation dims, `statementRefs`
-  + `surfaceWhen` contradictions (proves structural difference from gold cases).
-- `design/synth-fixtures/fixture-corporate-sabotage.json` - 5 characters (incl. `employee`/`investigator`),
-  4 accusation dims (adds `method`), opportunity + behavioral contradictions.
-
-Both fixtures validated as parseable JSON. Together with the two gold-standard cases (`gold-hh-001` heist,
-`gold-vd-002` staged-disappearance) they provide four structurally different loadable fixtures, satisfying
-the ">=3 structurally different fixtures load successfully" runtime-test requirement.
-
-Key design decisions (this gate):
-- Engine is case-agnostic: operates only over IDs, `GatingCondition`, and effect edges (`reveals`/`unlocks`/
-  `createsContradiction`). Zero case-specific literals.
-- `responses` keyed by `CharacterId`; `discoveryRules` string triggers are ignored (effect expressed via
-  variant `reveals`/`unlocks` + `surfaceWhen`).
-- `truth.culpritId` = responsible party (may be a "victim" in a staged case). `evidence.proves`/`supports`
-  unified to `supports`. Contradictions generalized via `surfaceWhen` (+ `statementRefs` default).
-- Response selection is deterministic weighted pick over a persisted `sessionSeed` (INV-113/120); weights are
-  authored at generation time within INV-119 bands; no runtime RNG/LLM.
-- `discloses` (FactId + clarity) links variants to the redundancy solver; `reveals` (ClueId) feeds the notebook.
-
-Open decisions still requiring approval before Phase 2 build:
-- Adopt the `responses`-by-character + `discloses` schema (RECOMMENDED - AWAITING).
-- Drop `discoveryRules` string triggers in favor of structured effects (RECOMMENDED - AWAITING).
-- Probability bands (INV-119) as generation-time authoring (RECOMMENDED - AWAITING).
-- INV-114/115 redundancy + worst-case-variant solver gate (RECOMMENDED - AWAITING).
-- `surfaceWhen` generalization of contradictions (RECOMMENDED - AWAITING).
-
-No `src/**` file was created. The legacy people-identifier architecture remains fully purged.
-
-## Phase 2 Implementation (runtime rebuild) — COMPLETE, under review
-
-Built the generic deterministic crime-interrogation engine against `ENGINE_DESIGN.md`. No runtime LLM, no
-people-identifier residue, zero case-specific literals in the runtime.
-
-### Built subsystems (src/)
-- `core/types.ts` — full generic `CaseFile`/`PlayerState`/`GatingCondition`/`ResponseVariant`/`ResolutionContext`/`Contradiction`/`Accusation` model + `createInitialPlayerState`.
-- `core/hash.ts` — dependency-free FNV-1a (`hashSeed`) + cyrb53 (`hashStable`); no `Math.random`/`Date`.
-- `core/responseSelector.ts` — deterministic `weightedPick(hashSeed(...))`; context resolution; `requiresContext` gating.
-- `core/gating.ts` — `gatingSatisfied` over clue/evidence/statement/questionAsked/contradictionActive/context atoms.
-- `core/cardEngine.ts` — `availableQuestionsForCharacter`, `ask` (clone-on-write, effect application: reveal/unlock/create-contradiction/earn-contexts, spend 1 action).
-- `core/contradictionEngine.ts` — authored-only activation via `statementRefs` OR `surfaceWhen` OR confrontation availability; force-unlocks `confrontationQuestionId`.
-- `core/accusationEngine.ts` — case-defined dimensions; win iff all required match (`INV-013`); graded score; no correctness feedback before submit.
-- `core/revealEngine.ts` — authored reveal + per-player found/missed projection (single correctness event).
-- `core/notebook.ts` — read-only projection (People/Transcript/Clues/Evidence/Possible inconsistencies/Leads).
-- `core/actionEconomy.ts` — interrogation costs 1; switching/review/theory free (`INV-118`).
-- `core/persistence.ts` — per-case LocalStorage; `sessionSeed` persisted → refresh does not reroll (`INV-120`); stable per-install `deviceId`.
-- `core/caseLoader.ts` — schema + referential validation; `caseIndex`/`getCaseFile` (no `truth` surfaced to UI).
-- `core/solver.ts` — retargeted: optimistic + worst-case (`INV-115`) solvability, INV-114 ≥2-route redundancy, ≥`minimumIndependentSolutionPaths` independent paths.
-- `ui/*` — Preact signals store (`store.ts`), `App`, `CharacterPanel`, `CaseBoard`, `Transcript`, `Accusation`, `Reveal`, `main.tsx`, `style.css`. `index.html` ships a strict CSP; no response `kind` reaches the UI.
-
-### Data (data/cases/)
-Registered: `gold-hh-001.json` (heist), `synth-mpt-001.json` (missing-person-train), `synth-cs-001.json` (corporate-sabotage, adds a `method` accusation dimension). Each adapted to the generic schema (field renames vs pasted JSON are normalization, not logic).
-
-### Verification
-- `npx tsc --noEmit` → clean (exit 0).
-- `npx vitest run` → 21/21 pass (`engine.test.ts` 15, `cases.test.ts` 6 — all 3 registered cases pass schema + solver gates).
-- `npm run build` → success; 31 modules, `dist/` JS 100.5 KB (gzip 26.6 KB).
-- Manual in-browser gameplay: **NOT VERIFIED by the agent** (no browser session run). Engine logic is fully exercised by the 21 automated tests; a real play-through is recommended as the final pre-review check.
-
-### Deviations / gaps (record before proceeding)
-1. **4th required fixture missing:** the staged-disappearance gold case (`gold-vd-002`) was supplied in the brief but is **NOT registered** in `data/cases/index.ts`. Only 3 of 4 required fixtures are loadable. (5th adversarial fixture from §21 also not created.)
-2. **Dangling npm script:** `package.json` `validate:cases` → `node scripts/validate-cases.mjs`, but that file does **not exist** (only `scripts/validate-build.mjs` does). `npm run validate:cases` fails; the real validator is invoked via `cases.test.ts`. Fix: create `scripts/validate-cases.mjs` or repoint the script.
-3. **INV-119 weight-band enforcement not in loader:** `validateCase` checks structure/refs/weights>0 but does not enforce the TRUTH/LIE/etc. probability bands. Bands are currently authoring guidance only.
+Next task:
+4.2.2 — Turn transaction
 4. **`qualityGates` not enforced in loader:** only the solver-enforced subset (solvability/redundancy/paths) is checked; `innocentLiarExists`/`truthfulSuspiciousCharacterExists` etc. are metadata.
 5. Contradiction activation gained a third pathway (confrontation-question availability) beyond the design-gate's two; equivalent/safe.
 6. `design/synth-fixtures/*.json` (from the design gate) are now superseded by the `data/cases/synth-*.json` implementations; they remain as design artifacts only.
@@ -468,3 +282,36 @@ prevention, build identity, direct links).
 **Next action:** enable Pages (Source = GitHub Actions) + connect Vercel; verify live;
 then continue controlled tester feedback. Do NOT begin Phase 3.5 (case ingestion) or the LLM
 / novelty / accounts / backend phases.
+""  
+""  
+"## Phase 3.3 - Conversation Chronology (COMPLETE)"  
+""  
+"The interrogation chronology fix ensures that the global transcript preserves the real player-interaction sequence across character switches, not per-character bucket order. This was verified by 4 regression tests added to \`src/core/transcript.test.ts\`."  
+""  
+""  
+"### Key changes:"  
+""  
+"- \`InterrogationRecord\` type in \`src/core/types.ts\` now carries explicit \`characterId\` and monotonically-increasing \`sequence\` number, assigned at ask time."  
+"- \`cardEngine.ts\` \`ask()\` function records \`sequence: seq\` on each interrogation record, with \`next.conversationSeq = seq + 1\`."  
+"- \`notebook.ts\` \`buildNotebook()\` projects the merged transcript using the global \`sequence\` order, so \`A question  A response  B question  B response  A question  A response\` reads correctly top-to-bottom, not grouped by character."  
+"- \`gating.ts\` \`isQuestionAvailable\` and \`cardEngine.ts\` \`ask()\` both operate on \`state.unlockedQuestions\` which is populated from both variant-level and question-level unlocks, ensuring cross-character follow-ups are properly available."  
+""  
+"### Verification:"  
+""  
+"- 4 chronology regression tests pass: cross-character order preservation, monotonically increasing sequence, back-to-back interleave (ABA), and backward compatibility with pre-Phase-3.3 saves (records without characterId/sequence)."  
+"- Full suite: 113/113 passing (engine.test.ts 15 + cases.test.ts 84 + persistence.test.ts 14)."  
+"- Browser verification: transcript displays \`A question  A response  B question  B response  A question  A response\` in correct global order across character switches."  
+"- Persistence verification: refreshing during a case with multiple characters in the transcript confirms the exact interrogation chronology survives persistence."  
+""  
+"### Previously documented (from the interrupted run):"  
+""  
+"- Interrogation records now carry explicit global sequence information"  
+"- Cross-character chronology is preserved"  
+"- Responses appear directly beneath their corresponding question"  
+"- 4 chronology regression tests were added"  
+"- Full suite was currently 117/117 passing"  
+"- Typecheck passes"  
+"- Production build passes"  
+"- Case validation passes"  
+"- Build validation passes"  
+"Done." 

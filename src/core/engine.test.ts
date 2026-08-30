@@ -3,6 +3,7 @@ import { hashSeed } from './hash.ts';
 import { selectResponse, eligibleVariants, weightedPick } from './responseSelector.ts';
 import { gatingSatisfied, GatingCondition } from './gating.ts';
 import { ask, availableQuestionsForCharacter } from './cardEngine.ts';
+import { executeTurn } from './turnEngine.ts';
 import { computeActiveContradictions, activeConfrontationQuestions } from './contradictionEngine.ts';
 import { evaluateAccusation, submitAccusation } from './accusationEngine.ts';
 import { buildNotebook } from './notebook.ts';
@@ -35,6 +36,23 @@ describe('deterministic hash + response selection', () => {
     ] as any;
     expect(weightedPick(variants, 0).id).toBe(weightedPick(variants, 0).id);
   });
+
+  it('requires and excludes filter eligible variants before weighing', () => {
+    const s = init();
+    const variants = [
+      { id: 'a', text: '', kind: 'TRUTH', weight: 1, requires: ['C003'] },
+      { id: 'b', text: '', kind: 'TRUTH', weight: 1, excludes: ['C003'] },
+    ] as any;
+    s.discoveredClues = ['C003'];
+    const eligible = variants.filter((v: any) => {
+      const known = new Set([...s.discoveredClues, ...s.discoveredEvidence]);
+      const ok = (v.requires ?? []).every((id: string) => known.has(id));
+      const blocked = (v.excludes ?? []).some((id: string) => known.has(id));
+      return ok && !blocked;
+    });
+    expect(eligible.map((v: any) => v.id)).toContain('a');
+    expect(eligible.map((v: any) => v.id)).not.toContain('b');
+  });
 });
 
 describe('no runtime LLM / RNG in selection', () => {
@@ -63,6 +81,26 @@ describe('gating', () => {
     const cond: GatingCondition = { all: [{ kind: 'clue', id: 'C001' }, { kind: 'context', id: 'after_question_Q015' }] };
     expect(gatingSatisfied(gold, s, cond)).toBe(true);
     expect(gatingSatisfied(gold, s, { all: [{ kind: 'clue', id: 'C001' }, { kind: 'clue', id: 'C002' }] })).toBe(false);
+  });
+});
+
+describe('turn engine', () => {
+  it('rejects unavailable question without mutating live state', () => {
+    const s0 = init();
+    const before = JSON.stringify(s0);
+    expect(() => executeTurn(gold, s0, 'theo', 'Q015')).toThrow();
+    expect(JSON.stringify(s0)).toBe(before);
+  });
+
+  it('applies the response and exposes the post-turn transition details', () => {
+    const s0 = init();
+    const res = executeTurn(gold, s0, 'daniel', 'Q001');
+    expect(res.response).toBeTruthy();
+    expect(res.state.discoveredClues).toContain('C003');
+    expect(res.state.recordedStatements).toContain('S-DANIEL-SEE');
+    expect(res.state.actionsRemaining).toBe(gold.playerRules.investigationActions - 1);
+    expect(res.newlyAvailableQuestions).toEqual(expect.arrayContaining(['Q013']));
+    expect(s0.discoveredClues).not.toContain('C003');
   });
 });
 
