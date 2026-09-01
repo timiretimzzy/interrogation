@@ -96,6 +96,30 @@ history is deleted at 9:14 while the external recorder shows the program was sto
 Any technically capable staff member could theoretically queue content, but only Priya
 had routine console access, supply access, and advance knowledge of Mara’s private plan.
 
+### 1.4 Causal chain
+
+| Cause | Action | Consequence | Trace | Possible discovery |
+| --- | --- | --- | --- | --- |
+| Kells diverts Harbour Relief funds through North Quay. | A compliance officer preserves a donor-meeting recording and gives it to Mara. | Kells needs the recording suppressed. | Mara's waveform note; source's confirmation. | Archive or Mara-investigation branch. |
+| Kells sends a plausible privacy complaint and pays Priya. | Priya authorizes a retention override and deletion. | Priya becomes tied to fraud evidence while believing the takedown defensible. | Payment ledger; authorization audit; Tomas's log. | Finance and archive branches converge. |
+| Mara reconstructs the deleted recording and schedules a private 9:15 call. | She records continuity audio and embeds the source-assurance cue. | Priya knows Mara will be absent while listeners hear her voice. | Rundown; rehearsal master; June/Elias knowledge. | Relationship or audio/timeline branches. |
+| Kells pressures Priya to make the file disappear. | Priya fears exposure and decides independently to kill Mara. | Motive is personal concealment, not a hired murder. | Message wording plus payment/deletion chronology. | Kells confrontation and archive reconstruction. |
+| Priya has supply and playout access. | She queues the continuity segment, falsifies the local tally, and substitutes a poisoned lozenge. | Mara can die unobserved while the program supplies a false time anchor. | Queue log; waveform; invoice; residue. | Technical and object branches. |
+| Mara consumes lemon lozenge and enters Studio B. | Aconitine causes collapse before 9:12. | Rehearsal audio appears to narrate a live final conflict. | June's observation; toxicology; corridor/door time. | Medical, June, and Elias branches. |
+| Priya stops playback and deletes local history. | Her discovery story becomes inconsistent with external records. | Manipulation itself becomes leverage against her. | Compliance recorder; local audit gap. | Technical confrontation. |
+
+### 1.5 Culprit model: Priya Nair
+
+| Dimension | Author-only model |
+| --- | --- |
+| Actual actions | Accepted Kells's payment; authorized archive deletion; learned Mara would expose it; queued continuity audio; changed local tally routing; replaced a lemon lozenge; stopped playback; deleted local edit history; lied about live transmission and discovery. |
+| Means | Authorized console operation, access to Studio B supply replenishment, knowledge of Mara's lemon habit, and access to the prop-tincture cabinet. |
+| Opportunity | She is legitimately present during preparation, can leave the poisoned item without appearing to enter during death, and knows Mara will be privately away from the microphone. |
+| Fear and assumptions | She expects Kells to abandon her if exposed, expects the deletion to look routine, assumes no one distinguishes program output from live microphone status, and believes external backup retains no useful edit detail. |
+| Intended deception | The false live timeline should make Elias's apparent argument and Kells's threat compete as explanations while a medical collapse remains plausible. |
+| Blind spots and mistakes | She cannot anticipate June's precise ingestion observation, the vendor lot trail, matching waveform detail, retained queue metadata, or the external recorder's 9:14 stop. She underestimates that her “technical” explanation becomes less credible once the program is proved prerecorded. |
+| Investigative expectation | Investigators will treat her as a helpful discoverer whose payment is Kells's leverage, not as someone whose exposure gives her an independent motive. |
+
 ## 2. Master timeline
 
 ### Public timeline at arrival
@@ -141,6 +165,17 @@ timestamp.
 
 No character can truthfully supply the complete solution. Priya alone knows murder intent;
 every critical conclusion requires at least two perspectives.
+
+### Secrets, false beliefs, and willingness map
+
+| Holder | Secret / belief classification | Why conceal it | Evidence or confrontation that changes willingness |
+| --- | --- | --- | --- |
+| Priya | Murder-relevant: deletion, payment, playout manipulation, poisoning. False belief: deleted local record is enough. | Criminal liability and collapse of trusted professional identity. | X-01 and X-04 remove viable technical denials; archive/payment proof pressures narrow operational admissions. |
+| Elias | Indirectly relevant: took spare key, real argument was cruel. False belief: protected source was Kells. | Avoids looking violent or controlling. | X-02 makes his framing concern credible; he then separates real argument from rehearsal. |
+| Kells | Murder-relevant only indirectly: fraud, improper payment, intimidation. False belief: Priya removed all recording evidence. | Criminal exposure and financial loss. | X-03 forces admission of suppression intent and identifies “file” as the recording. |
+| June | Red herring: unauthorized spare-key use. False belief: program was live. | Fear of dismissal over personal rule breach. | X-05 bounds the breach and makes her ingestion/cue observations safe to disclose. |
+| Rowan | Indirectly relevant: Mara asked about arrhythmia. False belief: self-administration remains plausible. | Fear of professional blame. | Toxicology plus targeted-ingestion context turns medical uncertainty into timing constraint. |
+| Tomas | Indirectly relevant: lax retention-override practice. False belief: solicitor request was lawful. | Employment risk. | Payment plus audit show the override was not ordinary; he identifies Priya's authorization trail. |
 
 ## 4. Information atom catalog
 
@@ -211,6 +246,20 @@ No node is a magic bullet: residue establishes poison but not delivery; payment 
 compromise but not murder; prerecorded audio establishes false time but not who exploited
 it; opportunity becomes meaningful only at the intersection.
 
+### Evidence and proof architecture
+
+| Evidence | Directly proves | Does not prove | Secondary role / recontextualization | Accusation support |
+| --- | --- | --- | --- | --- |
+| E-01 lozenge residue | Aconitine was in one lemon lozenge. | Who put it there or why. | Makes Rowan's suicide ambiguity testable rather than decisive. | HOW |
+| E-02 invoice and lot | A new tin was supplied at 8:47 through Priya's task. | That Priya poisoned it. | Converts “helpful refill” into a defined delivery window once D-01 exists. | HOW, WHO |
+| E-03 playout queue | A recorded asset was scheduled before broadcast. | Mara died before it played or Priya scheduled it maliciously. | First technical challenge to the public timeline. | Concealment |
+| E-04 waveform/master | The 9:12 audio duplicates earlier rehearsal material. | Why it was used. | Turns Elias's strongest apparent implication into alibi-relevant timing evidence. | Concealment, WHO |
+| E-05 external stop/local gap | Playback stopped at 9:14 while local history was erased. | That Priya poisoned Mara. | Converts Priya’s helpful-discoverer role into falsified sequence. | WHO, Concealment |
+| E-06 corridor record | Elias lacked physical access after 8:57. | He had no motive or did not argue. | Preserves real conflict while closing its homicide reading. | Excludes WHO alternative |
+| E-08 payment ledger | Kells paid Priya before archive deletion. | Payment funded murder. | Supports both Kells-hired and Priya-exposure theories until E-09/E-10 arrive. | WHY |
+| E-09 deletion audit | Priya personally approved removal of the Harbour Relief asset. | She understood the fraud at that time. | Makes the payment morally and professionally dangerous without shortcutting murder. | WHY |
+| E-10 Kells message | Kells pressured Priya to suppress a “file.” | He ordered homicide. | Audit context transforms apparent murder order into coercive evidence destruction. | WHY; excludes WHO alternative |
+
 ## 6. Competing theories
 
 | Theory | Why plausible / what it explains | Pressure point and dismantling |
@@ -236,6 +285,19 @@ closes a false theory. X-05 is intentionally a resolving false contradiction: it
 the player that an exposed lie can yield a useful truthful clarification without proving
 murder.
 
+### Claims and testimony map
+
+| Claim | Speaker | Truth status | Conceals / supports | Later treatment |
+| --- | --- | --- | --- | --- |
+| The broadcast was live until Mara fell silent. | Priya | False. | Conceals preloaded continuity and temporal cover. | X-01; excluded after technical proof. |
+| I found Mara after the live program went quiet. | Priya | False. | Conceals manual stop and deletion. | X-04; replaced by partial operational admission. |
+| I only refilled what Mara asked for. | Priya | Partial truth. | Conceals substitution of one lozenge. | Invoice and D-01 make innocuous-refill reading obsolete. |
+| I argued with Mara, then left before air. | Elias | Materially true. | Minimizes cruelty and key timing. | E-06/F-06 corroborate timing; relationship deception remains. |
+| I did not have meaningful dealings with Priya. | Kells | False. | Conceals payment and pressure. | X-03; revised to archive suppression. |
+| I never entered the studio. | June | Ambiguous partial truth. | Conceals access-area/key breach. | X-05 clarifies Studio B distinction and yields witness facts. |
+| Symptoms could fit a spontaneous arrhythmia. | Rowan | Cautious incomplete professional judgment. | Withholds prior medical question, not a known murder fact. | D-01 changes the medical interpretation. |
+| The deletion was routine legal compliance. | Tomas | False belief / self-protective partial truth. | Conceals lax review, not murder. | Audit/payment forces technical clarification. |
+
 ## 8. Discovery routes and criticality
 
 | Required conclusion | Primary route | Independent route | Classification |
@@ -252,6 +314,17 @@ murder.
 Critical routes will be authored as deterministic disclosures; variants may only alter
 posture or provide optional corroboration. The model contains no lucky-response
 dependency.
+
+### Critical information map
+
+| Critical conclusion | Minimum fair information | Recovery if a branch is delayed |
+| --- | --- | --- |
+| Targeted poisoning | E-01 plus F-01 or F-02, yielding D-01. | June's observed ingestion and Rowan's onset constraint offer distinct human/medical routes. |
+| Prerecorded—not live—broadcast | E-04 plus E-03 or Elias rehearsal knowledge, yielding D-02. | F-05 creates technical suspicion before either proof route. |
+| Priya had pre-death delivery opportunity | E-02 plus role knowledge, strengthened by F-08. | June's new-tin observation leads to vendor provenance without Priya volunteering it. |
+| Priya’s independent motive | E-08 + E-09 + E-10, yielding F-09. | Tomas’s authorization account and Mara’s waveform note create archive-first route. |
+| Priya’s discovery account is fabricated | E-05 with C-02 and D-02/F-04. | Server schedule and local-maintenance inquiry independently lead to same record comparison. |
+| Broadcast was concealment mechanism | D-02 + F-07 + F-08 + F-10, claimed as D-03. | Elias/audio and June/relationship branches each contribute different prerequisites. |
 
 ## 9. Information layers and pacing
 
@@ -293,7 +366,25 @@ model that the broadcast created—not just obscured—the opportunity.
 | Motive misunderstanding: Priya payment | Payment is payment for murder. | Audit/message chronology identifies a prior deletion, supplying personal rather than hired motive. |
 | Medical misunderstanding | Mara’s question and isolation imply suicide. | D-01 and invoice provenance establish external substitution. |
 
-## 12. Accusation proof matrix
+## 12. Lead lifecycle map
+
+| Lead | Open trigger and hypothesis | Investigated outcomes | Redirect / closure and obsolescence |
+| --- | --- | --- | --- |
+| Apparent on-air argument | Arrival audio suggests Elias killed after confrontation. | Establishes real argument, rehearsal possibility, and corridor alibi. | X-02 closes Elias homicide reading; redirects to actual ingestion time and broadcast authenticity. |
+| June's spare-key access | Key log and evasiveness suggest Studio B access. | Resolves her ambiguous statement; yields 9:03 ingestion and cue. | X-05 explicitly closes June-as-access-killer while opening lozenge and source branches. |
+| Medical collapse | Isolation and Rowan uncertainty suggest accident/suicide. | Toxicology and timing establish targeted ingestion. | D-01 closes non-targeted medical explanation; redirects to tampering provenance. |
+| Kells’s pressure/payment | Fraud and payment suggest murder-for-hire. | Ledger, message, and archive audit establish suppression. | X-03 closes direct-order theory; redirects to Priya’s personal exposure. |
+| Live broadcast status | Tally/audio suggest Mara alive at 9:12. | Queue, waveform, and format anomaly establish false live timeline. | D-02 retires live-status claims; opens stop-time and planned-absence inquiry. |
+| Priya's refill | Routine preparation appears innocent. | Invoice/lot plus targeted ingestion define delivery window. | Innocent-refill account becomes obsolete; redirects to combined opportunity. |
+| Priya's discovery | Discoverer narrative appears helpful. | External stop/local gap exposes falsification. | X-04 redirects to preparation and prevents repeated live-silence denial. |
+| Harbour Relief deletion | Apparent administrative compliance. | Payment/audit/message establish compromised motive. | Routine-deletion explanation closes; redirects to WHY proof. |
+
+In implementation each lead must either unlock a distinct successor, create a formal
+contradiction, or declare `redirected`/`closed` resolution. Closure should state the
+retained conclusion (for example, “Elias argued, but the timing does not support delivery”)
+without declaring a replacement culprit.
+
+## 13. Accusation proof matrix
 
 | Dimension | Canonical answer | Plausible wrong answers | Proof requirement | Diagnostic principle |
 | --- | --- | --- | --- | --- |
@@ -306,7 +397,7 @@ These four dimensions are necessary and sufficient: a separate `WHEN` answer wou
 an obscure minute rather than explanatory understanding. Proof-gated diagnostics may
 speak only to dimensions whose listed information is possessed.
 
-## 13. Information graph audit
+## 14. Information dependency audit
 
 | Required conclusion | Proof/backward trace | Audit result |
 | --- | --- | --- |
@@ -328,3 +419,30 @@ knowledge, ignorance, secrets, lies, exposure, and willingness boundaries. Each 
 accusation dimension has multiple information paths or independent corroboration; all
 false theories explain real evidence and receive a closure. The sole player-triggered
 deduction is earned and bounded. No production implementation has been created.
+
+## 15. Engine compatibility audit
+
+| Required behavior | Certified representation | Result |
+| --- | --- | --- |
+| Atomic discovered propositions and objective traces | `Fact`, `Evidence`, `Clue`, `Statement`; response `discloses`/`reveals`. | Compatible. Planning labels will be translated into authored IDs later. |
+| Selective truth, lies, and revised accounts | Contextual response variants with `requires`, `excludes`, response kind, and cooperation. | Compatible. Priya’s superseded live claims should be excluded once X-01/D-02 context exists. |
+| Nonlinear discovery and recovery | Question availability/unlocks plus alternative disclosure requirement routes. | Compatible. OR-of-AND routes match technical versus human corroboration design. |
+| Formal contradictions with leverage | Authored contradiction references or `surfaceWhen`, each force-unlocking a confrontation question. | Compatible. Only X-01 through X-05 require formal treatment. |
+| Bounded automatic and claimed deductions | Automatic and `player_triggered` deductions evaluated by known IDs. | Compatible. D-01/D-02 automatic; D-03 explicitly claimed and theory-independent. |
+| Explicit false-lead closure | Variant `leadResolution` marked `redirected` or `closed`. | Compatible. All lifecycle entries have an implementation target. |
+| Proof-gated accusation and non-spoiling feedback | Dimension `proofRequirements` and `diagnosticOnMismatch`; state-known information gates diagnostics. | Compatible. Existing registered proof-contract/validator calibration work remains relevant but does not block modeling. |
+| Player-owned theories | Theory board is separate from discovery and deduction state. | Compatible. No progression condition may read player theory. |
+
+No new engine gap is discovered. Existing limits remain: future flagship-scale
+state-space calibration, claim-proof completeness validation, readiness presentation,
+adversarial simulation, and human playtesting.
+
+## 16. Open implementation questions
+
+1. Select final player-facing labels for the four accusation dimensions without exposing
+the canonical answer.
+2. Establish the action budget only after Phase 4.3.2 maps lead count and recovery paths.
+3. Decide whether the prop-tincture origin needs an authored corroborative object or can
+remain a forensic conclusion; it must not become a fifth required proof branch.
+4. Validate with playtests that the distinction between the real 8:52 argument and the
+previous-day rehearsal is clear without final dialogue overexplaining it.

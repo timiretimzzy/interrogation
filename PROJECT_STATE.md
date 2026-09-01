@@ -393,9 +393,18 @@ refinement, accusation-readiness metadata, adversarial simulation, and human pla
 The still-live legacy cases were not inspected, changed, or treated as design references.
 No JSON, final dialogue, UI, or engine change was created.
 
+### Completion update
+
+The model was expanded with the causal chain, culprit blind spots, classified secrets and
+willingness triggers, claims/testimony map, evidence proof boundaries, critical recovery
+routes, formal lead lifecycles, dependency audit, engine compatibility audit, and four
+bounded implementation questions. No new engine gap was found; the still-live legacy
+cases remain untouched and are not design references.
+
 ### Next task
 
-After approval, begin **Phase 4.3.2 — Investigation Graph and Lead Architecture**:
-translate this model into playable leads, question categories, unlock conditions,
-response purposes, branch connections, contradictions, deductions, and closures—still
-without final dialogue or JSON.
+After approval, begin **Phase 4.3.2 — Flagship Case Interrogation and Question
+Architecture**: translate the model into interrogatable characters, entry points, question
+taxonomy and network, availability/unlock logic, confrontations, evidence presentation,
+redirects, false-lead closures, and question lifecycle—still without final dialogue or
+production JSON.
