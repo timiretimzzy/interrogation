@@ -287,6 +287,69 @@ describe('accusation engine', () => {
     expect(s.status).toBe('won');
     expect(s.accusation?.culprit).toBe('julian');
   });
+
+  it('requires discovered proof and emits only an authored mismatch diagnostic', () => {
+    const caseWithProof = {
+      ...gold,
+      accusation: {
+        dimensions: [{
+          id: 'who',
+          prompt: 'Who committed the crime?',
+          required: true,
+          options: ['julian', 'mara'],
+          correctValue: 'julian',
+          proofRequirements: ['F001'],
+          diagnosticOnMismatch: {
+            mara: 'That theory does not account for the access record.',
+          },
+        }],
+        correctSolution: { who: 'julian' },
+      },
+    };
+    const unsupported = evaluateAccusation(caseWithProof, init(), { who: 'mara' });
+    expect(unsupported.won).toBe(false);
+    expect(unsupported.perDimension[0].assessment).toBe('unsupported');
+    expect(unsupported.diagnostics).toEqual([{
+      dimensionId: 'who',
+      kind: 'insufficient_proof',
+      message: 'Your evidence does not yet establish an answer to: Who committed the crime?',
+    }]);
+
+    const state = init();
+    state.discoveredFactIds = ['F001'];
+    const contradicted = evaluateAccusation(caseWithProof, state, { who: 'mara' });
+    expect(contradicted.perDimension[0].assessment).toBe('contradicted');
+    expect(contradicted.diagnostics[0].message).toBe(
+      'That theory does not account for the access record.',
+    );
+    expect(evaluateAccusation(caseWithProof, state, { who: 'julian' }).won).toBe(true);
+  });
+
+  it('uses SolutionClaim proof requirements when a dimension has none', () => {
+    const caseWithClaimProof = {
+      ...gold,
+      accusation: {
+        dimensions: [{
+          id: 'who',
+          prompt: 'Who committed the crime?',
+          required: true,
+          options: ['julian', 'mara'],
+          correctValue: 'julian',
+        }],
+        correctSolution: { who: 'julian' },
+      },
+      solutionClaims: [{
+        id: 'claim-who',
+        dimension: 'who',
+        correctValue: 'julian',
+        requiredEvidenceIds: ['E001'],
+      }],
+    };
+    expect(evaluateAccusation(caseWithClaimProof, init(), { who: 'julian' }).won).toBe(false);
+    const state = init();
+    state.discoveredEvidence = ['E001'];
+    expect(evaluateAccusation(caseWithClaimProof, state, { who: 'julian' }).won).toBe(true);
+  });
 });
 
 describe('notebook projection', () => {
