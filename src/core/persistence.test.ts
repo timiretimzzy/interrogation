@@ -11,7 +11,7 @@
 // VERSION). This is a contract test; if the prefix/version changes, update both.
 
 import { describe, it, expect, beforeEach } from 'vitest';
-import { cases } from '../data/cases/index.ts';
+import { legacyCases } from '../data/cases/index.ts';
 import {
   loadState,
   saveState,
@@ -20,7 +20,7 @@ import {
 } from './persistence.ts';
 import { createInitialPlayerState, PlayerState } from './types.ts';
 
-const cf = cases.find((c) => c.caseId === 'gold-hh-001') ?? cases[0];
+const cf = legacyCases.find((c) => c.caseId === 'gold-hh-001') ?? legacyCases[0];
 const caseId = cf.caseId;
 const KEY = `the-interrogation:state:v1:${caseId}`;
 

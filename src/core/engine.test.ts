@@ -15,9 +15,9 @@ import { validateCase } from './caseLoader.ts';
 import { buildNotebook } from './notebook.ts';
 import { claimDeduction, evaluateDeductions } from './deductionEngine.ts';
 import { createInitialPlayerState, PlayerState } from './types.ts';
-import { cases } from '../data/cases/index.ts';
+import { legacyCases } from '../data/cases/index.ts';
 
-const gold = cases.find((c) => c.caseId === 'gold-hh-001')!;
+const gold = legacyCases.find((c) => c.caseId === 'gold-hh-001')!;
 
 function init(): PlayerState {
   return createInitialPlayerState(gold, 12345);
@@ -223,6 +223,15 @@ describe('turn engine', () => {
 });
 
 describe('cardEngine.ask applies effects', () => {
+  it('delegates to the canonical turn transaction', () => {
+    const s0 = init();
+    const runtime = ask(gold, s0, 'daniel', 'Q001');
+    const canonical = executeTurn(gold, s0, 'daniel', 'Q001');
+    expect(runtime.state).toEqual(canonical.state);
+    expect(canonical.response).toBeTruthy();
+    expect(runtime.variantId).toBe(canonical.response!.id);
+  });
+
   it('reveals clues, records statement, unlocks, spends an action', () => {
     const s0 = init();
     const res = ask(gold, s0, 'daniel', 'Q001');

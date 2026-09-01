@@ -2,12 +2,12 @@
 // player-interaction sequence across character switches, not per-character
 // bucket order. Records must carry an explicit characterId + global sequence.
 import { describe, it, expect } from 'vitest';
-import { cases } from '../data/cases/index.ts';
+import { legacyCases } from '../data/cases/index.ts';
 import { createInitialPlayerState, PlayerState } from './types.ts';
 import { ask, availableQuestionsForCharacter } from './cardEngine.ts';
 import { buildNotebook } from './notebook.ts';
 
-const gold = cases.find((c) => c.caseId === 'gold-hh-001')!;
+const gold = legacyCases.find((c) => c.caseId === 'gold-hh-001')!;
 
 function askFirst(cf: typeof gold, s: PlayerState, cid: string): PlayerState {
   const q = availableQuestionsForCharacter(cf, s, cid)[0];

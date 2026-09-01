@@ -38,6 +38,20 @@ export function validateCase(caseFile: CaseFile): CaseValidation {
   const questionIds = new Set(caseFile.questions.map((q) => q.id));
   const statementIds = new Set((caseFile.statements ?? []).map((s) => s.id));
   const contradictionIds = new Set(caseFile.contradictions.map((c) => c.id));
+  const reportDuplicates = (label: string, ids: string[]) => {
+    const seen = new Set<string>();
+    for (const id of ids) {
+      if (seen.has(id)) e(`Duplicate ${label} id ${id}`);
+      seen.add(id);
+    }
+  };
+  reportDuplicates('character', caseFile.characters.map((item) => item.id));
+  reportDuplicates('question', caseFile.questions.map((item) => item.id));
+  reportDuplicates('fact', (caseFile.facts ?? []).map((item) => item.id));
+  reportDuplicates('clue', (caseFile.clues ?? []).map((item) => item.id));
+  reportDuplicates('evidence', (caseFile.evidence ?? []).map((item) => item.id));
+  reportDuplicates('statement', (caseFile.statements ?? []).map((item) => item.id));
+  reportDuplicates('contradiction', caseFile.contradictions.map((item) => item.id));
 
   // Truth consistency.
   if (caseFile.truth?.culpritId && !charIds.has(caseFile.truth.culpritId)) {
@@ -75,6 +89,12 @@ export function validateCase(caseFile: CaseFile): CaseValidation {
           for (const r of v.reveals ?? []) {
             if (!clueIds.has(r) && !evidenceIds.has(r)) e(`Variant ${v.id} reveals unknown clue/evidence ${r}`);
           }
+          for (const id of [...(v.requires ?? []), ...(v.excludes ?? [])]) {
+            if (!factIds.has(id) && !clueIds.has(id) && !evidenceIds.has(id) && !statementIds.has(id)
+              && !questionIds.has(id) && !contradictionIds.has(id)) {
+              e(`Variant ${v.id} eligibility references unknown information ${id}`);
+            }
+          }
         }
       }
     }
@@ -94,6 +114,17 @@ export function validateCase(caseFile: CaseFile): CaseValidation {
   for (const ev of caseFile.evidence ?? []) {
     for (const f of ev.supports) {
       if (factIds.size > 0 && !factIds.has(f)) e(`Evidence ${ev.id} supports unknown fact ${f}`);
+    }
+  }
+
+  for (const item of [...(caseFile.facts ?? []), ...(caseFile.clues ?? []), ...(caseFile.evidence ?? [])]) {
+    for (const route of item.disclosureRequirements ?? []) {
+      for (const id of route) {
+        if (!factIds.has(id) && !clueIds.has(id) && !evidenceIds.has(id) && !statementIds.has(id)
+          && !questionIds.has(id) && !contradictionIds.has(id)) {
+          e(`Disclosure requirements for ${item.id} reference unknown information ${id}`);
+        }
+      }
     }
   }
 
