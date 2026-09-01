@@ -314,6 +314,12 @@ export interface AccusationDimension {
   required: boolean;
   options: (string | AccusationOption)[];
   correctValue: string;
+  /**
+   * Information identifiers that must be discovered or understood before this
+   * claim is sufficiently supported. When omitted, a matching SolutionClaim's
+   * requiredEvidenceIds supplies the legacy-compatible proof contract.
+   */
+  proofRequirements?: string[];
   diagnosticOnMismatch?: Record<string, string>;
 }
 

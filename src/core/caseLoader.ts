@@ -129,6 +129,37 @@ export function validateCase(caseFile: CaseFile): CaseValidation {
       e(`Accusation correctSolution missing dimension ${dim.id}`);
     } else if (!values.includes(sol[dim.id])) {
       e(`Accusation correctSolution.${dim.id} ${sol[dim.id]} not in options`);
+    } else if (sol[dim.id] !== dim.correctValue) {
+      e(`Accusation correctSolution.${dim.id} must match dimension correctValue`);
+    }
+    for (const requirement of dim.proofRequirements ?? []) {
+      if (!factIds.has(requirement) && !evidenceIds.has(requirement) && !clueIds.has(requirement)
+        && !statementIds.has(requirement)) {
+        e(`Accusation dimension ${dim.id} proof requirement ${requirement} is unknown`);
+      }
+    }
+    for (const optionId of Object.keys(dim.diagnosticOnMismatch ?? {})) {
+      if (!values.includes(optionId)) {
+        e(`Accusation dimension ${dim.id} diagnostic references unknown option ${optionId}`);
+      } else if (optionId === dim.correctValue) {
+        e(`Accusation dimension ${dim.id} diagnostic cannot target correctValue`);
+      }
+    }
+  }
+  const accusationDimensions = new Map(
+    (caseFile.accusation?.dimensions ?? []).map((dimension) => [dimension.id, dimension]),
+  );
+  for (const claim of caseFile.solutionClaims ?? []) {
+    const dimension = accusationDimensions.get(claim.dimension);
+    if (!dimension) {
+      e(`Solution claim ${claim.id} references unknown accusation dimension ${claim.dimension}`);
+    } else if (claim.correctValue !== dimension.correctValue) {
+      e(`Solution claim ${claim.id} correctValue must match accusation dimension ${claim.dimension}`);
+    }
+    for (const evidenceId of claim.requiredEvidenceIds) {
+      if (!evidenceIds.has(evidenceId)) {
+        e(`Solution claim ${claim.id} requires unknown evidence ${evidenceId}`);
+      }
     }
   }
 

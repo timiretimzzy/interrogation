@@ -30,8 +30,18 @@ export function Reveal() {
         ))}
       </ul>
 
-      <h3>Score</h3>
-      <p>Accuracy: {r.evaluation.score}% · {r.evaluation.won ? 'Correct' : 'Incorrect'}</p>
+      <h3>Assessment</h3>
+      <p>{r.evaluation.won ? 'Your accusation is supported.' : 'Your accusation is not sustained.'}</p>
+      {r.evaluation.diagnostics.length > 0 && (
+        <>
+          <h3>What your theory does not account for</h3>
+          <ul>
+            {r.evaluation.diagnostics.map((diagnostic) => (
+              <li key={diagnostic.dimensionId}>{diagnostic.message}</li>
+            ))}
+          </ul>
+        </>
+      )}
 
       <div class="reveal-actions">
         {currentCaseId.value && (

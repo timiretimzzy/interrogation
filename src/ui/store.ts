@@ -59,7 +59,7 @@ export const reveal = computed<RevealView | null>(() => {
   const cf = currentCase();
   const s = playerState.value;
   if (!cf || !s || s.status === 'playing') return null;
-  const evaluation = evaluateAccusation(cf, s.accusation ?? {});
+  const evaluation = evaluateAccusation(cf, s, s.accusation ?? {});
   return buildReveal(cf, s, evaluation);
 });
 
