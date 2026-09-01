@@ -345,3 +345,29 @@ A solution-ready state requires declared critical facts, all evidence named by `
 - Facts, clues, and evidence may declare optional `disclosureRequirements`: alternative prerequisite routes (outer OR, inner AND) that must be known before disclosure. Violations report `PREMATURE_DISCLOSURE`; critical-fact violations report `SOLUTION_SHORTCUT`.
 - Lead lifecycle and disclosure safety are independently certified only after complete exploration; both are `unknown` when capped. This proves authored structural properties, not prose meaning, player comprehension, fairness, or narrative quality.
 - Focused synthetic tests cover healthy/inert/unreachable/closed/stranded leads, nonlinear and gated disclosure, shortcuts, incomplete certification, plus existing transition and accusation regressions.
+
+## Phase 4.3.0 — Flagship case blueprint (COMPLETE)
+
+`FLAGSHIP_CASE_BLUEPRINT.md` establishes the conceptual and narrative architecture for
+the first post-certification flagship case, **The Last Broadcast**. It evaluates three
+distinct concepts, selects a prerecorded-broadcast poisoning mystery, and defines its
+canonical truth, actual/apparent/claimed timelines, knowledge boundaries, theories,
+evidence, layered discovery, nonlinear routes, lead lifecycles, response behavior,
+contradictions, sparse deductions, fair misdirection, disclosure pacing, accusation
+proof dimensions, adversarial expectations, and acceptance criteria.
+
+No case JSON, production dialogue, UI, engine, or legacy-case work was performed. The
+blueprint uses existing engine contracts: selected-question turns, eligibility,
+OR-of-AND disclosure preparation, contradictions, automatic and player-triggered
+deductions, proof-gated accusation evaluation, and explicit lead closure. It introduces
+no additional engine or authoring gap beyond the already registered need for flagship
+validator calibration, formal claim-proof refinement, accusation-readiness metadata, and
+future adversarial simulation.
+
+### Next task
+
+After approval, begin **Phase 4.3.1 — Flagship Case Information Model**. Translate the
+approved blueprint into canonical entities, characters, facts, evidence, claims,
+knowledge ownership, timeline states, contradictions, deductions, discovery routes,
+disclosure requirements, and accusation proof model—still without mass dialogue or JSON
+implementation.
