@@ -7,6 +7,7 @@ import {
   activeConfrontationQuestions,
   computeActiveContradictions,
 } from './contradictionEngine.ts';
+import { evaluateDeductions } from './deductionEngine.ts';
 import { isQuestionAvailable } from './gating.ts';
 import { selectResponse } from './responseSelector.ts';
 import type {
@@ -29,6 +30,9 @@ function cloneState(state: PlayerState): PlayerState {
     recordedStatements: [...state.recordedStatements],
     discoveredClues: [...state.discoveredClues],
     discoveredEvidence: [...state.discoveredEvidence],
+    discoveredFactIds: [...state.discoveredFactIds],
+    understoodDeductionIds: [...(state.understoodDeductionIds ?? [])],
+    availableDeductionIds: [...(state.availableDeductionIds ?? [])],
     unlockedQuestions: [...state.unlockedQuestions],
     activeContradictions: [...state.activeContradictions],
     flaggedContradictions: [...state.flaggedContradictions],
@@ -151,10 +155,12 @@ export function ask(
   const revealAll = [...(variant.reveals ?? []), ...(question.reveals ?? [])];
   const revealClues = revealAll.filter((id) => caseFile.clues?.some((c) => c.id === id));
   const revealEvidence = revealAll.filter((id) => caseFile.evidence?.some((e) => e.id === id));
+  const disclosedFacts = (variant.discloses ?? []).map((d) => d.factId);
   next.discoveredClues = addUnique(next.discoveredClues, ...revealClues);
   if (revealEvidence.length > 0) {
     next.discoveredEvidence = addUnique(next.discoveredEvidence, ...revealEvidence);
   }
+  next.discoveredFactIds = addUnique(next.discoveredFactIds, ...disclosedFacts);
 
   // 4. Unlock follow-up / confrontation questions.
   const unlockIds = [...(variant.unlocks ?? []), ...(question.unlocks ?? [])];
@@ -195,6 +201,17 @@ export function ask(
   if (next.actionsRemaining <= 0) {
     next.status = next.status === 'won' ? 'won' : 'playing';
   }
+
+  const deductionState = evaluateDeductions(caseFile, next);
+  next.understoodDeductionIds = addUnique(
+    next.understoodDeductionIds ?? [],
+    ...deductionState.newlyUnderstood.map((d) => d.id),
+  );
+  next.availableDeductionIds = addUnique(
+    next.availableDeductionIds ?? [],
+    ...deductionState.newlyAvailable.map((d) => d.id),
+  );
+  next.understood = addUnique(next.understood ?? [], ...deductionState.newlyUnderstood.map((d) => d.id));
 
   return {
     state: next,

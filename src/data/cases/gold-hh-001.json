@@ -295,6 +295,11 @@
     { "id": "CON002", "type": "timeline", "description": "Daniel says he never saw Julian leave the lobby, but his own account places Julian at the back.", "statementRefs": ["S-DANIEL-SEE"], "importance": "secondary", "possibleInterpretations": ["Daniel is mistaken", "Daniel is protecting himself"], "confrontationQuestionId": "Q013" },
     { "id": "CON003", "type": "knowledge", "description": "A vault key was used and the alarm was silenced from inside — only someone with access could do both.", "importance": "critical", "surfaceWhen": { "any": [{ "kind": "clue", "id": "C001" }, { "kind": "clue", "id": "C002" }] }, "confrontationQuestionId": "Q011" }
   ],
+  "deductions": [
+    { "id": "D001", "requires": ["F004", "F003"], "result": { "statement": "Julian's alibi cannot be correct: he was in the vault while the alarm was being silenced from inside." }, "surface": "automatic" },
+    { "id": "D002", "requires": ["F001", "F002"], "result": { "statement": "Only Julian had the combination of access and key needed to orchestrate the theft." }, "surface": "automatic" },
+    { "id": "D003", "requires": ["F004", "F005"], "result": { "statement": "Julian had both the timing and the financial motive to stage the swap." }, "surface": "player_triggered" }
+  ],
   "redHerrings": [
     { "id": "RH001", "characterId": "mara", "surfaceSuspicion": "She lied about the guest.", "actualReason": "An affair she was embarrassed about.", "crimeConnection": "unrelated" },
     { "id": "RH002", "characterId": "daniel", "surfaceSuspicion": "He denied seeing Julian.", "actualReason": "Fear of losing his job over dozing.", "crimeConnection": "unrelated" }

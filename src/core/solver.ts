@@ -71,6 +71,7 @@ function toPlayerState(caseFile: CaseFile, s: SimState): PlayerState {
     recordedStatements: [...s.statements],
     discoveredClues: [...s.clues],
     discoveredEvidence: [...s.evidence],
+    discoveredFactIds: [...s.facts],
     unlockedQuestions: [...s.unlocked],
     activeContradictions: [...s.contradictions],
     flaggedContradictions: [],

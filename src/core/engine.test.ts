@@ -12,6 +12,7 @@ import { executeTurn } from './turnEngine.ts';
 import { computeActiveContradictions, activeConfrontationQuestions } from './contradictionEngine.ts';
 import { evaluateAccusation, submitAccusation } from './accusationEngine.ts';
 import { buildNotebook } from './notebook.ts';
+import { claimDeduction, evaluateDeductions } from './deductionEngine.ts';
 import { createInitialPlayerState, PlayerState } from './types.ts';
 import { cases } from '../data/cases/index.ts';
 
@@ -114,6 +115,60 @@ describe('response eligibility', () => {
     expect(isResponseEligible(variant, s)).toBe(false);
     expect(JSON.stringify(s)).toBe(beforeS);
     expect(JSON.stringify(variant)).toBe(beforeV);
+  });
+});
+
+describe('deduction engine', () => {
+  it('automatic deductions require all prerequisites and do not mutate input', () => {
+    const s = init();
+    const before = JSON.stringify(s);
+    const initial = evaluateDeductions(gold, s);
+    expect(initial.newlyUnderstood).toHaveLength(0);
+    expect(JSON.stringify(s)).toBe(before);
+    s.discoveredFactIds = ['F004'];
+    const partial = evaluateDeductions(gold, s);
+    expect(partial.newlyUnderstood.map((d) => d.id)).not.toContain('D001');
+    s.discoveredFactIds = ['F004', 'F003'];
+    const ready = evaluateDeductions(gold, s);
+    expect(ready.newlyUnderstood.map((d) => d.id)).toContain('D001');
+  });
+
+  it('player-triggered deductions become available but stay un-understood until claimed', () => {
+    const s = init();
+    s.discoveredFactIds = ['F004', 'F005'];
+    const result = evaluateDeductions(gold, s);
+    expect(result.newlyAvailable.map((d) => d.id)).toContain('D003');
+    expect(result.newlyUnderstood.map((d) => d.id)).not.toContain('D003');
+    expect(s.understoodDeductionIds ?? []).not.toContain('D003');
+    const claimed = claimDeduction(gold, s, 'D003');
+    expect(claimed.understoodDeductionIds).toContain('D003');
+    expect(claimed.availableDeductionIds ?? []).not.toContain('D003');
+    expect(claimed.theory).toBeUndefined();
+  });
+
+  it('claiming invalid or duplicate deductions fails explicitly and leaves state untouched', () => {
+    const s = init();
+    s.discoveredFactIds = ['F004', 'F005'];
+    expect(() => claimDeduction(gold, s, 'D001')).toThrow(/automatic/i);
+    expect(() => claimDeduction(gold, s, 'D003')).not.toThrow();
+    expect(() => claimDeduction(gold, claimDeduction(gold, s, 'D003'), 'D003')).toThrow(/already been understood/i);
+  });
+
+  it('a turn that discovers the final prerequisite records the deduction atomically', () => {
+    const s0 = init();
+    const s1 = ask(gold, s0, 'eleanor', 'Q001').state;
+    s1.discoveredFactIds = [...new Set([...s1.discoveredFactIds, 'F003'])];
+    const evalResult = evaluateDeductions(gold, s1);
+    expect(evalResult.newlyUnderstood.map((d) => d.id)).toContain('D001');
+    expect(s1.theory).toBeUndefined();
+  });
+
+  it('gold-hh-001 deductions are reachable through legitimate gameplay state', () => {
+    const s = init();
+    s.discoveredFactIds = ['F001', 'F002'];
+    s.discoveredClues = ['C001'];
+    const result = evaluateDeductions(gold, s);
+    expect(result.newlyUnderstood.map((d) => d.id)).toContain('D002');
   });
 });
 
