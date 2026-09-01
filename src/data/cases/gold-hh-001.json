@@ -200,8 +200,7 @@
         "julian": [{ "context": "initial", "variants": [
           { "id": "Q010-J-01", "text": "I may have passed it.", "kind": "EVASIVE", "weight": 40, "excludes": ["C001", "F004"], "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q011"] },
           { "id": "Q010-J-02", "text": "I checked the vault, yes.", "kind": "PARTIAL_TRUTH", "weight": 35, "excludes": ["C001", "F004"], "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q011"] },
-          { "id": "Q010-J-03", "text": "I opened it. I had the only key.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F002", "clarity": "full" }, { "factId": "F004", "clarity": "full" }], "unlocks": ["Q018"] },
-          { "id": "Q010-J-04", "text": "You already know I went near the vault. I have nothing to add.", "kind": "EVASIVE", "weight": 1, "requires": ["F004"] }
+          { "id": "Q010-J-03", "text": "I opened it. I had the only key.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F002", "clarity": "full" }, { "factId": "F004", "clarity": "full" }], "unlocks": ["Q018"] }
         ] }]
       }
     },
@@ -212,8 +211,7 @@
         "julian": [{ "context": "initial", "variants": [
           { "id": "Q011-J-01", "text": "Keys get borrowed. Means nothing.", "kind": "EVASIVE", "weight": 40, "excludes": ["C001", "F002"], "discloses": [{ "factId": "F002", "clarity": "partial" }] },
           { "id": "Q011-J-02", "text": "I checked the vault, that's all.", "kind": "PARTIAL_TRUTH", "weight": 35, "excludes": ["C001", "F002"], "discloses": [{ "factId": "F002", "clarity": "partial" }], "unlocks": ["Q018"] },
-          { "id": "Q011-J-03", "text": "Fine. I took it. I had the only key.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F001", "clarity": "full" }, { "factId": "F002", "clarity": "full" }, { "factId": "F004", "clarity": "full" }], "unlocks": ["Q018"] },
-          { "id": "Q011-J-04", "text": "You already know about the key. I have nothing further to say.", "kind": "EVASIVE", "weight": 1, "requires": ["F002"] }
+          { "id": "Q011-J-03", "text": "Fine. I took it. I had the only key.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F001", "clarity": "full" }, { "factId": "F002", "clarity": "full" }, { "factId": "F004", "clarity": "full" }], "unlocks": ["Q018"] }
         ] }]
       }
     },

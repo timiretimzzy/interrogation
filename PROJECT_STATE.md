@@ -323,3 +323,11 @@ then continue controlled tester feedback. Do NOT begin Phase 3.5 (case ingestion
 - Every eligible response variant is explored; deterministic runtime weighted selection remains unchanged.
 - The validator proves mechanical reachability across explored legal transitions, not narrative quality or complete accusation/solution correctness. Accusation readiness has no state-gated schema metadata beyond `accusationAvailableAtAnyTime`.
 - Theory-board contents and cosmetic transcript data are excluded from state fingerprints. A configurable cap reports incomplete exploration rather than a misleading pass.
+
+## Phase 4.2.6 — Gold-standard scenario authoring and validation contract (COMPLETE)
+
+Strategic correction: existing authored cases are legacy regression fixtures, not gold-standard design references, validator targets, or sources of future schema requirements. `gold-hh-001` was explored only as a vertical-slice experiment; its 10,000-state cap result was incomplete exploration, never a solvability certification.
+
+`GOLD_STANDARD_CASE_SPEC.md` now defines the authoring, gameplay, mechanical-validation, accusation, and human-playtest contract for the first new flagship case. `GOLD_STANDARD_GAP_REGISTER.md` distinguishes capabilities ready for that direction from validation refinements, implementation work, and human-only evidence.
+
+No further legacy-case retrofits should be made solely to demonstrate validator success. Incomplete exploration must always remain a failure/incomplete result; do not increase a cap merely to manufacture a pass. The validator must eventually model future-relevant progression rather than irrelevant path permutations and must separately report existential solvability from universal progression safety.
