@@ -2,7 +2,7 @@ Phase:
 4.2
 
 Task:
-4.2.1
+4.2.2
 
 Status:
 Complete
@@ -10,8 +10,11 @@ Complete
 Domain contract:
 Established
 
+Turn transaction:
+Complete — `executeTurn` is the canonical atomic runtime transition and shared validator entry point.
+
 Next task:
-4.2.2 — Turn transaction
+4.2.3 — Response eligibility
 4. **`qualityGates` not enforced in loader:** only the solver-enforced subset (solvability/redundancy/paths) is checked; `innocentLiarExists`/`truthfulSuspiciousCharacterExists` etc. are metadata.
 5. Contradiction activation gained a third pathway (confrontation-question availability) beyond the design-gate's two; equivalent/safe.
 6. `design/synth-fixtures/*.json` (from the design gate) are now superseded by the `data/cases/synth-*.json` implementations; they remain as design artifacts only.

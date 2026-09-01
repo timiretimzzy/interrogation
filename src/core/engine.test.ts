@@ -44,12 +44,7 @@ describe('deterministic hash + response selection', () => {
       { id: 'b', text: '', kind: 'TRUTH', weight: 1, excludes: ['C003'] },
     ] as any;
     s.discoveredClues = ['C003'];
-    const eligible = variants.filter((v: any) => {
-      const known = new Set([...s.discoveredClues, ...s.discoveredEvidence]);
-      const ok = (v.requires ?? []).every((id: string) => known.has(id));
-      const blocked = (v.excludes ?? []).some((id: string) => known.has(id));
-      return ok && !blocked;
-    });
+    const eligible = eligibleVariants({ context: 'initial', variants }, s);
     expect(eligible.map((v: any) => v.id)).toContain('a');
     expect(eligible.map((v: any) => v.id)).not.toContain('b');
   });
@@ -85,6 +80,20 @@ describe('gating', () => {
 });
 
 describe('turn engine', () => {
+  it('filters ineligible variants before deterministic weighting', () => {
+    const caseFile = structuredClone(gold);
+    const question = caseFile.questions.find((q) => q.id === 'Q001')!;
+    question.responses.daniel = [{
+      context: 'initial',
+      variants: [
+        { id: 'blocked', text: '', kind: 'TRUTH', weight: 100, requires: ['C001'] },
+        { id: 'eligible', text: '', kind: 'TRUTH', weight: 1 },
+      ],
+    }];
+
+    expect(executeTurn(caseFile, init(), 'daniel', 'Q001').response?.id).toBe('eligible');
+  });
+
   it('rejects unavailable question without mutating live state', () => {
     const s0 = init();
     const before = JSON.stringify(s0);
@@ -101,6 +110,47 @@ describe('turn engine', () => {
     expect(res.state.actionsRemaining).toBe(gold.playerRules.investigationActions - 1);
     expect(res.newlyAvailableQuestions).toEqual(expect.arrayContaining(['Q013']));
     expect(s0.discoveredClues).not.toContain('C003');
+  });
+
+  it('records disclosed facts once without changing the Theory Board', () => {
+    const caseFile = structuredClone(gold);
+    caseFile.facts = [{ id: 'F001', statement: 'A disclosed fact' }];
+    const question = caseFile.questions.find((q) => q.id === 'Q001')!;
+    question.responses.daniel = [{
+      context: 'initial',
+      variants: [{
+        id: 'fact-reveal',
+        text: '',
+        kind: 'TRUTH',
+        weight: 1,
+        discloses: [{ factId: 'F001', clarity: 'full' }],
+      }],
+    }];
+    const state = init();
+    state.discovered = ['F001'];
+    state.theoryBoard = { who: 'player choice', citedEvidence: [], notes: { note: 'keep' } };
+
+    const result = executeTurn(caseFile, state, 'daniel', 'Q001');
+
+    expect(result.state.discovered).toEqual(['F001']);
+    expect(result.discoveries).toContain('F001');
+    expect(result.state.understood).toEqual([]);
+    expect(result.state.theoryBoard).toEqual(state.theoryBoard);
+    expect(result.state.theoryBoard).not.toBe(state.theoryBoard);
+  });
+
+  it('rejects invalid draft effects without mutating the input state', () => {
+    const caseFile = structuredClone(gold);
+    const question = caseFile.questions.find((q) => q.id === 'Q001')!;
+    question.responses.daniel = [{
+      context: 'initial',
+      variants: [{ id: 'invalid-reveal', text: '', kind: 'TRUTH', weight: 1, reveals: ['UNKNOWN'] }],
+    }];
+    const state = init();
+    const before = structuredClone(state);
+
+    expect(() => executeTurn(caseFile, state, 'daniel', 'Q001')).toThrow('unknown clue or evidence');
+    expect(state).toEqual(before);
   });
 });
 

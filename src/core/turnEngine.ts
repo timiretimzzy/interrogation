@@ -18,12 +18,20 @@ function cloneState(state: PlayerState): PlayerState {
     recordedStatements: [...state.recordedStatements],
     discoveredClues: [...state.discoveredClues],
     discoveredEvidence: [...state.discoveredEvidence],
+    discovered: state.discovered ? [...state.discovered] : [],
+    understood: state.understood ? [...state.understood] : [],
     unlockedQuestions: [...state.unlockedQuestions],
     activeContradictions: [...state.activeContradictions],
     flaggedContradictions: [...state.flaggedContradictions],
     contextSwitches: [...state.contextSwitches],
     theory: state.theory ? { ...state.theory } : undefined,
-    theoryBoard: state.theoryBoard ? { ...state.theoryBoard, citedEvidence: [...state.theoryBoard.citedEvidence] } : undefined,
+    theoryBoard: state.theoryBoard
+      ? {
+          ...state.theoryBoard,
+          citedEvidence: [...state.theoryBoard.citedEvidence],
+          notes: state.theoryBoard.notes ? { ...state.theoryBoard.notes } : undefined,
+        }
+      : undefined,
     questionsAsked: state.questionsAsked ? [...state.questionsAsked] : [],
     recentTopics: state.recentTopics ? [...state.recentTopics] : [],
     closedLeads: state.closedLeads ? [...state.closedLeads] : [],
@@ -48,6 +56,23 @@ function statementIdFor(
   return stmt ? stmt.id : null;
 }
 
+function assertStateReferences(caseFile: CaseFile, state: PlayerState): void {
+  if (state.caseId !== caseFile.caseId) {
+    throw new TurnEngineError(`State belongs to ${state.caseId}, not ${caseFile.caseId}`);
+  }
+  const assertKnown = (ids: string[], known: Set<string>, label: string) => {
+    for (const id of ids) {
+      if (!known.has(id)) throw new TurnEngineError(`State contains unknown ${label}: ${id}`);
+    }
+  };
+  assertKnown(state.discoveredClues, new Set((caseFile.clues ?? []).map((c) => c.id)), 'clue');
+  assertKnown(state.discoveredEvidence, new Set((caseFile.evidence ?? []).map((e) => e.id)), 'evidence');
+  assertKnown(state.discovered ?? [], new Set((caseFile.facts ?? []).map((f) => f.id)), 'fact');
+  assertKnown(state.recordedStatements, new Set((caseFile.statements ?? []).map((s) => s.id)), 'statement');
+  assertKnown(state.unlockedQuestions, new Set(caseFile.questions.map((q) => q.id)), 'question');
+  assertKnown(state.activeContradictions, new Set(caseFile.contradictions.map((c) => c.id)), 'contradiction');
+}
+
 export interface TurnResult {
   state: PlayerState;
   response: { id: string; text: string; contextId: string; kind?: string } | null;
@@ -63,6 +88,7 @@ export function executeTurn(
   characterId: CharacterId,
   questionId: string,
 ): TurnResult {
+  assertStateReferences(caseFile, state);
   const question = caseFile.questions.find((q) => q.id === questionId);
   if (!question) throw new TurnEngineError(`Unknown question: ${questionId}`);
   if (!question.targetCharacterIds.includes(characterId)) {
@@ -109,15 +135,34 @@ export function executeTurn(
   if (sid) draft.recordedStatements = addUnique(draft.recordedStatements, sid);
 
   const revealAll = [...(selected.variant.reveals ?? []), ...(question.reveals ?? [])];
+  const knownRevealIds = new Set([
+    ...(caseFile.clues ?? []).map((c) => c.id),
+    ...(caseFile.evidence ?? []).map((e) => e.id),
+  ]);
+  for (const id of revealAll) {
+    if (!knownRevealIds.has(id)) throw new TurnEngineError(`Response reveals unknown clue or evidence: ${id}`);
+  }
   const revealClues = revealAll.filter((id) => caseFile.clues?.some((c) => c.id === id));
   const revealEvidence = revealAll.filter((id) => caseFile.evidence?.some((e) => e.id === id));
   draft.discoveredClues = addUnique(draft.discoveredClues, ...revealClues);
   draft.discoveredEvidence = addUnique(draft.discoveredEvidence, ...revealEvidence);
+  const disclosedFacts = (selected.variant.discloses ?? [])
+    .filter((disclosure) => disclosure.clarity !== 'none')
+    .map((disclosure) => disclosure.factId);
+  const knownFactIds = new Set((caseFile.facts ?? []).map((fact) => fact.id));
+  for (const id of disclosedFacts) {
+    if (!knownFactIds.has(id)) throw new TurnEngineError(`Response discloses unknown fact: ${id}`);
+  }
+  draft.discovered = addUnique(draft.discovered ?? [], ...disclosedFacts);
 
-  const discovered = [...revealClues, ...revealEvidence];
+  const discovered = [...revealClues, ...revealEvidence, ...disclosedFacts];
   draft.unlockedQuestions = addUnique(draft.unlockedQuestions, ...(selected.variant.unlocks ?? []), ...(question.unlocks ?? []));
 
   const questionUnlocks = [...(selected.variant.unlocks ?? []), ...(question.unlocks ?? [])];
+  const knownQuestionIds = new Set(caseFile.questions.map((q) => q.id));
+  for (const id of questionUnlocks) {
+    if (!knownQuestionIds.has(id)) throw new TurnEngineError(`Response unlocks unknown question: ${id}`);
+  }
   const activated: string[] = [];
   if (selected.variant.createsContradiction) {
     draft.activeContradictions = addUnique(draft.activeContradictions, selected.variant.createsContradiction);
@@ -132,12 +177,16 @@ export function executeTurn(
   draft.contextSwitches = addUnique(draft.contextSwitches, ...newContexts);
 
   draft.activeContradictions = computeActiveContradictions(caseFile, draft);
+  for (const id of draft.activeContradictions) {
+    if (!state.activeContradictions.includes(id) && !activated.includes(id)) activated.push(id);
+  }
   const confrontation = activeConfrontationQuestions(caseFile, draft);
   if (confrontation.length > 0) {
     draft.unlockedQuestions = addUnique(draft.unlockedQuestions, ...confrontation);
   }
 
   draft.actionsRemaining = applyActionCost(draft, 'interrogation');
+  assertStateReferences(caseFile, draft);
 
   const nextAvailable = caseFile.questions
     .filter((q) => q.id !== questionId && isQuestionAvailable(caseFile, draft, q.id))

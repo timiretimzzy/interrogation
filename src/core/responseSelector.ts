@@ -33,8 +33,17 @@ export function eligibleVariants(
   context: ResolutionContext,
   state: PlayerState,
 ): ResponseVariant[] {
-  return context.variants.filter(
-    (v) => v.requiresContext === undefined || state.contextSwitches.includes(v.requiresContext),
+  const discovered = new Set([
+    ...(state.discovered ?? []),
+    ...state.discoveredClues,
+    ...state.discoveredEvidence,
+    ...state.recordedStatements,
+    ...state.activeContradictions,
+  ]);
+  return context.variants.filter((v) =>
+    (v.requiresContext === undefined || state.contextSwitches.includes(v.requiresContext))
+    && (v.requires ?? []).every((id) => discovered.has(id))
+    && !(v.excludes ?? []).some((id) => discovered.has(id)),
   );
 }
 
