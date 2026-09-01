@@ -103,6 +103,35 @@ describe('seed cases pass schema + solver gates', () => {
       if (!r.ok) console.error(`${c.caseId} solver:`, JSON.stringify(r, null, 2));
       expect(r.ok, `solvable=${r.solvable} worst=${r.worstCaseSolvable} paths=${r.independentPaths} errors=${r.errors.join('|')}`).toBe(true);
     });
+
+    describe('case content failure diagnostics', () => {
+      it('rejects duplicate IDs and dangling eligibility/disclosure references', () => {
+        const base = cases[0];
+        const invalid = {
+          ...base,
+          characters: [...base.characters, base.characters[0]],
+          facts: [...(base.facts ?? []), { ...(base.facts ?? [])[0], disclosureRequirements: [['missing-foundation']] }],
+          questions: base.questions.map((question, index) => index === 0 ? {
+            ...question,
+            responses: Object.fromEntries(Object.entries(question.responses).map(([characterId, contexts]) => [
+              characterId,
+              contexts.map((context, contextIndex) => contextIndex === 0 ? {
+                ...context,
+                variants: context.variants.map((variant, variantIndex) => variantIndex === 0
+                  ? { ...variant, requires: ['missing-requirement'] }
+                  : variant),
+              } : context),
+            ])),
+          } : question),
+        };
+        const validation = validateCase(invalid);
+        expect(validation.errors).toEqual(expect.arrayContaining([
+          `Duplicate character id ${base.characters[0].id}`,
+          `Variant ${Object.values(invalid.questions[0].responses)[0][0].variants[0].id} eligibility references unknown information missing-requirement`,
+          `Disclosure requirements for ${(base.facts ?? [])[0].id} reference unknown information missing-foundation`,
+        ]));
+      });
+    });
   }
 });
 
