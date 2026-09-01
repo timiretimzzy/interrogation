@@ -36,7 +36,9 @@ Discovered information, understood deductions, and player theory are separate. A
 
 ## 8. Theory, contradiction, and lead behavior
 
-The theory board is player-owned: the engine may expose facts, evidence, deductions, and contradictions, but never auto-fills claims, evidence selections, or belief. Contradictions must change gameplay through pressure, credibility, availability, or closure. Every significant lead should be able to become open, strengthened, weakened, or closed; runtime representation remains a future implementation decision.
+The theory board is player-owned: the engine may expose facts, evidence, deductions, and contradictions, but never auto-fills claims, evidence selections, or belief. Contradictions must change gameplay through pressure, credibility, availability, or closure. For build-time validation, an actionable question is a lead. A lead is meaningful only when a reachable outcome adds new facts, clues, evidence, unlocks, contradictions, or deductions, or explicitly redirects/closes a lead. A false lead must have an authored `ResponseVariant.leadResolution` route naming the question-lead it redirects or closes; becoming unavailable is not closure.
+
+`leadResolution` is validator-only metadata and does not alter runtime state. Its `leadIds` are question IDs and its kind is `redirected` or `closed`. This keeps normal leads inferred from existing question/effect graph semantics while making otherwise non-semantic false-lead closure authorable.
 
 ## 9. Premature solvers and fair misdirection
 
@@ -58,11 +60,13 @@ Keep these claims distinct:
 - **Proof sufficiency:** reachable information supports each canonical claim.
 - **Player comprehension:** a human can reasonably connect that proof.
 
-Current deterministic validation addresses portions of reachability and response eligibility only. It cannot alone prove proof sufficiency or comprehension.
+Information can optionally declare `disclosureRequirements` on a fact, clue, or evidence item. It is a list of alternative prerequisite routes: every ID in one inner list must be discovered/understood before the item is disclosed, and any complete inner list is sufficient. Omission imposes no disclosure-order constraint. These requirements are separate from response eligibility and permit nonlinear routes.
+
+Current deterministic validation can prove structural reachability, lead safety, and authored disclosure ordering only when exploration completes. It cannot prove prose semantics, narrative quality, proof quality, fairness, or player comprehension.
 
 ## 12. Future validation targets
 
-Future case acceptance progresses through: schema validation; reference integrity; truth completeness; reachability; critical-path validation; deduction prerequisites; eligibility dead ends; premature disclosure; worst-case progression; adversarial player simulation; and human playtesting. Implement a layer only when the flagship contract requires it.
+Future case acceptance progresses through: schema validation; reference integrity; truth completeness; reachability; critical-path validation; deduction prerequisites; eligibility dead ends; lead lifecycle and closure; premature disclosure; worst-case progression; adversarial player simulation; and human playtesting. Incomplete state exploration is an unknown certification, never a pass.
 
 ## 13. Anti-patterns
 

@@ -23,9 +23,9 @@
 | Capability | Status and importance | Dependency / recommended phase |
 | --- | --- | --- |
 | Diagnostic accusation feedback | `diagnosticOnMismatch` exists in types but evaluation returns only correctness and score. Needed to explain theory gaps. | Accusation evaluation and diagnostics. |
-| Lead lifecycle | Authored leads and `closedLeads` storage exist, but no OPEN/STRENGTHENED/WEAKENED/CLOSED behavior is evaluated. Needed for fair closure. | Lead-closure mechanics. |
+| Lead lifecycle | Validator derives question-leads from canonical transitions, detects inert/unreachable/stranded leads, and requires explicit authored closure or redirection for non-progressing false leads. | Flagship-scale calibration and human playtesting. |
 | Claim-proof contract | `SolutionClaim` has evidence IDs but is not connected to accusation evaluation or validation. Needed for backward-authored proof. | Gold-standard schema/validator refinement. |
-| Premature-disclosure checks | No validator checks that claims become provable too early. | Validator refinement. |
+| Premature-disclosure checks | Validator checks optional authored disclosure prerequisite routes on facts, clues, and evidence, including solution-level critical-fact shortcuts. | Flagship authoring and calibration. |
 
 ## Human playtest required
 
