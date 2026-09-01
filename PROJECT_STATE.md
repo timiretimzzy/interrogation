@@ -345,3 +345,66 @@ A solution-ready state requires declared critical facts, all evidence named by `
 - Facts, clues, and evidence may declare optional `disclosureRequirements`: alternative prerequisite routes (outer OR, inner AND) that must be known before disclosure. Violations report `PREMATURE_DISCLOSURE`; critical-fact violations report `SOLUTION_SHORTCUT`.
 - Lead lifecycle and disclosure safety are independently certified only after complete exploration; both are `unknown` when capped. This proves authored structural properties, not prose meaning, player comprehension, fairness, or narrative quality.
 - Focused synthetic tests cover healthy/inert/unreachable/closed/stranded leads, nonlinear and gated disclosure, shortcuts, incomplete certification, plus existing transition and accusation regressions.
+
+## Phase 4.3.0 — Flagship case blueprint (COMPLETE)
+
+`FLAGSHIP_CASE_BLUEPRINT.md` establishes the conceptual and narrative architecture for
+the first post-certification flagship case, **The Last Broadcast**. It evaluates three
+distinct concepts, selects a prerecorded-broadcast poisoning mystery, and defines its
+canonical truth, actual/apparent/claimed timelines, knowledge boundaries, theories,
+evidence, layered discovery, nonlinear routes, lead lifecycles, response behavior,
+contradictions, sparse deductions, fair misdirection, disclosure pacing, accusation
+proof dimensions, adversarial expectations, and acceptance criteria.
+
+No case JSON, production dialogue, UI, engine, or legacy-case work was performed. The
+blueprint uses existing engine contracts: selected-question turns, eligibility,
+OR-of-AND disclosure preparation, contradictions, automatic and player-triggered
+deductions, proof-gated accusation evaluation, and explicit lead closure. It introduces
+no additional engine or authoring gap beyond the already registered need for flagship
+validator calibration, formal claim-proof refinement, accusation-readiness metadata, and
+future adversarial simulation.
+
+### Next task
+
+After approval, begin **Phase 4.3.1 — Flagship Case Information Model**. Translate the
+approved blueprint into canonical entities, characters, facts, evidence, claims,
+knowledge ownership, timeline states, contradictions, deductions, discovery routes,
+disclosure requirements, and accusation proof model—still without mass dialogue or JSON
+implementation.
+
+## Phase 4.3.1 — Flagship case information model (COMPLETE)
+
+`FLAGSHIP_CASE_INFORMATION_MODEL.md` is the authoritative information architecture for
+**The Last Broadcast**. It locks the murder, the Harbour Relief archive cover-up, and the
+technically ordinary prerecorded-continuity mechanism; it supplies public and actual
+timelines, bounded knowledge matrices, atomized facts/evidence/claims/contradictions,
+an evidence network, theories, pacing, deductions, misdirection closures, accusation
+proof, and a reverse information-purpose audit.
+
+`FLAGSHIP_CASE_TRACEABILITY.md` maps canonical truth through evidence, discoveries,
+interpretations, contradictions, deductions, and the four accusation dimensions. The
+central player-triggered deduction is locked as **The absent voice**: the broadcast was
+not proof Mara was alive but the mechanism concealing the death window. It remains
+bounded and never names the culprit or supplies theory.
+
+No unresolved canonical contradiction or new engine gap was found. Existing registered
+limitations remain applicable: flagship-scale validator calibration, claim-proof
+refinement, accusation-readiness metadata, adversarial simulation, and human playtests.
+The still-live legacy cases were not inspected, changed, or treated as design references.
+No JSON, final dialogue, UI, or engine change was created.
+
+### Completion update
+
+The model was expanded with the causal chain, culprit blind spots, classified secrets and
+willingness triggers, claims/testimony map, evidence proof boundaries, critical recovery
+routes, formal lead lifecycles, dependency audit, engine compatibility audit, and four
+bounded implementation questions. No new engine gap was found; the still-live legacy
+cases remain untouched and are not design references.
+
+### Next task
+
+After approval, begin **Phase 4.3.2 — Flagship Case Interrogation and Question
+Architecture**: translate the model into interrogatable characters, entry points, question
+taxonomy and network, availability/unlock logic, confrontations, evidence presentation,
+redirects, false-lead closures, and question lifecycle—still without final dialogue or
+production JSON.
