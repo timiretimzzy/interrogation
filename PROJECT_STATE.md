@@ -408,3 +408,31 @@ Architecture**: translate the model into interrogatable characters, entry points
 taxonomy and network, availability/unlock logic, confrontations, evidence presentation,
 redirects, false-lead closures, and question lifecycle—still without final dialogue or
 production JSON.
+
+## Phase 4.3.1A — Implementation contract verification (COMPLETE)
+
+`FLAGSHIP_IMPLEMENTATION_COMPATIBILITY_AUDIT.md` traces the current UI/runtime path to
+`executeTurn`, confirms the runtime wrapper and state-space validator reuse canonical
+question semantics, and maps every major Last Broadcast feature against current contracts.
+It adds a focused synthetic temporal-deception regression: an early claim remains in the
+transcript after rehearsal proof makes a later denial ineligible.
+
+Verdict: **CONDITIONAL GO.** The flagship can be authored faithfully using explicit
+facts/evidence/clues, eligibility, contexts, contradictions, deductions, and proof-gated
+accusations. Key authoring constraints are that deductions and accusation proofs are
+AND-only (alternative routes must normalize into common IDs), weights cannot control
+critical progression, and disclosure/lead closure metadata is validator-only rather than
+runtime enforcement.
+
+No production engine defect was found. `solver.ts` remains a reduced noncanonical
+optimistic/worst-case analysis and no adversarial-persona simulator exists; neither may
+be used as proof of flagship transition equivalence. This is a documented non-blocking
+verification limitation, not a runtime/validator disagreement.
+
+### Next task
+
+**PHASE 4.3.2 — FLAGSHIP CASE INTERROGATION AND QUESTION ARCHITECTURE**: design
+character interrogation structure, question categories and availability, dependencies,
+evidence presentation, confrontation paths, false-lead investigation/closure, central-aha
+setup, and route convergence. Do not write production dialogue or JSON until the
+interrogation architecture is approved.
