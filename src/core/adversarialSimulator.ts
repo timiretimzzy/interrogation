@@ -108,7 +108,11 @@ export const simulationPolicies: Record<SimulationPolicyId, SimulationPolicy> = 
   completionist: {
     id: 'completionist',
     selectAction(context) {
-      const action = ranked(context, (candidate) => progressionScore(context.caseFile, context.state, candidate));
+      const action = ranked(context, (candidate) => {
+        const askedOfTarget = candidate.type === 'ask'
+          ? (context.state.interrogations[candidate.characterId!] ?? []).length : 0;
+        return progressionScore(context.caseFile, context.state, candidate) - askedOfTarget * 2;
+      });
       return action ? { action, reason: 'exhausts legal unasked actions before stopping' } : undefined;
     },
   },
@@ -184,11 +188,11 @@ export function simulatePlaythrough(caseFile: CaseFile, policyId: SimulationPoli
   if (termination === 'ACTION_BUDGET_EXCEEDED') add('ACTION_BUDGET_EXCEEDED', `Simulation exhausted its configured ${budget}-action budget.`);
   if (termination === 'REPEATED_PROGRESSION_STATE') add('REPEATED_PROGRESSION_STATE', 'Simulation revisited an identical progression state.');
   if (policyId === 'tunnel-vision' && steps.length && focusedActionCount / steps.length >= 0.75 && targets.size < 2) add('TUNNEL_VISION_NARROW_PROGRESS', `Focused target consumed ${focusedActionCount}/${steps.length} actions without a second target.`);
-  if (policyId === 'tunnel-vision' && !firstReadinessStep && termination !== 'ACCUSATION_READY') add('TUNNEL_VISION_FAILED_TO_RECONNECT', 'Focused route did not reach accusation readiness.');
+  if (policyId === 'tunnel-vision' && firstReadinessStep === undefined && termination !== 'ACCUSATION_READY') add('TUNNEL_VISION_FAILED_TO_RECONNECT', 'Focused route did not reach accusation readiness.');
   if (policyId === 'completionist' && firstReadinessStep !== undefined && steps.length - firstReadinessStep > 0) add('COMPLETIONIST_EXCESSIVE_POST_READINESS', `${steps.length - firstReadinessStep} actions occurred after first readiness.`);
   if (policyId === 'minimalist' && firstReadinessStep !== undefined && targets.size < 2) add('MINIMALIST_PREMATURE_READINESS', 'Readiness was reached after exploring fewer than two character targets.');
-  if (policyId === 'contrarian' && !firstReadinessStep && termination !== 'ACCUSATION_READY') add('CONTRARIAN_STRANDED_LEAD', 'Alternative-first route did not reach accusation readiness.');
-  if (policyId === 'random-legal' && !firstReadinessStep && termination === 'NO_LEGAL_ACTIONS') add('RANDOM_PATH_STALL', 'Seeded legal path ended before accusation readiness.');
+  if (policyId === 'contrarian' && firstReadinessStep === undefined && termination !== 'ACCUSATION_READY') add('CONTRARIAN_STRANDED_LEAD', 'Alternative-first route did not reach accusation readiness.');
+  if (policyId === 'random-legal' && firstReadinessStep === undefined && termination === 'NO_LEGAL_ACTIONS') add('RANDOM_PATH_STALL', 'Seeded legal path ended before accusation readiness.');
   return { policyId, seed, steps, termination, firstReadinessStep, finalFingerprint, focusedCharacterId, distinctCharacterCount: targets.size, focusedActionCount, actionsAfterReadiness: firstReadinessStep === undefined ? 0 : steps.length - firstReadinessStep, findings };
 }
 
