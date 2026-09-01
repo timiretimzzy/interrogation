@@ -146,6 +146,12 @@ export interface Fact {
   contradicts?: FactId[];
   unlocks?: FactId[];
   prerequisites?: FactId[];
+  /**
+   * Alternative prerequisite sets required before this information is safe to
+   * disclose. Each inner set is AND; the outer list is OR. Omit to place no
+   * disclosure-order constraint on this fact.
+   */
+  disclosureRequirements?: string[][];
 }
 
 export interface Evidence {
@@ -157,6 +163,8 @@ export interface Evidence {
   optional?: boolean;
   source?: string;
   factIds?: FactId[];
+  /** Alternative knowledge routes required before this evidence is safe to disclose. */
+  disclosureRequirements?: string[][];
 }
 
 export interface Clue {
@@ -164,6 +172,8 @@ export interface Clue {
   title: string;
   description: string;
   importance?: 'critical' | 'secondary' | 'atmospheric' | string;
+  /** Alternative knowledge routes required before this clue is safe to disclose. */
+  disclosureRequirements?: string[][];
 }
 
 export interface Lead {
@@ -206,6 +216,14 @@ export interface ResponseVariant {
   reveals?: ClueId[];
   unlocks?: QuestionId[];
   createsContradiction?: ContradictionId;
+  /**
+   * Explicitly resolves another question-lead without changing runtime state.
+   * `leadIds` identifies questions; this metadata is build-time only.
+   */
+  leadResolution?: {
+    kind: 'redirected' | 'closed';
+    leadIds: QuestionId[];
+  };
 }
 
 export interface ResolutionContext {

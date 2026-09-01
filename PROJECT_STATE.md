@@ -337,3 +337,11 @@ No further legacy-case retrofits should be made solely to demonstrate validator 
 `stateSpaceValidator.ts` now projects runtime state into canonical future-relevant progression state and builds a forward/reverse transition graph using canonical turn execution, response eligibility, and deduction claiming. It reports solution-path discovery, certified existential solvability, and universal progression safety independently.
 
 A solution-ready state requires declared critical facts, all evidence named by `solutionClaims`, and understood player-triggered deductions. A found path proves existence even when capped; cap exhaustion yields `unknown` certification and cannot certify safety or unsolvability. Unsafe diagnostics identify the representative state, missing requirements, legal actions, and whether it is an action-economy, no-action, or no-path failure.
+
+## Phase 4.2.9 — Lead lifecycle and premature-disclosure validation (COMPLETE)
+
+- The state-space validator now treats reachable actionable questions as inferred leads and follows canonical turn/deduction transitions only.
+- A lead must produce a new progression effect or an explicit validator-only `leadResolution` (`redirected`/`closed`) naming its question ID. It diagnoses inert, authored-but-unreachable, stranded, unclosed false, and silently obsolete leads with a representative fingerprint and action path.
+- Facts, clues, and evidence may declare optional `disclosureRequirements`: alternative prerequisite routes (outer OR, inner AND) that must be known before disclosure. Violations report `PREMATURE_DISCLOSURE`; critical-fact violations report `SOLUTION_SHORTCUT`.
+- Lead lifecycle and disclosure safety are independently certified only after complete exploration; both are `unknown` when capped. This proves authored structural properties, not prose meaning, player comprehension, fairness, or narrative quality.
+- Focused synthetic tests cover healthy/inert/unreachable/closed/stranded leads, nonlinear and gated disclosure, shortcuts, incomplete certification, plus existing transition and accusation regressions.

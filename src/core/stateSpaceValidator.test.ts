@@ -96,4 +96,84 @@ describe('state-space validator correctness', () => {
     expect(result.existentialSolvabilityCertified).toBe('unknown');
     expect(result.universalProgressionSafety).toBe('unknown');
   });
+
+  it('accepts a healthy progressing lead', () => {
+    const result = validateCaseReachability(fixture());
+    expect(result.leadLifecycleSafety).toBe(true);
+  });
+
+  it('diagnoses an inert lead', () => {
+    const result = validateCaseReachability(fixture({ questions: [question('Q1', [{ id: 'R1', text: 'flavor', weight: 1 }])] }));
+    expect(result.diagnostics.some((item) => item.code === 'LEAD_NO_MEANINGFUL_OUTCOME')).toBe(true);
+  });
+
+  it('diagnoses authored progression that is never eligible', () => {
+    const result = validateCaseReachability(fixture({ questions: [question('Q1', [
+      { id: 'R1', text: '', weight: 1, requires: ['never'], discloses: [{ factId: 'F1', clarity: 'full' }] },
+    ])] }));
+    expect(result.diagnostics.some((item) => item.code === 'LEAD_PROGRESSION_UNREACHABLE')).toBe(true);
+  });
+
+  it('accepts an explicitly closed false lead', () => {
+    const result = validateCaseReachability(fixture({ questions: [
+      question('Q1', [{ id: 'R1', text: '', weight: 1, leadResolution: { kind: 'closed', leadIds: ['Q1'] } }]),
+    ] }));
+    expect(result.diagnostics.some((item) => item.code === 'FALSE_LEAD_UNCLOSED')).toBe(false);
+    expect(result.diagnostics.some((item) => item.code === 'LEAD_NO_MEANINGFUL_OUTCOME')).toBe(false);
+  });
+
+  it('diagnoses a false lead that silently ends', () => {
+    const result = validateCaseReachability(fixture({ questions: [question('Q1', [{ id: 'R1', text: '', weight: 1 }])] }));
+    expect(result.diagnostics.some((item) => item.code === 'FALSE_LEAD_UNCLOSED')).toBe(true);
+  });
+
+  it('diagnoses a lead with a stranded legal branch', () => {
+    const result = validateCaseReachability(fixture({ playerRules: { ...fixture().playerRules, investigationActions: 2 }, questions: [
+      question('Q1', [
+        { id: 'good', text: '', weight: 1, leadResolution: { kind: 'closed', leadIds: ['Q1'] } },
+        { id: 'bad', text: '', weight: 1 },
+      ]),
+    ] }));
+    expect(result.diagnostics.some((item) => item.code === 'LEAD_STRANDED')).toBe(true);
+  });
+
+  it('allows either of two nonlinear disclosure foundations', () => {
+    const result = validateCaseReachability(fixture({ facts: [
+      { id: 'F1', statement: '', disclosureRequirements: [['A'], ['B']] }, { id: 'A', statement: '' }, { id: 'B', statement: '' },
+    ], questions: [
+      question('QA', [{ id: 'RA', text: '', weight: 1, discloses: [{ factId: 'A', clarity: 'full' }] }]),
+      question('QB', [{ id: 'RB', text: '', weight: 1, discloses: [{ factId: 'B', clarity: 'full' }] }]),
+      question('Q1', [
+        { id: 'RA', text: '', weight: 1, requires: ['A'], discloses: [{ factId: 'F1', clarity: 'full' }] },
+        { id: 'RB', text: '', weight: 1, requires: ['B'], discloses: [{ factId: 'F1', clarity: 'full' }] },
+      ]),
+    ], playerRules: { ...fixture().playerRules, investigationActions: 2 },
+    })).diagnostics;
+    expect(result.some((item) => item.code === 'PREMATURE_DISCLOSURE' || item.code === 'SOLUTION_SHORTCUT')).toBe(false);
+  });
+
+  it('diagnoses a critical fact disclosed before its foundation', () => {
+    const result = validateCaseReachability(fixture({ facts: [
+      { id: 'F1', statement: '', disclosureRequirements: [['A']] }, { id: 'A', statement: '' },
+    ], questions: [question('Q1', [{ id: 'R1', text: '', weight: 1, discloses: [{ factId: 'F1', clarity: 'full' }] }])]}));
+    const diagnostic = result.diagnostics.find((item) => item.code === 'SOLUTION_SHORTCUT');
+    expect(diagnostic?.missingRequirements).toEqual(['A']);
+    expect(diagnostic?.path).toHaveLength(1);
+  });
+
+  it('accepts correctly gated critical disclosure', () => {
+    const result = validateCaseReachability(fixture({ facts: [
+      { id: 'F1', statement: '', disclosureRequirements: [['A']] }, { id: 'A', statement: '' },
+    ], playerRules: { ...fixture().playerRules, investigationActions: 2 }, questions: [
+      question('QA', [{ id: 'RA', text: '', weight: 1, discloses: [{ factId: 'A', clarity: 'full' }] }]),
+      question('Q1', [{ id: 'R1', text: '', weight: 1, requires: ['A'], discloses: [{ factId: 'F1', clarity: 'full' }] }]),
+    ] }));
+    expect(result.disclosureSafety).toBe(true);
+  });
+
+  it('returns unknown lifecycle and disclosure certification when capped', () => {
+    const result = validateCaseReachability(fixture(), { maxStates: 1 });
+    expect(result.leadLifecycleSafety).toBe('unknown');
+    expect(result.disclosureSafety).toBe('unknown');
+  });
 });
