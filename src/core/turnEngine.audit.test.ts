@@ -82,6 +82,47 @@ function initial(): PlayerState {
 }
 
 describe('Phase 4.2.2 current-branch turn audit', () => {
+  it('preserves an early claim while later facts retire it through explicit eligibility', () => {
+    const caseFile = auditCase();
+    caseFile.playerRules.investigationActions = 3;
+    caseFile.facts = [
+      { id: 'LIVE_CLAIM', statement: 'The program was live.' },
+      { id: 'REHEARSAL_PROOF', statement: 'The program was prerecorded.' },
+    ];
+    caseFile.questions = [
+      {
+        id: 'Q-live-claim', mechanic: 'TIMELINE', text: 'Was it live?',
+        targetCharacterIds: ['witness'], availability: { type: 'initial' },
+        responses: { witness: [{ context: 'initial', variants: [
+          { id: 'live', text: 'It was live.', weight: 1, discloses: [{ factId: 'LIVE_CLAIM', clarity: 'full' }] },
+        ] }] },
+      },
+      {
+        id: 'Q-recording', mechanic: 'EVIDENCE', text: 'Inspect recording.',
+        targetCharacterIds: ['witness'], availability: { type: 'initial' },
+        responses: { witness: [{ context: 'initial', variants: [
+          { id: 'proof', text: 'It is a rehearsal.', weight: 1, discloses: [{ factId: 'REHEARSAL_PROOF', clarity: 'full' }] },
+        ] }] },
+      },
+      {
+        id: 'Q-follow-up', mechanic: 'CONFRONTATION', text: 'Ask again.',
+        targetCharacterIds: ['witness'], availability: { type: 'initial' },
+        responses: { witness: [{ context: 'initial', variants: [
+          { id: 'obsolete-live', text: 'Still live.', weight: 100, requires: ['LIVE_CLAIM'], excludes: ['REHEARSAL_PROOF'] },
+          { id: 'revised', text: 'It was prepared.', weight: 1, requires: ['REHEARSAL_PROOF'] },
+        ] }] },
+      },
+    ];
+
+    const afterClaim = executeTurn(caseFile, createInitialPlayerState(caseFile, 1), 'witness', 'Q-live-claim').state;
+    const afterProof = executeTurn(caseFile, afterClaim, 'witness', 'Q-recording').state;
+    const followUp = executeTurn(caseFile, afterProof, 'witness', 'Q-follow-up');
+
+    expect(followUp.response?.id).toBe('revised');
+    expect(followUp.state.interrogations.witness[0].text).toBe('It was live.');
+    expect(followUp.state.discoveredFactIds).toEqual(['LIVE_CLAIM', 'REHEARSAL_PROOF']);
+  });
+
   it('uses the same canonical transition through the runtime wrapper and applies post-turn deductions', () => {
     const caseFile = auditCase();
     const state = initial();
