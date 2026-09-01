@@ -11,6 +11,7 @@ import { ask, availableQuestionsForCharacter } from './cardEngine.ts';
 import { executeTurn } from './turnEngine.ts';
 import { computeActiveContradictions, activeConfrontationQuestions } from './contradictionEngine.ts';
 import { evaluateAccusation, submitAccusation } from './accusationEngine.ts';
+import { validateCase } from './caseLoader.ts';
 import { buildNotebook } from './notebook.ts';
 import { claimDeduction, evaluateDeductions } from './deductionEngine.ts';
 import { createInitialPlayerState, PlayerState } from './types.ts';
@@ -349,6 +350,23 @@ describe('accusation engine', () => {
     const state = init();
     state.discoveredEvidence = ['E001'];
     expect(evaluateAccusation(caseWithClaimProof, state, { who: 'julian' }).won).toBe(true);
+  });
+
+  it('rejects solution claims that do not align with accusation dimensions', () => {
+    const invalid = {
+      ...gold,
+      solutionClaims: [{
+        id: 'bad-claim',
+        dimension: 'unknown',
+        correctValue: 'julian',
+        requiredEvidenceIds: ['missing-evidence'],
+      }],
+    };
+    const validation = validateCase(invalid);
+    expect(validation.errors).toEqual(expect.arrayContaining([
+      'Solution claim bad-claim references unknown accusation dimension unknown',
+      'Solution claim bad-claim requires unknown evidence missing-evidence',
+    ]));
   });
 });
 

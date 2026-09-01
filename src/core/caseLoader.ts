@@ -146,6 +146,22 @@ export function validateCase(caseFile: CaseFile): CaseValidation {
       }
     }
   }
+  const accusationDimensions = new Map(
+    (caseFile.accusation?.dimensions ?? []).map((dimension) => [dimension.id, dimension]),
+  );
+  for (const claim of caseFile.solutionClaims ?? []) {
+    const dimension = accusationDimensions.get(claim.dimension);
+    if (!dimension) {
+      e(`Solution claim ${claim.id} references unknown accusation dimension ${claim.dimension}`);
+    } else if (claim.correctValue !== dimension.correctValue) {
+      e(`Solution claim ${claim.id} correctValue must match accusation dimension ${claim.dimension}`);
+    }
+    for (const evidenceId of claim.requiredEvidenceIds) {
+      if (!evidenceIds.has(evidenceId)) {
+        e(`Solution claim ${claim.id} requires unknown evidence ${evidenceId}`);
+      }
+    }
+  }
 
   // Solution paths reference real facts.
   for (const p of caseFile.solutionPaths ?? []) {
