@@ -13,6 +13,48 @@ import type {
   ResolutionContext,
 } from './types.ts';
 
+function playerKnownIds(state: PlayerState): Set<string> {
+  const known = new Set<string>();
+  for (const list of [
+    state.discoveredClues ?? [],
+    state.discoveredEvidence ?? [],
+    state.recordedStatements ?? [],
+    state.contextSwitches ?? [],
+    state.unlockedQuestions ?? [],
+    state.activeContradictions ?? [],
+    state.flaggedContradictions ?? [],
+    state.discovered ?? [],
+    state.understood ?? [],
+    state.questionsAsked ?? [],
+    state.closedLeads ?? [],
+  ]) {
+    for (const id of list) known.add(id);
+  }
+  return known;
+}
+
+/**
+ * The single authoritative response-eligibility rule. A variant is eligible only
+ * when all of its prerequisites are satisfied, none of its exclusions are
+ * present, and any context requirement is met.
+ */
+export function isResponseEligible(
+  variant: ResponseVariant,
+  state: PlayerState,
+): boolean {
+  const known = playerKnownIds(state);
+  if (variant.requiresContext && !state.contextSwitches.includes(variant.requiresContext)) {
+    return false;
+  }
+  if (!(variant.requires ?? []).every((id) => known.has(id))) {
+    return false;
+  }
+  if ((variant.excludes ?? []).some((id) => known.has(id))) {
+    return false;
+  }
+  return true;
+}
+
 /**
  * Choose the active ResolutionContext for a character: the most specific one
  * whose `context` is among the player's earned context switches, else 'initial'.
@@ -28,14 +70,12 @@ export function resolveActiveContext(
   return (earned ?? available[0]).context;
 }
 
-/** Variants whose `requiresContext` (if any) is satisfied by earned contexts. */
+/** All variants that are currently eligible under the authoritative rule. */
 export function eligibleVariants(
   context: ResolutionContext,
   state: PlayerState,
 ): ResponseVariant[] {
-  return context.variants.filter(
-    (v) => v.requiresContext === undefined || state.contextSwitches.includes(v.requiresContext),
-  );
+  return context.variants.filter((variant) => isResponseEligible(variant, state));
 }
 
 /**
@@ -80,7 +120,11 @@ export function selectResponse(
   const contextId = resolveActiveContext(state, contexts);
   const context = contexts.find((c) => c.context === contextId) ?? contexts[0];
   const eligible = eligibleVariants(context, state);
-  if (eligible.length === 0) return null;
+  if (eligible.length === 0) {
+    throw new Error(
+      `No eligible response variants for ${characterId}/${questionId} in context ${contextId}`,
+    );
+  }
 
   const seed = hashSeed(
     state.sessionSeed,

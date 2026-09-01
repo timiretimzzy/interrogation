@@ -141,8 +141,8 @@
       "targetCharacterIds": ["julian", "mara", "daniel", "eleanor", "theo"], "availability": { "type": "initial" },
       "responses": {
         "julian": [{ "context": "initial", "variants": [
-          { "id": "Q001-J-01", "text": "In the lobby all evening.", "kind": "DIRECT_LIE", "weight": 10, "unlocks": ["Q010"] },
-          { "id": "Q001-J-02", "text": "Around the gallery, here and there.", "kind": "EVASIVE", "weight": 30, "unlocks": ["Q010"] },
+          { "id": "Q001-J-01", "text": "In the lobby all evening.", "kind": "DIRECT_LIE", "weight": 10, "excludes": ["C003", "F004"], "unlocks": ["Q010"] },
+          { "id": "Q001-J-02", "text": "Around the gallery, here and there.", "kind": "EVASIVE", "weight": 30, "excludes": ["C003", "F004"], "unlocks": ["Q010"] },
           { "id": "Q001-J-03", "text": "I stepped back to check the vault.", "kind": "PARTIAL_TRUTH", "weight": 40, "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q010", "Q011"] },
           { "id": "Q001-J-04", "text": "I was at the vault around nine.", "kind": "TRUTH", "weight": 20, "discloses": [{ "factId": "F004", "clarity": "full" }], "unlocks": ["Q010", "Q011"] }
         ] }],
@@ -198,8 +198,8 @@
       "targetCharacterIds": ["julian"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "questionAsked", "id": "Q001" }, { "kind": "questionAsked", "id": "Q002" }] } },
       "responses": {
         "julian": [{ "context": "initial", "variants": [
-          { "id": "Q010-J-01", "text": "I may have passed it.", "kind": "EVASIVE", "weight": 40, "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q011"] },
-          { "id": "Q010-J-02", "text": "I checked the vault, yes.", "kind": "PARTIAL_TRUTH", "weight": 35, "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q011"] },
+          { "id": "Q010-J-01", "text": "I may have passed it.", "kind": "EVASIVE", "weight": 40, "excludes": ["C001", "F004"], "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q011"] },
+          { "id": "Q010-J-02", "text": "I checked the vault, yes.", "kind": "PARTIAL_TRUTH", "weight": 35, "excludes": ["C001", "F004"], "discloses": [{ "factId": "F004", "clarity": "partial" }], "unlocks": ["Q011"] },
           { "id": "Q010-J-03", "text": "I opened it. I had the only key.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F002", "clarity": "full" }, { "factId": "F004", "clarity": "full" }], "unlocks": ["Q018"] }
         ] }]
       }
@@ -209,8 +209,8 @@
       "targetCharacterIds": ["julian"], "availability": { "type": "unlocked", "when": { "any": [{ "kind": "clue", "id": "C001" }] } },
       "responses": {
         "julian": [{ "context": "initial", "variants": [
-          { "id": "Q011-J-01", "text": "Keys get borrowed. Means nothing.", "kind": "EVASIVE", "weight": 40, "discloses": [{ "factId": "F002", "clarity": "partial" }] },
-          { "id": "Q011-J-02", "text": "I checked the vault, that's all.", "kind": "PARTIAL_TRUTH", "weight": 35, "discloses": [{ "factId": "F002", "clarity": "partial" }], "unlocks": ["Q018"] },
+          { "id": "Q011-J-01", "text": "Keys get borrowed. Means nothing.", "kind": "EVASIVE", "weight": 40, "excludes": ["C001", "F002"], "discloses": [{ "factId": "F002", "clarity": "partial" }] },
+          { "id": "Q011-J-02", "text": "I checked the vault, that's all.", "kind": "PARTIAL_TRUTH", "weight": 35, "excludes": ["C001", "F002"], "discloses": [{ "factId": "F002", "clarity": "partial" }], "unlocks": ["Q018"] },
           { "id": "Q011-J-03", "text": "Fine. I took it. I had the only key.", "kind": "ADMISSION", "weight": 25, "requiresContext": "after_clue_C001", "discloses": [{ "factId": "F001", "clarity": "full" }, { "factId": "F002", "clarity": "full" }, { "factId": "F004", "clarity": "full" }], "unlocks": ["Q018"] }
         ] }]
       }
@@ -294,6 +294,11 @@
     { "id": "CON001", "type": "behavioral", "description": "Mara's story about the guest does not match her being at her station.", "statementRefs": ["S-MARA-GUEST"], "importance": "secondary", "possibleInterpretations": ["Mara is mistaken", "Mara is hiding an unrelated personal matter"], "confrontationQuestionId": "Q012" },
     { "id": "CON002", "type": "timeline", "description": "Daniel says he never saw Julian leave the lobby, but his own account places Julian at the back.", "statementRefs": ["S-DANIEL-SEE"], "importance": "secondary", "possibleInterpretations": ["Daniel is mistaken", "Daniel is protecting himself"], "confrontationQuestionId": "Q013" },
     { "id": "CON003", "type": "knowledge", "description": "A vault key was used and the alarm was silenced from inside — only someone with access could do both.", "importance": "critical", "surfaceWhen": { "any": [{ "kind": "clue", "id": "C001" }, { "kind": "clue", "id": "C002" }] }, "confrontationQuestionId": "Q011" }
+  ],
+  "deductions": [
+    { "id": "D001", "requires": ["F004", "F003"], "result": { "statement": "Julian's alibi cannot be correct: he was in the vault while the alarm was being silenced from inside." }, "surface": "automatic" },
+    { "id": "D002", "requires": ["F001", "F002"], "result": { "statement": "Only Julian had the combination of access and key needed to orchestrate the theft." }, "surface": "automatic" },
+    { "id": "D003", "requires": ["F004", "F005"], "result": { "statement": "Julian had both the timing and the financial motive to stage the swap." }, "surface": "player_triggered" }
   ],
   "redHerrings": [
     { "id": "RH001", "characterId": "mara", "surfaceSuspicion": "She lied about the guest.", "actualReason": "An affair she was embarrassed about.", "crimeConnection": "unrelated" },

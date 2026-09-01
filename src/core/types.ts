@@ -435,8 +435,11 @@ export interface PlayerState {
   recordedStatements: StatementId[];
   discoveredClues: ClueId[];
   discoveredEvidence: EvidenceId[];
+  discoveredFactIds: FactId[];
   discovered?: string[];
   understood?: string[];
+  understoodDeductionIds?: string[];
+  availableDeductionIds?: string[];
   unlockedQuestions: QuestionId[];
   activeContradictions: ContradictionId[];
   flaggedContradictions: ContradictionId[];
@@ -465,8 +468,11 @@ export function createInitialPlayerState(
     recordedStatements: [],
     discoveredClues: [],
     discoveredEvidence: [],
+    discoveredFactIds: [],
     discovered: [],
     understood: [],
+    understoodDeductionIds: [],
+    availableDeductionIds: [],
     unlockedQuestions: [],
     activeContradictions: [],
     flaggedContradictions: [],

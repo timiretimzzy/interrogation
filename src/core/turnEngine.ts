@@ -3,6 +3,7 @@ import {
   activeConfrontationQuestions,
   computeActiveContradictions,
 } from './contradictionEngine.ts';
+import { evaluateDeductions } from './deductionEngine.ts';
 import { isQuestionAvailable } from './gating.ts';
 import { selectResponse } from './responseSelector.ts';
 import type { CaseFile, CharacterId, PlayerState, StatementId } from './types.ts';
@@ -18,6 +19,9 @@ function cloneState(state: PlayerState): PlayerState {
     recordedStatements: [...state.recordedStatements],
     discoveredClues: [...state.discoveredClues],
     discoveredEvidence: [...state.discoveredEvidence],
+    discoveredFactIds: [...state.discoveredFactIds],
+    understoodDeductionIds: [...(state.understoodDeductionIds ?? [])],
+    availableDeductionIds: [...(state.availableDeductionIds ?? [])],
     unlockedQuestions: [...state.unlockedQuestions],
     activeContradictions: [...state.activeContradictions],
     flaggedContradictions: [...state.flaggedContradictions],
@@ -111,8 +115,10 @@ export function executeTurn(
   const revealAll = [...(selected.variant.reveals ?? []), ...(question.reveals ?? [])];
   const revealClues = revealAll.filter((id) => caseFile.clues?.some((c) => c.id === id));
   const revealEvidence = revealAll.filter((id) => caseFile.evidence?.some((e) => e.id === id));
+  const disclosedFacts = (selected.variant.discloses ?? []).map((d) => d.factId);
   draft.discoveredClues = addUnique(draft.discoveredClues, ...revealClues);
   draft.discoveredEvidence = addUnique(draft.discoveredEvidence, ...revealEvidence);
+  draft.discoveredFactIds = addUnique(draft.discoveredFactIds, ...disclosedFacts);
 
   const discovered = [...revealClues, ...revealEvidence];
   draft.unlockedQuestions = addUnique(draft.unlockedQuestions, ...(selected.variant.unlocks ?? []), ...(question.unlocks ?? []));
@@ -138,6 +144,17 @@ export function executeTurn(
   }
 
   draft.actionsRemaining = applyActionCost(draft, 'interrogation');
+
+  const deductionState = evaluateDeductions(caseFile, draft);
+  draft.understoodDeductionIds = addUnique(
+    draft.understoodDeductionIds ?? [],
+    ...deductionState.newlyUnderstood.map((d) => d.id),
+  );
+  draft.availableDeductionIds = addUnique(
+    draft.availableDeductionIds ?? [],
+    ...deductionState.newlyAvailable.map((d) => d.id),
+  );
+  draft.understood = addUnique(draft.understood ?? [], ...deductionState.newlyUnderstood.map((d) => d.id));
 
   const nextAvailable = caseFile.questions
     .filter((q) => q.id !== questionId && isQuestionAvailable(caseFile, draft, q.id))
