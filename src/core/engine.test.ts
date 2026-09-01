@@ -228,7 +228,8 @@ describe('cardEngine.ask applies effects', () => {
     const runtime = ask(gold, s0, 'daniel', 'Q001');
     const canonical = executeTurn(gold, s0, 'daniel', 'Q001');
     expect(runtime.state).toEqual(canonical.state);
-    expect(runtime.variantId).toBe(canonical.response?.id);
+    expect(canonical.response).toBeTruthy();
+    expect(runtime.variantId).toBe(canonical.response!.id);
   });
 
   it('reveals clues, records statement, unlocks, spends an action', () => {

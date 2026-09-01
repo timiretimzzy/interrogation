@@ -115,14 +115,14 @@ export function validateCase(caseFile: CaseFile): CaseValidation {
     for (const f of ev.supports) {
       if (factIds.size > 0 && !factIds.has(f)) e(`Evidence ${ev.id} supports unknown fact ${f}`);
     }
+  }
 
-    for (const item of [...(caseFile.facts ?? []), ...(caseFile.clues ?? []), ...(caseFile.evidence ?? [])]) {
-      for (const route of item.disclosureRequirements ?? []) {
-        for (const id of route) {
-          if (!factIds.has(id) && !clueIds.has(id) && !evidenceIds.has(id) && !statementIds.has(id)
-            && !questionIds.has(id) && !contradictionIds.has(id)) {
-            e(`Disclosure requirements for ${item.id} reference unknown information ${id}`);
-          }
+  for (const item of [...(caseFile.facts ?? []), ...(caseFile.clues ?? []), ...(caseFile.evidence ?? [])]) {
+    for (const route of item.disclosureRequirements ?? []) {
+      for (const id of route) {
+        if (!factIds.has(id) && !clueIds.has(id) && !evidenceIds.has(id) && !statementIds.has(id)
+          && !questionIds.has(id) && !contradictionIds.has(id)) {
+          e(`Disclosure requirements for ${item.id} reference unknown information ${id}`);
         }
       }
     }
