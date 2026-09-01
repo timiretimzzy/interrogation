@@ -154,7 +154,7 @@ describe('Phase 4.2.2 current-branch turn audit', () => {
     theoryState.theoryBoard = { who: 'arbitrary', citedEvidence: ['irrelevant'] };
 
     const first = executeTurn(caseFile, plain, 'witness', 'Q1');
-    const replay = executeTurn(caseFile, plain, 'witness', 'Q1');
+    const replay = executeTurn(caseFile, initial(), 'witness', 'Q1');
     const withTheory = executeTurn(caseFile, theoryState, 'witness', 'Q1');
 
     expect(first).toEqual(replay);
