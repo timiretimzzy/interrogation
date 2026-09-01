@@ -315,3 +315,11 @@ then continue controlled tester feedback. Do NOT begin Phase 3.5 (case ingestion
 "- Case validation passes"  
 "- Build validation passes"  
 "Done." 
+
+## Phase 4.2.5 — Deduction-aware state-space validation (COMPLETE)
+
+- `src/core/stateSpaceValidator.ts` explores progression-only states through the canonical turn transaction and deduction claim engine.
+- It checks reachable facts, questions, deductions, declared critical facts, response pools with no eligible variants, terminal states missing critical facts, and the exploration safety cap.
+- Every eligible response variant is explored; deterministic runtime weighted selection remains unchanged.
+- The validator proves mechanical reachability across explored legal transitions, not narrative quality or complete accusation/solution correctness. Accusation readiness has no state-gated schema metadata beyond `accusationAvailableAtAnyTime`.
+- Theory-board contents and cosmetic transcript data are excluded from state fingerprints. A configurable cap reports incomplete exploration rather than a misleading pass.

@@ -16,6 +16,7 @@ import type {
 function playerKnownIds(state: PlayerState): Set<string> {
   const known = new Set<string>();
   for (const list of [
+    state.discoveredFactIds ?? [],
     state.discoveredClues ?? [],
     state.discoveredEvidence ?? [],
     state.recordedStatements ?? [],
@@ -25,6 +26,8 @@ function playerKnownIds(state: PlayerState): Set<string> {
     state.flaggedContradictions ?? [],
     state.discovered ?? [],
     state.understood ?? [],
+    state.understoodDeductionIds ?? [],
+    state.availableDeductionIds ?? [],
     state.questionsAsked ?? [],
     state.closedLeads ?? [],
   ]) {

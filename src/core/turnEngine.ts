@@ -5,7 +5,7 @@ import {
 } from './contradictionEngine.ts';
 import { evaluateDeductions } from './deductionEngine.ts';
 import { isQuestionAvailable } from './gating.ts';
-import { selectResponse } from './responseSelector.ts';
+import { eligibleVariants, resolveActiveContext, selectResponse } from './responseSelector.ts';
 import type { CaseFile, CharacterId, PlayerState, StatementId } from './types.ts';
 
 export class TurnEngineError extends Error {}
@@ -66,6 +66,7 @@ export function executeTurn(
   state: PlayerState,
   characterId: CharacterId,
   questionId: string,
+  responseVariantId?: string,
 ): TurnResult {
   const question = caseFile.questions.find((q) => q.id === questionId);
   if (!question) throw new TurnEngineError(`Unknown question: ${questionId}`);
@@ -86,7 +87,9 @@ export function executeTurn(
     throw new TurnEngineError('No investigation actions remaining');
   }
 
-  const selected = selectResponse(caseFile, state, characterId, questionId);
+  const selected = responseVariantId === undefined
+    ? selectResponse(caseFile, state, characterId, questionId)
+    : selectResponseVariant(caseFile, state, characterId, questionId, responseVariantId);
   if (!selected) {
     throw new TurnEngineError(`No eligible response for ${characterId}/${questionId}`);
   }
@@ -187,4 +190,32 @@ export function executeTurn(
   }
 
   return result;
+}
+
+/**
+ * Resolve one explicitly chosen eligible response through the canonical turn
+ * transaction. Runtime callers omit `responseVariantId`; exhaustive validators
+ * provide it to explore every legal authored response outcome.
+ */
+function selectResponseVariant(
+  caseFile: CaseFile,
+  state: PlayerState,
+  characterId: CharacterId,
+  questionId: string,
+  responseVariantId: string,
+) {
+  const question = caseFile.questions.find((q) => q.id === questionId);
+  const contexts = question?.responses[characterId];
+  if (!contexts || contexts.length === 0) {
+    throw new TurnEngineError(`No response variants for ${characterId}/${questionId}`);
+  }
+  const contextId = resolveActiveContext(state, contexts);
+  const context = contexts.find((item) => item.context === contextId) ?? contexts[0];
+  const variant = eligibleVariants(context, state).find((item) => item.id === responseVariantId);
+  if (!variant) {
+    throw new TurnEngineError(
+      `Response ${responseVariantId} is not eligible for ${characterId}/${questionId}`,
+    );
+  }
+  return { variant, contextId };
 }
