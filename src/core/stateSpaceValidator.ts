@@ -180,6 +180,7 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
     return path;
   };
   const solutionStates = [...states].filter(([, state]) => isSolutionReady(caseFile, state)).map(([id]) => id);
+  const solutionPathFound = solutionStates.length > 0;
   const canReachSolution = new Set(solutionStates); const backwardQueue = [...solutionStates];
   while (backwardQueue.length) {
     for (const predecessor of reverse.get(backwardQueue.shift()!) ?? []) {
@@ -248,7 +249,6 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
     }
   }
   criticalFactIds(caseFile).filter((id) => !facts.has(id)).forEach((id) => diagnostics.push({ code: 'UNREACHABLE_CRITICAL_FACT', message: `Critical fact ${id} is unreachable in explored states.` }));
-  const solutionPathFound = solutionStates.length > 0;
   if (explorationComplete && !solutionPathFound) diagnostics.push({ code: 'NO_SOLUTION_PATH', message: 'No reachable state satisfies the mechanical solution requirements.' });
   const uniqueDiagnostics = [...new Map(diagnostics.map((item) => [`${item.code}:${item.fingerprint ?? ''}:${item.message}`, item])).values()];
   const lifecycleDiagnostics = uniqueDiagnostics.filter((item) => ['LEAD_NO_MEANINGFUL_OUTCOME', 'LEAD_PROGRESSION_UNREACHABLE', 'LEAD_STRANDED', 'FALSE_LEAD_UNCLOSED', 'OBSOLETE_WITHOUT_CLOSURE'].includes(item.code));
