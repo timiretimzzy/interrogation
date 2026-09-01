@@ -371,3 +371,31 @@ approved blueprint into canonical entities, characters, facts, evidence, claims,
 knowledge ownership, timeline states, contradictions, deductions, discovery routes,
 disclosure requirements, and accusation proof model—still without mass dialogue or JSON
 implementation.
+
+## Phase 4.3.1 — Flagship case information model (COMPLETE)
+
+`FLAGSHIP_CASE_INFORMATION_MODEL.md` is the authoritative information architecture for
+**The Last Broadcast**. It locks the murder, the Harbour Relief archive cover-up, and the
+technically ordinary prerecorded-continuity mechanism; it supplies public and actual
+timelines, bounded knowledge matrices, atomized facts/evidence/claims/contradictions,
+an evidence network, theories, pacing, deductions, misdirection closures, accusation
+proof, and a reverse information-purpose audit.
+
+`FLAGSHIP_CASE_TRACEABILITY.md` maps canonical truth through evidence, discoveries,
+interpretations, contradictions, deductions, and the four accusation dimensions. The
+central player-triggered deduction is locked as **The absent voice**: the broadcast was
+not proof Mara was alive but the mechanism concealing the death window. It remains
+bounded and never names the culprit or supplies theory.
+
+No unresolved canonical contradiction or new engine gap was found. Existing registered
+limitations remain applicable: flagship-scale validator calibration, claim-proof
+refinement, accusation-readiness metadata, adversarial simulation, and human playtests.
+The still-live legacy cases were not inspected, changed, or treated as design references.
+No JSON, final dialogue, UI, or engine change was created.
+
+### Next task
+
+After approval, begin **Phase 4.3.2 — Investigation Graph and Lead Architecture**:
+translate this model into playable leads, question categories, unlock conditions,
+response purposes, branch connections, contradictions, deductions, and closures—still
+without final dialogue or JSON.
