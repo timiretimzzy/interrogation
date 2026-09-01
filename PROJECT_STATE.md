@@ -345,3 +345,10 @@ A solution-ready state requires declared critical facts, all evidence named by `
 - Facts, clues, and evidence may declare optional `disclosureRequirements`: alternative prerequisite routes (outer OR, inner AND) that must be known before disclosure. Violations report `PREMATURE_DISCLOSURE`; critical-fact violations report `SOLUTION_SHORTCUT`.
 - Lead lifecycle and disclosure safety are independently certified only after complete exploration; both are `unknown` when capped. This proves authored structural properties, not prose meaning, player comprehension, fairness, or narrative quality.
 - Focused synthetic tests cover healthy/inert/unreachable/closed/stranded leads, nonlinear and gated disclosure, shortcuts, incomplete certification, plus existing transition and accusation regressions.
+
+## Phase 4.2.10 — Adversarial playthrough simulation (COMPLETE)
+
+- `adversarialSimulator.ts` runs bounded, reproducible policy playthroughs via the canonical validator action enumeration, `executeTurn`, and deduction claim transition. It is separate from state-space certification.
+- Tunnel vision fixes its first askable character then scores that target above immediate progression; completionist exhausts legal actions; minimalist maximizes immediate authored effects and stops at readiness; contrarian favors targets unlike its focus/recent target; random legal chooses from stable legal actions using an explicit seed.
+- Compact traces record actions, state fingerprints, effects, readiness changes, and decision reasons. Findings expose measurable concentration, post-readiness actions, stalls, repeated states, and budget exhaustion; random runs aggregate reproducible seeds and termination/readiness metrics.
+- These simulations characterize explicit policy fragility only. They do not prove prose quality, human comprehension, emotional impact, actual player behavior, fairness, or mathematical solvability.

@@ -33,4 +33,4 @@
 | --- | --- | --- |
 | Comprehension and pacing | Graph reachability cannot show whether evidence is understandable or pacing is satisfying. | Flagship human transcripts. |
 | Fair misdirection | Canonical consistency can be checked mechanically, but plausibility of alternatives requires players. | Flagship human transcripts. |
-| Tunnel-vision resilience | Define biased-player simulation later; validate its realism and corrective feedback with humans. | Adversarial simulation after accusation diagnostics. |
+| Tunnel-vision resilience | Deterministic policy simulations now provide reproducible branch-concentration, readiness, stall, and false-route observations. Their realism and corrective feedback still require human validation. | Flagship calibration and human transcripts. |

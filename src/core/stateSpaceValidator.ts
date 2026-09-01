@@ -95,12 +95,12 @@ function requiredEvidenceIds(caseFile: CaseFile): string[] {
 function requiredDeductionIds(caseFile: CaseFile): string[] {
   return sorted((caseFile.deductions ?? []).filter((deduction) => deduction.surface === 'player_triggered').map((deduction) => deduction.id));
 }
-function isSolutionReady(caseFile: CaseFile, state: PlayerState): boolean {
+export function isSolutionReady(caseFile: CaseFile, state: PlayerState): boolean {
   return criticalFactIds(caseFile).every((id) => state.discoveredFactIds.includes(id))
     && requiredEvidenceIds(caseFile).every((id) => state.discoveredEvidence.includes(id))
     && requiredDeductionIds(caseFile).every((id) => (state.understoodDeductionIds ?? []).includes(id));
 }
-function actionsFor(caseFile: CaseFile, state: PlayerState, diagnostics: ValidationDiagnostic[]): StateSpaceAction[] {
+export function legalProgressionActions(caseFile: CaseFile, state: PlayerState, diagnostics: ValidationDiagnostic[] = []): StateSpaceAction[] {
   const actions: StateSpaceAction[] = [];
   if (state.actionsRemaining > 0) for (const question of caseFile.questions) {
     if (!isQuestionAvailable(caseFile, state, question.id)) continue;
@@ -160,7 +160,7 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
     if (states.has(fingerprint)) continue;
     if (states.size >= maxStates) { explorationComplete = false; diagnostics.push({ code: 'EXPLORATION_CAP_REACHED', message: `Exploration stopped at the ${maxStates}-state safety cap.` }); break; }
     states.set(fingerprint, state); forward.set(fingerprint, new Set()); state.discoveredFactIds.forEach((id) => facts.add(id)); (state.understoodDeductionIds ?? []).forEach((id) => deductions.add(id));
-    for (const action of actionsFor(caseFile, state, diagnostics)) {
+    for (const action of legalProgressionActions(caseFile, state, diagnostics)) {
       const variant = action.type === 'ask'
         ? (caseFile.questions.find((q) => q.id === action.questionId)?.responses[action.characterId!]
           ?.flatMap((context) => context.variants).find((item) => item.id === action.responseVariantId))
@@ -192,7 +192,7 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
   }
   const unsafeStates: UnsafeStateDiagnostic[] = [];
   if (explorationComplete) for (const [fingerprint, state] of states) if (!isSolutionReady(caseFile, state) && !canReachSolution.has(fingerprint)) {
-    const availableActions = actionsFor(caseFile, state, []); const reason = availableActions.length === 0 ? state.actionsRemaining <= 0 ? 'ACTION_ECONOMY_EXHAUSTED' : 'NO_LEGAL_ACTIONS' : 'NO_PATH_TO_SOLUTION';
+    const availableActions = legalProgressionActions(caseFile, state, []); const reason = availableActions.length === 0 ? state.actionsRemaining <= 0 ? 'ACTION_ECONOMY_EXHAUSTED' : 'NO_LEGAL_ACTIONS' : 'NO_PATH_TO_SOLUTION';
     unsafeStates.push({ fingerprint, ...missingRequirements(caseFile, state), availableActions, reason });
     diagnostics.push({ code: 'UNSAFE_PROGRESSION_STATE', fingerprint, message: `Reachable state cannot reach solution readiness (${reason}).`, path: pathFor(fingerprint) });
   }
@@ -228,8 +228,8 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
       }
       for (const edge of edges.filter((edge) => edge.action.type === 'ask' && edge.action.questionId !== question.id)) {
         const before = states.get(edge.from)!; const after = states.get(edge.to)!;
-        const wasActive = actionsFor(caseFile, before, []).some((action) => action.type === 'ask' && action.questionId === question.id);
-        const remainsActive = actionsFor(caseFile, after, []).some((action) => action.type === 'ask' && action.questionId === question.id);
+        const wasActive = legalProgressionActions(caseFile, before, []).some((action) => action.type === 'ask' && action.questionId === question.id);
+        const remainsActive = legalProgressionActions(caseFile, after, []).some((action) => action.type === 'ask' && action.questionId === question.id);
         const pursued = Object.values(before.interrogations).flat().some((record) => record.questionId === question.id);
         if (wasActive && !remainsActive && !pursued && after.actionsRemaining > 0 && !canReachClosure.has(edge.to)) diagnostics.push({ code: 'OBSOLETE_WITHOUT_CLOSURE', leadId: question.id, fingerprint: edge.to, action: edge.action, path: [...pathFor(edge.from), edge.action], message: `Lead ${question.id} becomes unavailable after an unrelated transition without an explicit closure route.` });
       }
