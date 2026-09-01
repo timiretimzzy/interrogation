@@ -315,3 +315,25 @@ then continue controlled tester feedback. Do NOT begin Phase 3.5 (case ingestion
 "- Case validation passes"  
 "- Build validation passes"  
 "Done." 
+
+## Phase 4.2.5 — Deduction-aware state-space validation (COMPLETE)
+
+- `src/core/stateSpaceValidator.ts` explores progression-only states through the canonical turn transaction and deduction claim engine.
+- It checks reachable facts, questions, deductions, declared critical facts, response pools with no eligible variants, terminal states missing critical facts, and the exploration safety cap.
+- Every eligible response variant is explored; deterministic runtime weighted selection remains unchanged.
+- The validator proves mechanical reachability across explored legal transitions, not narrative quality or complete accusation/solution correctness. Accusation readiness has no state-gated schema metadata beyond `accusationAvailableAtAnyTime`.
+- Theory-board contents and cosmetic transcript data are excluded from state fingerprints. A configurable cap reports incomplete exploration rather than a misleading pass.
+
+## Phase 4.2.6 — Gold-standard scenario authoring and validation contract (COMPLETE)
+
+Strategic correction: existing authored cases are legacy regression fixtures, not gold-standard design references, validator targets, or sources of future schema requirements. `gold-hh-001` was explored only as a vertical-slice experiment; its 10,000-state cap result was incomplete exploration, never a solvability certification.
+
+`GOLD_STANDARD_CASE_SPEC.md` now defines the authoring, gameplay, mechanical-validation, accusation, and human-playtest contract for the first new flagship case. `GOLD_STANDARD_GAP_REGISTER.md` distinguishes capabilities ready for that direction from validation refinements, implementation work, and human-only evidence.
+
+No further legacy-case retrofits should be made solely to demonstrate validator success. Incomplete exploration must always remain a failure/incomplete result; do not increase a cap merely to manufacture a pass. The validator must eventually model future-relevant progression rather than irrelevant path permutations and must separately report existential solvability from universal progression safety.
+
+## Phase 4.2.7 — Validator correctness (COMPLETE)
+
+`stateSpaceValidator.ts` now projects runtime state into canonical future-relevant progression state and builds a forward/reverse transition graph using canonical turn execution, response eligibility, and deduction claiming. It reports solution-path discovery, certified existential solvability, and universal progression safety independently.
+
+A solution-ready state requires declared critical facts, all evidence named by `solutionClaims`, and understood player-triggered deductions. A found path proves existence even when capped; cap exhaustion yields `unknown` certification and cannot certify safety or unsolvability. Unsafe diagnostics identify the representative state, missing requirements, legal actions, and whether it is an action-economy, no-action, or no-path failure.
