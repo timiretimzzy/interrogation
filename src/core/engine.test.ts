@@ -1,6 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
 import { hashSeed } from './hash.ts';
-import { selectResponse, eligibleVariants, weightedPick } from './responseSelector.ts';
+import {
+  selectResponse,
+  eligibleVariants,
+  weightedPick,
+  isResponseEligible,
+} from './responseSelector.ts';
 import { gatingSatisfied, GatingCondition } from './gating.ts';
 import { ask, availableQuestionsForCharacter } from './cardEngine.ts';
 import { executeTurn } from './turnEngine.ts';
@@ -52,6 +57,63 @@ describe('deterministic hash + response selection', () => {
     });
     expect(eligible.map((v: any) => v.id)).toContain('a');
     expect(eligible.map((v: any) => v.id)).not.toContain('b');
+  });
+});
+
+describe('response eligibility', () => {
+  it('accepts unrestricted variants and rejects missing requirements/exclusions', () => {
+    const s = init();
+    const unrestricted = { id: 'ok', text: '', kind: 'TRUTH', weight: 1 } as any;
+    const requires = { id: 'needs', text: '', kind: 'TRUTH', weight: 1, requires: ['C003'] } as any;
+    const excludes = { id: 'blocked', text: '', kind: 'TRUTH', weight: 1, excludes: ['C003'] } as any;
+    expect(isResponseEligible(unrestricted, s)).toBe(true);
+    expect(isResponseEligible(requires, s)).toBe(false);
+    s.discoveredClues = ['C003'];
+    expect(isResponseEligible(requires, s)).toBe(true);
+    expect(isResponseEligible(excludes, s)).toBe(false);
+    const multiBlock = { id: 'multi', text: '', kind: 'TRUTH', weight: 1, excludes: ['C001', 'C003'] } as any;
+    expect(isResponseEligible(multiBlock, s)).toBe(false);
+  });
+
+  it('filters a whole pool before weighted selection', () => {
+    const s = init();
+    s.discoveredClues = ['C003'];
+    const pool = [
+      { id: 'a', text: '', kind: 'TRUTH', weight: 1, requires: ['C003'] },
+      { id: 'b', text: '', kind: 'TRUTH', weight: 1, excludes: ['C003'] },
+      { id: 'c', text: '', kind: 'TRUTH', weight: 1 },
+    ] as any;
+    const filtered = pool.filter((v: any) => isResponseEligible(v, s));
+    expect(filtered.map((v: any) => v.id)).toEqual(['a', 'c']);
+  });
+
+  it('throws when a question has variants but none are eligible', () => {
+    const s = init();
+    s.discoveredClues = ['C003'];
+    const noEligible: any = {
+      caseId: 'empty-eligibility',
+      questions: [{
+        id: 'Q999',
+        targetCharacterIds: ['julian'],
+        responses: {
+          julian: [{ context: 'initial', variants: [
+            { id: 'a', text: 'blocked', kind: 'TRUTH', weight: 1, excludes: ['C003'] },
+            { id: 'b', text: 'blocked-again', kind: 'TRUTH', weight: 1, requires: ['C999'] },
+          ] }],
+        },
+      }],
+    };
+    expect(() => selectResponse(noEligible, s, 'julian', 'Q999')).toThrow(/No eligible response/);
+  });
+
+  it('does not mutate state or variant metadata during eligibility checks', () => {
+    const s = init();
+    const variant = { id: 'x', text: '', kind: 'TRUTH', weight: 1, requires: ['C003'], excludes: ['C999'] } as any;
+    const beforeS = JSON.stringify(s);
+    const beforeV = JSON.stringify(variant);
+    expect(isResponseEligible(variant, s)).toBe(false);
+    expect(JSON.stringify(s)).toBe(beforeS);
+    expect(JSON.stringify(variant)).toBe(beforeV);
   });
 });
 

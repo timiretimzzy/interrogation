@@ -127,12 +127,13 @@ export function ask(
 
   // 1. Record the interrogation.
   const seq = typeof next.conversationSeq === 'number' ? next.conversationSeq : 0;
+  const kind = variant.kind ?? 'UNCERTAIN';
   const record = {
     questionId,
     variantId: variant.id,
     text: variant.text,
     contextId,
-    kind: variant.kind,
+    kind,
     characterId,
     sequence: seq,
   };
@@ -200,7 +201,7 @@ export function ask(
     variantId: variant.id,
     text: variant.text,
     contextId,
-    kind: variant.kind,
+    kind: kind,
     revealedClues: revealClues,
     unlockedQuestions: unlockIds,
     activatedContradictions: activated,

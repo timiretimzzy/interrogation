@@ -14,6 +14,7 @@
 // createsContradiction). It never reads case content.
 
 import { gatingSatisfied } from './gating.ts';
+import { isResponseEligible } from './responseSelector.ts';
 import type { CaseFile, FactId, PlayerState, ResponseVariant } from './types.ts';
 
 const MAX_STATES = 60000;
@@ -102,9 +103,20 @@ function outcomeOf(variant: ResponseVariant): VariantOutcome {
 }
 
 function eligibleVariants(variants: ResponseVariant[], contexts: Set<string>): ResponseVariant[] {
-  return variants.filter(
-    (v) => v.requiresContext === undefined || contexts.has(v.requiresContext),
-  );
+  const state: Pick<PlayerState, 'contextSwitches' | 'discoveredClues' | 'discoveredEvidence' | 'recordedStatements' | 'unlockedQuestions' | 'activeContradictions' | 'flaggedContradictions' | 'discovered' | 'understood' | 'questionsAsked' | 'closedLeads'> = {
+    contextSwitches: [...contexts],
+    discoveredClues: [],
+    discoveredEvidence: [],
+    recordedStatements: [],
+    unlockedQuestions: [],
+    activeContradictions: [],
+    flaggedContradictions: [],
+    discovered: [],
+    understood: [],
+    questionsAsked: [],
+    closedLeads: [],
+  };
+  return variants.filter((v) => isResponseEligible(v, state as PlayerState));
 }
 
 function worstVariant(variants: ResponseVariant[]): ResponseVariant {

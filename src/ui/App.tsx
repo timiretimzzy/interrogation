@@ -148,7 +148,7 @@ function Theory() {
   const s = playerState.value;
   if (!cf || !s) return null;
   const dims = accusationDimensions();
-  const theory = s.theory ?? {};
+  const theory = (s.theory ?? {}) as Record<string, string>;
   return (
     <section class="panel theory">
       <h2>Working theory</h2>
