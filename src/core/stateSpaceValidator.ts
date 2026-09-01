@@ -181,7 +181,14 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
   };
   const solutionStates = [...states].filter(([, state]) => isSolutionReady(caseFile, state)).map(([id]) => id);
   const canReachSolution = new Set(solutionStates); const backwardQueue = [...solutionStates];
-  while (backwardQueue.length) for (const predecessor of reverse.get(backwardQueue.shift()!) ?? []) if (!canReachSolution.has(predecessor)) { canReachSolution.add(predecessor); backwardQueue.push(predecessor); }
+  while (backwardQueue.length) {
+    for (const predecessor of reverse.get(backwardQueue.shift()!) ?? []) {
+      if (!canReachSolution.has(predecessor)) {
+        canReachSolution.add(predecessor);
+        backwardQueue.push(predecessor);
+      }
+    }
+  }
   const unsafeStates: UnsafeStateDiagnostic[] = [];
   if (explorationComplete) for (const [fingerprint, state] of states) if (!isSolutionReady(caseFile, state) && !canReachSolution.has(fingerprint)) {
     const availableActions = actionsFor(caseFile, state, []); const reason = availableActions.length === 0 ? state.actionsRemaining <= 0 ? 'ACTION_ECONOMY_EXHAUSTED' : 'NO_LEGAL_ACTIONS' : 'NO_PATH_TO_SOLUTION';
@@ -205,7 +212,14 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
       if (!meaningful) diagnostics.push({ code: authoredProgression(question.id, caseFile) ? 'LEAD_PROGRESSION_UNREACHABLE' : 'LEAD_NO_MEANINGFUL_OUTCOME', leadId: question.id, fingerprint: leadEdges[0].from, action: leadEdges[0].action, path: pathFor(leadEdges[0].from), message: `Lead ${question.id} has no reachable meaningful outcome${authoredProgression(question.id, caseFile) ? ' although authored progression exists' : ''}.` });
       const closureStarts = new Set(edges.filter((edge) => edge.variant?.leadResolution?.leadIds.includes(question.id)).map((edge) => edge.from));
       const canReachClosure = new Set(closureStarts); const closureQueue = [...closureStarts];
-      while (closureQueue.length) for (const predecessor of reverse.get(closureQueue.shift()!) ?? []) if (!canReachClosure.has(predecessor)) { canReachClosure.add(predecessor); closureQueue.push(predecessor); }
+      while (closureQueue.length) {
+        for (const predecessor of reverse.get(closureQueue.shift()!) ?? []) {
+          if (!canReachClosure.has(predecessor)) {
+            canReachClosure.add(predecessor);
+            closureQueue.push(predecessor);
+          }
+        }
+      }
       const unresolved = leadEdges.filter((edge) => !edge.meaningful && !canReachClosure.has(edge.to));
       if (unresolved.length) {
         const edge = unresolved[0];
@@ -226,7 +240,9 @@ export function validateCaseReachability(caseFile: CaseFile, options: StateSpace
       const revealed = [...after.discoveredFactIds.filter((id) => !before.discoveredFactIds.includes(id)), ...after.discoveredClues.filter((id) => !before.discoveredClues.includes(id)), ...after.discoveredEvidence.filter((id) => !before.discoveredEvidence.includes(id))];
       for (const id of revealed) {
         const routes = material.get(id) ?? []; if (routes.length === 0 || routes.some((route) => route.every((requirement) => known.has(requirement)))) continue;
-        const missing = routes.flatMap((route) => route.filter((requirement) => !known.has(requirement)));
+        const missing = routes
+          .map((route) => route.filter((requirement) => !known.has(requirement)))
+          .sort((a, b) => a.length - b.length)[0];
         diagnostics.push({ code: criticalFactIds(caseFile).includes(id) ? 'SOLUTION_SHORTCUT' : 'PREMATURE_DISCLOSURE', revelationId: id, missingRequirements: sorted(missing), fingerprint: edge.from, action: edge.action, path: [...pathFor(edge.from), edge.action], message: `${criticalFactIds(caseFile).includes(id) ? 'Solution-level information' : 'Information'} ${id} is disclosed before any authored foundation route is complete.` });
       }
     }
