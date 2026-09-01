@@ -13,20 +13,28 @@ export interface StateSpaceAction {
   deductionId?: string;
 }
 
-export interface DeadEndDiagnostic {
+export interface UnsafeStateDiagnostic {
   fingerprint: string;
   missingCriticalFactIds: string[];
+  missingEvidenceIds: string[];
+  missingDeductionIds: string[];
+  availableActions: StateSpaceAction[];
+  reason: 'NO_LEGAL_ACTIONS' | 'ACTION_ECONOMY_EXHAUSTED' | 'NO_PATH_TO_SOLUTION';
 }
 
 export interface ValidationDiagnostic {
-  code: 'NO_ELIGIBLE_RESPONSE' | 'UNREACHABLE_CRITICAL_FACT' | 'EXPLORATION_CAP_REACHED' | 'ACCUSATION_READINESS_UNDEFINED';
+  code: 'NO_ELIGIBLE_RESPONSE' | 'UNREACHABLE_CRITICAL_FACT' | 'EXPLORATION_CAP_REACHED' | 'NO_SOLUTION_PATH' | 'UNSAFE_PROGRESSION_STATE';
   message: string;
   fingerprint?: string;
 }
 
 export interface StateSpaceValidationResult {
+  /** Compatibility summary: true only when exploration is complete and universally safe. */
   valid: boolean;
-  complete: boolean;
+  explorationComplete: boolean;
+  solutionPathFound: boolean;
+  existentialSolvabilityCertified: boolean | 'unknown';
+  universalProgressionSafety: boolean | 'unknown';
   reachableStateCount: number;
   reachableFactIds: string[];
   unreachableFactIds: string[];
@@ -34,8 +42,7 @@ export interface StateSpaceValidationResult {
   unreachableQuestionIds: string[];
   reachableDeductionIds: string[];
   unreachableDeductionIds: string[];
-  deadEndStates: DeadEndDiagnostic[];
-  accusationReady: boolean | null;
+  unsafeStates: UnsafeStateDiagnostic[];
   diagnostics: ValidationDiagnostic[];
 }
 
@@ -44,18 +51,37 @@ export interface StateSpaceValidationOptions {
   sessionSeed?: number;
 }
 
+interface ProgressionState {
+  facts: string[];
+  clues: string[];
+  evidence: string[];
+  statements: string[];
+  asked: string[];
+  unlocked: string[];
+  contradictions: string[];
+  flagged: string[];
+  contexts: string[];
+  understood: string[];
+  availableDeductions: string[];
+  actionsRemaining: number;
+  status: PlayerState['status'];
+}
+
 const sorted = (values: readonly string[]) => [...new Set(values)].sort();
 
-/** Progression-only identity; theory and transcript text are intentionally omitted. */
-export function createStateFingerprint(state: PlayerState): string {
-  const asked = Object.entries(state.interrogations)
-    .flatMap(([characterId, records]) => records.map((record) => `${characterId}:${record.questionId}`));
-  return JSON.stringify({
+/**
+ * This is the complete future-relevant projection of PlayerState. Each field
+ * changes eligibility, question repeatability, effects, or solution readiness;
+ * transcript text, sequence, seed, theory, notes, and UI-only data do not.
+ */
+function toProgressionState(state: PlayerState): ProgressionState {
+  return {
     facts: sorted(state.discoveredFactIds),
     clues: sorted(state.discoveredClues),
     evidence: sorted(state.discoveredEvidence),
     statements: sorted(state.recordedStatements),
-    asked: sorted(asked),
+    asked: sorted(Object.entries(state.interrogations)
+      .flatMap(([characterId, records]) => records.map((record) => `${characterId}:${record.questionId}`))),
     unlocked: sorted(state.unlockedQuestions),
     contradictions: sorted(state.activeContradictions),
     flagged: sorted(state.flaggedContradictions),
@@ -64,7 +90,11 @@ export function createStateFingerprint(state: PlayerState): string {
     availableDeductions: sorted(state.availableDeductionIds ?? []),
     actionsRemaining: state.actionsRemaining,
     status: state.status,
-  });
+  };
+}
+
+export function createStateFingerprint(state: PlayerState): string {
+  return JSON.stringify(toProgressionState(state));
 }
 
 function hasAsked(state: PlayerState, characterId: CharacterId, questionId: string): boolean {
@@ -75,6 +105,24 @@ function criticalFactIds(caseFile: CaseFile): string[] {
   return caseFile.criticalFactIds ?? (caseFile.facts ?? [])
     .filter((fact) => fact.critical || fact.tier === 'A')
     .map((fact) => fact.id);
+}
+
+function requiredEvidenceIds(caseFile: CaseFile): string[] {
+  return sorted((caseFile.solutionClaims ?? []).flatMap((claim) => claim.requiredEvidenceIds));
+}
+
+function requiredDeductionIds(caseFile: CaseFile): string[] {
+  return sorted((caseFile.deductions ?? [])
+    .filter((deduction) => deduction.surface === 'player_triggered')
+    .map((deduction) => deduction.id));
+}
+
+function isSolutionReady(caseFile: CaseFile, state: PlayerState): boolean {
+  const factsReady = criticalFactIds(caseFile).every((id) => state.discoveredFactIds.includes(id));
+  const evidenceReady = requiredEvidenceIds(caseFile).every((id) => state.discoveredEvidence.includes(id));
+  const deductionsReady = requiredDeductionIds(caseFile)
+    .every((id) => (state.understoodDeductionIds ?? []).includes(id));
+  return factsReady && evidenceReady && deductionsReady;
 }
 
 function actionsFor(caseFile: CaseFile, state: PlayerState, diagnostics: ValidationDiagnostic[]): StateSpaceAction[] {
@@ -90,115 +138,144 @@ function actionsFor(caseFile: CaseFile, state: PlayerState, diagnostics: Validat
         const context = contexts.find((item) => item.context === contextId) ?? contexts[0];
         const variants = eligibleVariants(context, state);
         if (variants.length === 0) {
-          const gates = context.variants.map((variant) => {
-            const requirements = variant.requires?.join(',') || 'none';
-            const exclusions = variant.excludes?.join(',') || 'none';
-            return `${variant.id}(requires=${requirements}; excludes=${exclusions}; context=${variant.requiresContext ?? 'none'})`;
-          }).join(', ');
           diagnostics.push({
             code: 'NO_ELIGIBLE_RESPONSE',
             fingerprint: createStateFingerprint(state),
-            message: `${question.id}/${characterId} is reachable but all response variants are ineligible in context ${contextId}: ${gates}.`,
+            message: `${question.id}/${characterId} is reachable but has no eligible response in context ${contextId}.`,
           });
           continue;
         }
-        for (const variant of variants) {
-          actions.push({ type: 'ask', questionId: question.id, characterId, responseVariantId: variant.id });
-        }
+        variants.forEach((variant) => actions.push({
+          type: 'ask', questionId: question.id, characterId, responseVariantId: variant.id,
+        }));
       }
     }
   }
-  for (const deduction of evaluateDeductions(caseFile, state).available) {
+  evaluateDeductions(caseFile, state).available.forEach((deduction) => {
     if (!(state.understoodDeductionIds ?? []).includes(deduction.id)) {
       actions.push({ type: 'claimDeduction', deductionId: deduction.id });
     }
-  }
+  });
   return actions;
 }
 
+function missingRequirements(caseFile: CaseFile, state: PlayerState) {
+  return {
+    missingCriticalFactIds: criticalFactIds(caseFile).filter((id) => !state.discoveredFactIds.includes(id)),
+    missingEvidenceIds: requiredEvidenceIds(caseFile).filter((id) => !state.discoveredEvidence.includes(id)),
+    missingDeductionIds: requiredDeductionIds(caseFile).filter((id) => !(state.understoodDeductionIds ?? []).includes(id)),
+  };
+}
+
 /**
- * Explores every currently eligible response variant, rather than only the
- * deterministic weighted pick, so an unfavorable legal response cannot hide a
- * dead end. Each response is still resolved by the canonical turn transaction.
+ * Enumerates every eligible authored outcome through the canonical transaction.
+ * A found solution proves existence even in a capped search; only a complete
+ * graph can certify unsolvability or universal progression safety.
  */
 export function validateCaseReachability(
   caseFile: CaseFile,
   options: StateSpaceValidationOptions = {},
 ): StateSpaceValidationResult {
   const maxStates = options.maxStates ?? 10_000;
-  const queue = [createInitialPlayerState(caseFile, options.sessionSeed ?? 0)];
-  const seen = new Set<string>();
+  const initial = createInitialPlayerState(caseFile, options.sessionSeed ?? 0);
+  const queue = [initial];
+  const states = new Map<string, PlayerState>();
+  const forward = new Map<string, Set<string>>();
+  const reverse = new Map<string, Set<string>>();
   const facts = new Set<string>();
   const questions = new Set<string>();
   const deductions = new Set<string>();
-  const deadEnds: DeadEndDiagnostic[] = [];
   const diagnostics: ValidationDiagnostic[] = [];
-  let complete = true;
+  let explorationComplete = true;
 
   while (queue.length > 0) {
     const state = queue.shift()!;
     const fingerprint = createStateFingerprint(state);
-    if (seen.has(fingerprint)) continue;
-    if (seen.size >= maxStates) {
-      complete = false;
+    if (states.has(fingerprint)) continue;
+    if (states.size >= maxStates) {
+      explorationComplete = false;
       diagnostics.push({ code: 'EXPLORATION_CAP_REACHED', message: `Exploration stopped at the ${maxStates}-state safety cap.` });
       break;
     }
-    seen.add(fingerprint);
+    states.set(fingerprint, state);
+    forward.set(fingerprint, new Set());
     state.discoveredFactIds.forEach((id) => facts.add(id));
     (state.understoodDeductionIds ?? []).forEach((id) => deductions.add(id));
 
-    const actions = actionsFor(caseFile, state, diagnostics);
-    for (const action of actions) {
+    for (const action of actionsFor(caseFile, state, diagnostics)) {
+      let next: PlayerState;
       if (action.type === 'ask') {
         questions.add(action.questionId!);
-        queue.push(executeTurn(
-          caseFile, state, action.characterId!, action.questionId!, action.responseVariantId!,
-        ).state);
+        next = executeTurn(caseFile, state, action.characterId!, action.questionId!, action.responseVariantId!).state;
       } else {
-        queue.push(claimDeduction(caseFile, state, action.deductionId!));
+        next = claimDeduction(caseFile, state, action.deductionId!);
+      }
+      const nextFingerprint = createStateFingerprint(next);
+      forward.get(fingerprint)!.add(nextFingerprint);
+      const predecessors = reverse.get(nextFingerprint) ?? new Set<string>();
+      predecessors.add(fingerprint);
+      reverse.set(nextFingerprint, predecessors);
+      if (!states.has(nextFingerprint)) queue.push(next);
+    }
+  }
+
+  const solutionStates = [...states].filter(([, state]) => isSolutionReady(caseFile, state)).map(([id]) => id);
+  const solutionPathFound = solutionStates.length > 0;
+  const canReachSolution = new Set(solutionStates);
+  const backwardQueue = [...solutionStates];
+  while (backwardQueue.length > 0) {
+    const node = backwardQueue.shift()!;
+    for (const predecessor of reverse.get(node) ?? []) {
+      if (!canReachSolution.has(predecessor)) {
+        canReachSolution.add(predecessor);
+        backwardQueue.push(predecessor);
       }
     }
-    const missing = criticalFactIds(caseFile).filter((id) => !state.discoveredFactIds.includes(id));
-    if (actions.length === 0 && missing.length > 0) {
-      deadEnds.push({ fingerprint, missingCriticalFactIds: missing });
+  }
+
+  const unsafeStates: UnsafeStateDiagnostic[] = [];
+  if (explorationComplete) {
+    for (const [fingerprint, state] of states) {
+      if (isSolutionReady(caseFile, state) || canReachSolution.has(fingerprint)) continue;
+      const availableActions = actionsFor(caseFile, state, []);
+      const reason = availableActions.length === 0
+        ? state.actionsRemaining <= 0 ? 'ACTION_ECONOMY_EXHAUSTED' : 'NO_LEGAL_ACTIONS'
+        : 'NO_PATH_TO_SOLUTION';
+      unsafeStates.push({ fingerprint, ...missingRequirements(caseFile, state), availableActions, reason });
+      diagnostics.push({
+        code: 'UNSAFE_PROGRESSION_STATE',
+        fingerprint,
+        message: `Reachable state cannot reach solution readiness (${reason}).`,
+      });
     }
   }
 
   const allFacts = (caseFile.facts ?? []).map((fact) => fact.id);
   const allQuestions = caseFile.questions.map((question) => question.id);
   const allDeductions = (caseFile.deductions ?? []).map((deduction) => deduction.id);
-  const unreachableCritical = criticalFactIds(caseFile).filter((id) => !facts.has(id));
-  for (const id of unreachableCritical) {
-    diagnostics.push({
-      code: 'UNREACHABLE_CRITICAL_FACT',
-      message: `Critical fact ${id} is unreachable in all explored legal states.`,
-    });
-  }
-  const accusationReady = caseFile.playerRules.accusationAvailableAtAnyTime
-    ? seen.size > 0 && caseFile.accusation.dimensions.length > 0
-    : null;
-  if (accusationReady === null) {
-    diagnostics.push({
-      code: 'ACCUSATION_READINESS_UNDEFINED',
-      message: 'The current schema has no investigation-state accusation readiness requirement to validate.',
-    });
+  criticalFactIds(caseFile).filter((id) => !facts.has(id)).forEach((id) => diagnostics.push({
+    code: 'UNREACHABLE_CRITICAL_FACT', message: `Critical fact ${id} is unreachable in explored states.`,
+  }));
+  if (explorationComplete && !solutionPathFound) {
+    diagnostics.push({ code: 'NO_SOLUTION_PATH', message: 'No reachable state satisfies the mechanical solution requirements.' });
   }
   const uniqueDiagnostics = [...new Map(diagnostics.map((item) => [
     `${item.code}:${item.fingerprint ?? ''}:${item.message}`, item,
   ])).values()];
   return {
-    valid: complete && unreachableCritical.length === 0 && deadEnds.length === 0,
-    complete,
-    reachableStateCount: seen.size,
+    valid: explorationComplete && solutionPathFound && unsafeStates.length === 0,
+    explorationComplete,
+    solutionPathFound,
+    existentialSolvabilityCertified: explorationComplete ? solutionPathFound : 'unknown',
+    universalProgressionSafety: explorationComplete ? unsafeStates.length === 0 : 'unknown',
+    reachableStateCount: states.size,
     reachableFactIds: sorted([...facts]),
     unreachableFactIds: allFacts.filter((id) => !facts.has(id)).sort(),
     reachableQuestionIds: sorted([...questions]),
     unreachableQuestionIds: allQuestions.filter((id) => !questions.has(id)).sort(),
     reachableDeductionIds: sorted([...deductions]),
     unreachableDeductionIds: allDeductions.filter((id) => !deductions.has(id)).sort(),
-    deadEndStates: deadEnds,
-    accusationReady,
+    unsafeStates,
     diagnostics: uniqueDiagnostics,
   };
 }

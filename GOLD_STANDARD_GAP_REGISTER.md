@@ -13,9 +13,9 @@
 
 | Capability | Status and importance | Dependency / recommended phase |
 | --- | --- | --- |
-| Progression-state fingerprint | Validator includes asked character/question pairs and hits its cap on exploratory legacy content; distinguish path history from future legality before using as flagship certification. | Gold-standard validator refinement. |
-| Response-branch analysis | Validator explores all variants, but existential solvability and universal progression safety are not separately reported. | Gold-standard validator refinement. |
-| Critical proof validation | Reachability uses facts and Tier A fallback; it does not validate `SolutionClaim.requiredEvidenceIds` as proof. | Gold-standard validator refinement. |
+| Progression-state fingerprint | Validator now uses a canonical progression projection, but flagship-scale exploration must still be measured against real new content. | Flagship validator calibration. |
+| Response-branch analysis | Validator now reports existential solvability and universal safety separately; response semantics need future flagship validation. | Flagship validator calibration. |
+| Critical proof validation | Validator checks `SolutionClaim.requiredEvidenceIds` for readiness, but does not yet validate claim completeness or evidence quality. | Gold-standard schema refinement. |
 | Accusation readiness | Current readiness is only `accusationAvailableAtAnyTime`, not proof-gated readiness. | Accusation contract implementation. |
 
 ## Needs implementation

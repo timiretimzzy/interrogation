@@ -47,7 +47,14 @@ function walkPath(caseFile: CaseFile, criticalFacts: string[], seed: number) {
         availableConfrontations.add(q.id);
       }
     }
-    const unasked = avail.filter((q) => !asked.has(q.id));
+    const unasked = avail.filter((q) => {
+      if (asked.has(q.id)) return false;
+      try {
+        return selectResponse(caseFile, state, q.targetCharacterIds[0], q.id) !== null;
+      } catch {
+        return false;
+      }
+    });
     if (unasked.length === 0) break;
     const unscored = unasked.map((q) => {
       const char = q.targetCharacterIds[0];
@@ -120,7 +127,14 @@ describe('runtime playthrough per case (engine, not just solver)', () => {
             confrontUnlocked.add(q.id);
           }
         }
-        const next = avail.find((q) => !asked.has(q.id));
+        const next = avail.find((q) => {
+          if (asked.has(q.id)) return false;
+          try {
+            return selectResponse(c, state, q.targetCharacterIds[0], q.id) !== null;
+          } catch {
+            return false;
+          }
+        });
         if (!next) break;
         state = ask(c, state, next.targetCharacterIds[0], next.id).state;
         asked.add(next.id);

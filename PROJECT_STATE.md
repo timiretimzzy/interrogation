@@ -331,3 +331,9 @@ Strategic correction: existing authored cases are legacy regression fixtures, no
 `GOLD_STANDARD_CASE_SPEC.md` now defines the authoring, gameplay, mechanical-validation, accusation, and human-playtest contract for the first new flagship case. `GOLD_STANDARD_GAP_REGISTER.md` distinguishes capabilities ready for that direction from validation refinements, implementation work, and human-only evidence.
 
 No further legacy-case retrofits should be made solely to demonstrate validator success. Incomplete exploration must always remain a failure/incomplete result; do not increase a cap merely to manufacture a pass. The validator must eventually model future-relevant progression rather than irrelevant path permutations and must separately report existential solvability from universal progression safety.
+
+## Phase 4.2.7 — Validator correctness (COMPLETE)
+
+`stateSpaceValidator.ts` now projects runtime state into canonical future-relevant progression state and builds a forward/reverse transition graph using canonical turn execution, response eligibility, and deduction claiming. It reports solution-path discovery, certified existential solvability, and universal progression safety independently.
+
+A solution-ready state requires declared critical facts, all evidence named by `solutionClaims`, and understood player-triggered deductions. A found path proves existence even when capped; cap exhaustion yields `unknown` certification and cannot certify safety or unsolvability. Unsafe diagnostics identify the representative state, missing requirements, legal actions, and whether it is an action-economy, no-action, or no-path failure.
