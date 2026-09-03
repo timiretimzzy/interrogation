@@ -1,0 +1,402 @@
+{
+  "caseId": "the-last-broadcast",
+  "title": "The Last Broadcast",
+  "genre": "sabotage",
+  "tone": "editorial_noir",
+  "setting": "broadcast_station",
+  "difficulty": "hard",
+  "estimatedPlayTimeMinutes": { "fast": 8, "typical": 14, "deep": 22 },
+  "briefing": {
+    "hook": "At 11:47 PM, the station's final live broadcast cut to static, and host Elias Voss vanished from the control room before the closing signal could finish.",
+    "context": "The door to Studio 3 was locked from the inside. Elias's headset was still live, but the waveforms show the signal was routed through the archive switcher instead of the desk board.",
+    "tension": "The station manager says it was a technical fault. The engineers insist nobody else had access to the archive room. The broadcast log disagrees with both.",
+    "objective": "Find out who disrupted the broadcast, how they did it, and what Elias was trying to say before the signal died."
+  },
+  "playerRules": {
+    "investigationActions": 20,
+    "switchCharacterIsFree": true,
+    "notebookReviewIsFree": true,
+    "evidenceReviewIsFree": true,
+    "theoryBuildingIsFree": true,
+    "accusationAvailableAtAnyTime": true,
+    "externalKnowledgeRequired": false,
+    "runtimeLLMRequired": false
+  },
+  "truth": {
+    "incident": "Mara Quill, the archive engineer, intercepted Elias's live broadcast after discovering he was about to expose a licensing fraud tied to the station owner. She rerouted the signal through the archive switcher, locked Studio 3 from the inside, and left Elias trapped long enough to steal his notes and censor the final message. Elias was not abducted; he was silenced in plain sight.",
+    "culpritId": "mara",
+    "whatHappened": "broadcast_hijack_and_cover_up",
+    "motive": "protect_station_fraud",
+    "method": "archive_reroute_lock_and_note_theft",
+    "timeline": [
+      { "time": "23:10", "eventId": "T1", "description": "Elias receives a call about an unsigned licensing invoice." },
+      { "time": "23:20", "eventId": "T2", "description": "Tess asks Mara to check archive backups before the finale." },
+      { "time": "23:31", "eventId": "T3", "description": "Mara enters the archive corridor with a maintenance pass." },
+      { "time": "23:35", "eventId": "T4", "description": "Elias and Mara argue privately in Studio 3 about the missing invoices." },
+      { "time": "23:41", "eventId": "T5", "description": "The broadcast feed shifts from Studio 3 to the archive switcher." },
+      { "time": "23:43", "eventId": "T6", "description": "Jonah notices the control-room tally mismatch but says nothing." },
+      { "time": "23:47", "eventId": "T7", "description": "The program cuts to static; Elias disappears from the control room." },
+      { "time": "23:49", "eventId": "T8", "description": "Mara calls for help after deleting the local edit history." }
+    ],
+    "criticalFacts": [
+      "The broadcast was routed through the archive switcher, not the desk board.",
+      "Studio 3 was locked from the inside after the feed changed.",
+      "Mara had archive-room access and a maintenance pass.",
+      "Elias was about to expose station fraud.",
+      "His notes were removed before the room was opened."
+    ],
+    "importantSecondaryTruths": [
+      "Jonah lied about hearing the signal fail because he was asleep in the control booth.",
+      "Tess saw Mara in the archive corridor but assumed she was doing routine maintenance.",
+      "The station manager knew about the fraudulent invoices and tried to bury the story.",
+      "Elias had planned a private on-air reveal that would have implicated Harlan as well."
+    ]
+  },
+  "characters": [
+    {
+      "id": "mara",
+      "name": "Mara Quill",
+      "role": "suspect",
+      "visibleDescription": "Archive engineer on the night shift. Calm, exact, and uncomfortable when anyone mentions the final broadcast.",
+      "personality": "controlled",
+      "personalityProfile": {
+        "cooperation": "low",
+        "composure": "high",
+        "defensiveness": "medium",
+        "manipulation": "high",
+        "voluntaryDisclosure": "low"
+      },
+      "knowledge": {
+        "knows": [
+          "The archive switcher could reroute a live feed.",
+          "Elias had the fraud notes with him.",
+          "She used a maintenance pass to enter the corridor.",
+          "The manager had been nervous about the invoices for weeks."
+        ],
+        "doesNotKnow": ["Jonah's exact lie", "How much Elias had already discovered", "Whether Tess saw the note transfer"],
+        "secrets": ["She rerouted the broadcast", "She removed Elias's notes", "She was covering for the owner", "She deleted the local edit history"],
+        "lies": ["She says she never entered Studio 3", "She says the signal fault was accidental", "She says Elias kept the notes on him", "She says she only found the studio after the static"],
+        "lieMotivation": ["self_preservation", "protect_employer"]
+      },
+      "alibi": { "claimed": "Monitoring archive backups", "status": "fabricated" }
+    },
+    {
+      "id": "elias",
+      "name": "Elias Voss",
+      "role": "victim",
+      "visibleDescription": "The station's late-night host. Charismatic on air, visibly shaken off it.",
+      "personality": "restless",
+      "personalityProfile": {
+        "cooperation": "medium",
+        "composure": "low",
+        "defensiveness": "low",
+        "manipulation": "low",
+        "voluntaryDisclosure": "high"
+      },
+      "knowledge": {
+        "knows": [
+          "Someone in the station is laundering invoices.",
+          "The final message was being cut before the static.",
+          "He was trying to keep the evidence on paper.",
+          "Mara had agreed to a private 9:15 call before the finale."
+        ],
+        "doesNotKnow": ["Who rerouted the signal", "Who locked the studio", "That Mara would remove the notes"],
+        "secrets": ["He kept a copy of the invoice trail in a script binder", "He planned to expose Harlan if needed"],
+        "lies": [],
+        "truthfulStatements": ["He was about to name someone on air."]
+      },
+      "alibi": { "claimed": "On mic until the cut", "status": "true" }
+    },
+    {
+      "id": "jonah",
+      "name": "Jonah Reed",
+      "role": "engineer",
+      "visibleDescription": "Control-room technician. Tired, defensive, and eager to make the incident sound routine.",
+      "personality": "guarded",
+      "personalityProfile": {
+        "cooperation": "medium",
+        "composure": "medium",
+        "defensiveness": "high",
+        "manipulation": "low",
+        "voluntaryDisclosure": "medium"
+      },
+      "knowledge": {
+        "knows": [
+          "The feed jumped to archive routing.",
+          "The studio lock shows internal engagement.",
+          "Mara had a maintenance pass.",
+          "He noticed the tally mismatch before the static."
+        ],
+        "doesNotKnow": ["Where Elias's notes went", "Whether Harlan knew about the reroute"],
+        "secrets": ["He slept through the first minute of the cut", "He altered the incident log", "He covered the mismatch because he feared dismissal"],
+        "lies": ["He says he heard the desk board fail first", "He says he stayed awake the entire shift", "He says the feed never touched the archive chain"],
+        "lieMotivation": ["embarrassment", "job_security"]
+      },
+      "alibi": { "claimed": "At the console", "status": "partial" }
+    },
+    {
+      "id": "tess",
+      "name": "Tess Rowan",
+      "role": "producer",
+      "visibleDescription": "Show producer and floor coordinator. Sharp, practical, and the only person who noticed the broadcast's timing.",
+      "personality": "pragmatic",
+      "personalityProfile": {
+        "cooperation": "high",
+        "composure": "high",
+        "defensiveness": "low",
+        "manipulation": "low",
+        "voluntaryDisclosure": "high"
+      },
+      "knowledge": {
+        "knows": [
+          "Mara was in the archive corridor before the cut.",
+          "Elias had been agitated about a licensing envelope.",
+          "The signal change happened before static.",
+          "Elias had told her the on-air reveal could not be live."
+        ],
+        "doesNotKnow": ["What Mara removed from Studio 3", "That Harlan had already seen the invoices"],
+        "secrets": [],
+        "lies": [],
+        "truthfulStatements": ["She saw the corridor light on at 23:31."]
+      },
+      "alibi": { "claimed": "In the booth", "status": "true" }
+    },
+    {
+      "id": "harlan",
+      "name": "Harlan Vey",
+      "role": "manager",
+      "visibleDescription": "Station manager. Polite, polished, and far too interested in keeping the story small.",
+      "personality": "polished",
+      "personalityProfile": {
+        "cooperation": "medium",
+        "composure": "high",
+        "defensiveness": "medium",
+        "manipulation": "high",
+        "voluntaryDisclosure": "low"
+      },
+      "knowledge": {
+        "knows": [
+          "He knew about the invoice fraud.",
+          "Elias had asked for a meeting after the broadcast.",
+          "He wanted no public scandal.",
+          "Mara had been protecting the archive system for years."
+        ],
+        "doesNotKnow": ["Exactly how Mara handled the broadcast", "Whether Elias kept a backup copy"],
+        "secrets": ["He approved the fraudulent invoices", "He told Mara to keep the archive clean", "He expected Priya to absorb the risk if exposed"],
+        "lies": ["He says he only learned about the fraud that night", "He says he never spoke to Mara about it", "He says the station had no reason to panic"],
+        "lieMotivation": ["reputation", "self_preservation"]
+      },
+      "alibi": { "claimed": "Off site", "status": "fabricated" }
+    }
+  ],
+  "facts": [
+    { "id": "F001", "tier": "A", "category": "agency", "statement": "The broadcast was routed through the archive switcher, not the desk board.", "critical": true },
+    { "id": "F002", "tier": "A", "category": "access", "statement": "Studio 3 was locked from the inside after the feed changed.", "critical": true },
+    { "id": "F003", "tier": "A", "category": "access", "statement": "Mara had archive-room access and a maintenance pass.", "critical": true },
+    { "id": "F004", "tier": "A", "category": "motive", "statement": "Elias was about to expose station fraud.", "critical": true },
+    { "id": "F005", "tier": "A", "category": "evidence", "statement": "His notes were removed before the room was opened.", "critical": true },
+    { "id": "F006", "tier": "B", "category": "behavior", "statement": "Jonah altered the incident log after the cut.", "critical": false },
+    { "id": "F007", "tier": "B", "category": "observation", "statement": "Tess saw the archive corridor light on at 23:31.", "critical": false },
+    { "id": "F008", "tier": "B", "category": "relationship", "statement": "Elias had agreed to a private 9:15 call with Mara before the finale.", "critical": false },
+    { "id": "F009", "tier": "B", "category": "motive", "statement": "Harlan knew about the fraudulent invoices and wanted silence.", "critical": false },
+    { "id": "F010", "tier": "B", "category": "timeline", "statement": "Jonah noticed the tally mismatch before the static and said nothing.", "critical": false }
+  ],
+  "evidence": [
+    { "id": "E001", "name": "Signal Path Printout", "description": "A routing record showing the live feed moved to the archive switcher at 23:41.", "discoverability": "Jonah / control room records", "supports": ["F001"] },
+    { "id": "E002", "name": "Studio Lock Mark", "description": "Internal latch imprint confirming the door was engaged from inside.", "discoverability": "Tess / studio inspection", "supports": ["F002"] },
+    { "id": "E003", "name": "Maintenance Pass", "description": "Archive access pass issued to Mara for after-hours backups.", "discoverability": "Mara / station records", "supports": ["F003"] },
+    { "id": "E004", "name": "Invoice Bundle", "description": "Elias's annotated invoices showing the station fraud trail.", "discoverability": "Harlan / evidence locker", "supports": ["F004", "F005"] },
+    { "id": "E005", "name": "External Waveform Tape", "description": "The compliance recorder keeps a waveform that matches the rehearsal master, including the stop at 23:47.", "discoverability": "Tess / compliance archive", "supports": ["F001", "F010"] },
+    { "id": "E006", "name": "Script Binder", "description": "Elias's notebook with the backup invoice trail and a note reading 'keep the channel open'.", "discoverability": "Elias / greenroom", "supports": ["F004", "F008"] }
+  ],
+  "clues": [
+    { "id": "C001", "title": "Archive Reroute", "description": "The live feed was diverted through the archive switcher.", "importance": "critical" },
+    { "id": "C002", "title": "Inside Lock", "description": "The studio latch was set from inside after the cut.", "importance": "critical" },
+    { "id": "C003", "title": "Maintenance Access", "description": "Mara had the pass to move in the archive corridor.", "importance": "critical" },
+    { "id": "C004", "title": "Fraud Trail", "description": "Elias was ready to expose fraudulent invoices.", "importance": "secondary" },
+    { "id": "C005", "title": "Locked Cue", "description": "The closing cue was already prepared to cover the final message.", "importance": "secondary" }
+  ],
+  "questions": [
+    {
+      "id": "Q001",
+      "mechanic": "TIMELINE",
+      "text": "Where were you when the broadcast cut out?",
+      "targetCharacterIds": ["mara", "elias", "jonah", "tess", "harlan"],
+      "availability": { "type": "initial" },
+      "responses": {
+        "mara": [
+          {
+            "context": "initial",
+            "variants": [
+              { "id": "Q001-M-01", "text": "In the archive, checking backups.", "kind": "DIRECT_LIE", "weight": 18, "unlocks": ["Q010", "Q011"] },
+              { "id": "Q001-M-02", "text": "Near the archive corridor, briefly.", "kind": "PARTIAL_TRUTH", "weight": 42, "unlocks": ["Q010", "Q011", "Q012"] },
+              { "id": "Q001-M-03", "text": "I was moving between systems. The live feed was unstable.", "kind": "EVASIVE", "weight": 40, "unlocks": ["Q010", "Q011", "Q012"] }
+            ]
+          }
+        ],
+        "elias": [
+          {
+            "context": "initial",
+            "variants": [
+              { "id": "Q001-E-01", "text": "On mic, until the static hit.", "kind": "TRUTH", "weight": 85, "unlocks": ["Q013", "Q020"] },
+              { "id": "Q001-E-02", "text": "In Studio 3, waiting for the closing cue.", "kind": "PARTIAL_TRUTH", "weight": 15, "unlocks": ["Q013", "Q020"] }
+            ]
+          }
+        ],
+        "jonah": [
+          {
+            "context": "initial",
+            "variants": [
+              { "id": "Q001-J-01", "text": "At the console, where I was supposed to be.", "kind": "PARTIAL_TRUTH", "weight": 55, "unlocks": ["Q014", "Q021"] },
+              { "id": "Q001-J-02", "text": "I never left the control room.", "kind": "DIRECT_LIE", "weight": 20, "unlocks": ["Q014", "Q021"] },
+              { "id": "Q001-J-03", "text": "I may have nodded off for a moment.", "kind": "UNCERTAIN", "weight": 25, "unlocks": ["Q014", "Q021"] }
+            ]
+          }
+        ],
+        "tess": [
+          {
+            "context": "initial",
+            "variants": [
+              { "id": "Q001-T-01", "text": "In the booth, watching the floor.", "kind": "TRUTH", "weight": 80, "unlocks": ["Q015", "Q022"] },
+              { "id": "Q001-T-02", "text": "Moving between the booth and corridor.", "kind": "PARTIAL_TRUTH", "weight": 20, "unlocks": ["Q015", "Q022"] }
+            ]
+          }
+        ],
+        "harlan": [
+          {
+            "context": "initial",
+            "variants": [
+              { "id": "Q001-H-01", "text": "Off site, taking calls.", "kind": "DIRECT_LIE", "weight": 20, "unlocks": ["Q016", "Q023"] },
+              { "id": "Q001-H-02", "text": "At headquarters until late.", "kind": "PARTIAL_TRUTH", "weight": 35, "unlocks": ["Q016", "Q023"] },
+              { "id": "Q001-H-03", "text": "I was nearby when the cut happened.", "kind": "EVASIVE", "weight": 45, "unlocks": ["Q016", "Q023"] }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "statements": [
+    { "id": "S-MARA-CORRIDOR", "characterId": "mara", "sourceQuestionId": "Q001", "canonicalMeaning": "Mara says she was in the archive, not Studio 3.", "truthState": "DIRECT_LIE" },
+    { "id": "S-TESS-LIGHT", "characterId": "tess", "sourceQuestionId": "Q001", "canonicalMeaning": "Tess says the archive corridor light was on at 23:31.", "truthState": "TRUTH" },
+    { "id": "S-JONAH-CONSOLE", "characterId": "jonah", "sourceQuestionId": "Q001", "canonicalMeaning": "Jonah claims he stayed at the console all shift.", "truthState": "DIRECT_LIE" },
+    { "id": "S-HARLAN-OFFSITE", "characterId": "harlan", "sourceQuestionId": "Q001", "canonicalMeaning": "Harlan claims he was off site.", "truthState": "DIRECT_LIE" }
+  ],
+  "contradictions": [
+    {
+      "id": "CON001",
+      "type": "routing",
+      "description": "The broadcast path changed before static, which cannot happen if the desk board simply failed.",
+      "statementRefs": ["S-MARA-CORRIDOR"],
+      "importance": "critical",
+      "possibleInterpretations": ["Someone rerouted the feed", "The desk board was overridden"],
+      "confrontationQuestionId": "Q010"
+    },
+    {
+      "id": "CON002",
+      "type": "access",
+      "description": "The studio was locked from inside after the signal changed, implying whoever caused it had to move through the archive corridor first.",
+      "importance": "critical",
+      "surfaceWhen": { "any": [{ "kind": "clue", "id": "C001" }, { "kind": "evidence", "id": "E001" }] },
+      "confrontationQuestionId": "Q011"
+    },
+    {
+      "id": "CON003",
+      "type": "behavioral",
+      "description": "Jonah says he stayed awake at the console, but he later admits he nodded off and missed the first minute of the cut.",
+      "statementRefs": ["S-JONAH-CONSOLE"],
+      "importance": "secondary",
+      "possibleInterpretations": ["Jonah is hiding embarrassment", "Jonah is protecting someone else's access"],
+      "confrontationQuestionId": "Q014"
+    },
+    {
+      "id": "CON004",
+      "type": "opportunity",
+      "description": "Harlan says he was off site, but his authorization trail and invoice knowledge place him in the same cover-up network as Mara.",
+      "statementRefs": ["S-HARLAN-OFFSITE"],
+      "importance": "secondary",
+      "possibleInterpretations": ["Harlan is lying to distance himself", "Harlan is hiding direct involvement in the fraud"],
+      "confrontationQuestionId": "Q016"
+    }
+  ],
+  "deductions": [
+    {
+      "id": "D001",
+      "requires": ["F001", "F002", "F003"],
+      "result": { "statement": "Someone in the archive corridor had enough access to reroute the broadcast and lock Studio 3 from inside." },
+      "surface": "automatic"
+    },
+    {
+      "id": "D002",
+      "requires": ["F004", "F005", "E006"],
+      "result": { "statement": "Elias was preparing a public exposure of fraud, and his notes disappeared before the room was opened." },
+      "surface": "automatic"
+    },
+    {
+      "id": "D003",
+      "requires": ["E001", "E005"],
+      "result": { "statement": "The program was not live at the moment of the apparent climax; the static followed a prerecorded broadcast route." },
+      "surface": "player_triggered"
+    }
+  ],
+  "redHerrings": [
+    {
+      "id": "RH001",
+      "characterId": "jonah",
+      "surfaceSuspicion": "He altered the incident log and looked guilty.",
+      "actualReason": "He was covering an embarrassing lapse in attention.",
+      "crimeConnection": "indirect"
+    },
+    {
+      "id": "RH002",
+      "characterId": "harlan",
+      "surfaceSuspicion": "He knew about the fraud and tried to suppress it.",
+      "actualReason": "He did commit fraud cover-up, but not the broadcast hijack itself.",
+      "crimeConnection": "indirect"
+    }
+  ],
+  "solutionPaths": [
+    { "id": "PATH_A", "name": "Signal path", "description": "Routing record -> internal lock -> Mara access -> admission.", "criticalFacts": ["F001", "F002", "F003"], "approximateActions": 10 },
+    { "id": "PATH_B", "name": "Motive path", "description": "Fraud trail -> Elias's notes -> Mara access -> admission.", "criticalFacts": ["F004", "F005", "F008"], "approximateActions": 12 },
+    { "id": "PATH_C", "name": "Cover-up path", "description": "Manager knowledge -> archive pass -> note theft -> confession.", "criticalFacts": ["F003", "F009", "F005"], "approximateActions": 13 }
+  ],
+  "accusation": {
+    "dimensions": [
+      { "id": "culprit", "prompt": "Who caused the broadcast failure?", "required": true, "options": ["mara", "elias", "jonah", "tess", "harlan"], "correctValue": "mara" },
+      { "id": "what", "prompt": "What actually happened?", "required": true, "options": [{ "value": "broadcast_hijack_and_cover_up", "label": "The broadcast was hijacked to hide a cover-up." }, { "value": "equipment_fault", "label": "A technical fault caused the failure." }, { "value": "external_intrusion", "label": "An outside intruder caused the cut." }], "correctValue": "broadcast_hijack_and_cover_up" },
+      { "id": "motive", "prompt": "Why?", "required": true, "options": [{ "value": "protect_station_fraud", "label": "To protect a station fraud." }, { "value": "personal_revenge", "label": "To take revenge on Elias." }, { "value": "panic", "label": "To cover up a panic response." }], "correctValue": "protect_station_fraud" },
+      { "id": "method", "prompt": "How was it done?", "required": true, "options": [{ "value": "archive_reroute_lock_and_note_theft", "label": "Rerouted the feed, locked the studio, and stole the notes." }, { "value": "physical_damage", "label": "Physically damaged the equipment." }, { "value": "signal_jam", "label": "Jammed the signal from outside." }], "correctValue": "archive_reroute_lock_and_note_theft" }
+    ],
+    "correctSolution": { "culprit": "mara", "what": "broadcast_hijack_and_cover_up", "motive": "protect_station_fraud", "method": "archive_reroute_lock_and_note_theft" }
+  },
+  "reveal": {
+    "headline": "The last broadcast was silenced from inside the station.",
+    "narrative": [
+      "Mara discovered Elias was about to expose a licensing fraud tied to station management.",
+      "She rerouted the live feed through the archive switcher before the closing cue.",
+      "Studio 3 was locked from the inside while Elias was trapped long enough for her to remove his notes.",
+      "Jonah's log tampering hid his own lapse, but not the routing change.",
+      "Tess and the signal printout together show the cut was deliberate, not accidental.",
+      "Harlan's fear of scandal explains the pressure around the case, but not the broadcast hijack itself."
+    ],
+    "truthBreakdown": [
+      { "fact": "The broadcast was rerouted through the archive switcher.", "importance": "critical", "discoveredThrough": ["Signal Path Printout", "Jonah"] },
+      { "fact": "Mara had access and motive.", "importance": "critical", "discoveredThrough": ["Maintenance Pass", "Invoice Bundle"] },
+      { "fact": "Elias was trying to expose fraud.", "importance": "critical", "discoveredThrough": ["Invoice Bundle", "Script Binder"] },
+      { "fact": "Harlan knew about the fraud.", "importance": "secondary", "discoveredThrough": ["Invoice Bundle", "Harlan"] }
+    ]
+  },
+  "qualityGates": {
+    "externalKnowledgeRequired": false,
+    "singleExactQuestionSequenceRequired": false,
+    "automaticCandidateEliminationAllowed": false,
+    "runtimeLLMRequired": false,
+    "allCriticalFactsHaveRedundancy": true,
+    "minimumIndependentSolutionPaths": 3,
+    "innocentLiarExists": true,
+    "truthfulSuspiciousCharacterExists": true,
+    "sameQuestionCanProduceDifferentResponses": true,
+    "responseVariabilityCannotChangeCanonicalTruth": true,
+    "responseVariabilityCannotMakeCaseUnsolvable": true,
+    "revealExplainsMajorContradictions": true
+  }
+}
